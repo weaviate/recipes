@@ -1,4 +1,4 @@
-# Welcome to the Weaviate Recipes Repository!
+# Welcome to the Weaviate Recipes repository!
 
 Here are end-to-end examples covering the various features in Weaviate!
 
