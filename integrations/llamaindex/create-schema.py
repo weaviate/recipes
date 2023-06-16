@@ -18,11 +18,6 @@ schema = {
                   "name": "Content",
                   "dataType": ["text"],
                   "description": "Content from the blog post",
-               },
-               {
-                "name": "Filename",
-                "dataType": ["text"],
-                "description": "Filename of the blog post"
                }
             ]
         }
