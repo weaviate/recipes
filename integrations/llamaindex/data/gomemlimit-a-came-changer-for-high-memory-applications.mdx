@@ -1,15 +1,5 @@
----
-title: GOMEMLIMIT is a game changer for high-memory applications
-slug: gomemlimit-a-game-changer-for-high-memory-applications
-authors: [etienne]
-date: 2022-08-15
-tags: ['engineering']
-image: ./img/hero.jpg
-description: "Go 1.19 introduced GOMEMLIMIT, which completely changes how you can manage memory limits in Go. Learn how it helps Weaviate be more reliable."
----
-![GOMEMLIMIT Gopher](./img/intro.jpg)
 
-<!-- truncate -->
+title: GOMEMLIMIT is a game changer for high-memory applications
 
 ## Intro
 Running out of memory is never fun, but it's incredibly frustrating when you've already taken some precautions and calculated your exact memory needs. "My application requires 4GB of memory. How is it possible I ran out of memory on my 6GB machine!?". As it turns out, this was a real possibility in a garbage collected ("GC")  language like Golang. The emphasis is on the word "was" because Go 1.19 changes everything: The new `GOMEMLIMIT` feature can help you both increase GC-related performance as well as avoid GC-related out-of-memory ("OOM") situations.

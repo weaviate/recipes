@@ -1,15 +1,5 @@
----
-title: Vector Embeddings Explained
-slug: vector-embeddings-explained
-authors: [dan]
-date: 2023-01-16
-tags: ['concepts']
-image: ./img/hero.png
-description: "Get an intuitive understanding of what exactly vector embeddings are, how they're generated, and how they're used in semantic search."
----
-The core function of Weaviate is to provide high-quality search results, going beyond simple keyword or synonym searches, and actually finding what the user _means_ by the query, or providing an actual answer to questions the user asks.
 
-<!-- truncate -->
+title: Vector Embeddings Explained
 
 Semantic searches (as well as question answering) are essentially searches by similarity, such as by the meaning of text, or by what objects are contained in images. For example, consider a library of wine names and descriptions, one of which mentioning that the wine is “good with **fish**”. A “wine for **seafood**” keyword search, or even a synonym search, won’t find that wine. A meaning-based search should understand that “fish” is similar to “seafood”, and “good with X” means the wine is “for X”—and should find the wine.
 

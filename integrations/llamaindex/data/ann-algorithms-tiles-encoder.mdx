@@ -1,15 +1,5 @@
----
-title: The Tile Encoder - Exploring ANN algorithms Part 2.2
-slug: ann-algorithms-tiles-enocoder
-authors: [abdel]
-date: 2023-03-21
-tags: ['research']
-image: ./img/hero.png
-description: "Using the Weaviate Tile Encoder to compress vectors with Product Quantization."
----
-![The Tiles Encoder - Exploring ANN algorithms Part 2.2](./img/hero.png)
 
-<!-- truncate -->
+title: The Tile Encoder - Exploring ANN algorithms Part 2.2
 
 In our [previous](/blog/ann-algorithms-hnsw-pq) post, we explained how to compress vectors in memory. This was an important first step since we could still have a coarse representation of the vectors to guide our search through queries with a very low memory footprint. We introduced HNSW+PQ and explained the most popular encoding technique: KMeans, which can be used to find a compressed representation of vectors. While KMeans gives very good results, there are a couple of drawbacks. Firstly, it is expensive to fit to data. Secondly, when compressing vectors, it needs to calculate distances to all centroids for each segment. This results in long encoding and indexing times.
 

@@ -1,15 +1,5 @@
----
-title: How we solved a race condition with the Lock Striping pattern
-slug: Lock-striping-pattern
-authors: [dirk]
-date: 2022-10-25
-tags: ['engineering']
-image: ./img/hero.png
-description: "The Lock Striping pattern is a great way to solve race conditions without sacrificing performance. Lean about Weaviate's improvements."
----
-![How we solved a race condition with the Lock Striping pattern](./img/hero.png)
 
-<!-- truncate -->
+title: How we solved a race condition with the Lock Striping pattern
 
 ## Lock striping in database design
 Database design comes with interesting challenges. Like, dealing with race conditions when importing data in parallel streams. But for every new challenge, there is a clever solution. One of those clever solutions is Lock striping. It refers to an arrangement where locking occurs on multiple buckets or 'stripes'.
