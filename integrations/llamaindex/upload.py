@@ -25,7 +25,7 @@ vector_store = WeaviateVectorStore(weaviate_client = client, index_name="BlogPos
 storage_context = StorageContext.from_defaults(vector_store = vector_store)
 
 # set up the index
-index = VectorStoreIndex.from_documents(nodes, storage_context = storage_context)
+index = VectorStoreIndex(nodes, storage_context = storage_context)
 
 # and now query 🚀
 query_engine = index.as_query_engine()
