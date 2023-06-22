@@ -30,7 +30,7 @@ This repo covers end-to-end examples on the various features and integrations wi
 * [PaLM](https://github.com/weaviate/recipes/blob/main/generative-search/generative_search_palm.ipynb)
 
 ## Integrations 🤝
-[Integrations](https://github.com/weaviate/recipes/tree/main/integrations) with Weaviate. 
+[Integrations](https://github.com/weaviate/recipes/tree/main/integrations) with Weaviate
 
 * [LlamaIndex](https://github.com/weaviate/recipes/tree/main/integrations/llamaindex) notebook covers a simple way to load, chunk, and query your data.
 
