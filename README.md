@@ -32,7 +32,10 @@ This repo covers end-to-end examples on the various features and integrations wi
 ## Integrations 🤝
 [Integrations](https://github.com/weaviate/recipes/tree/main/integrations) with Weaviate
 
-* [LlamaIndex](https://github.com/weaviate/recipes/tree/main/integrations/llamaindex) notebook covers a simple way to load, chunk, and query your data.
+* LlamaIndex
+  * [Data Loaders: Episode 1](https://github.com/weaviate/recipes/tree/main/integrations/llamaindex/data-loaders-episode1)
+  * [Simple Query Engine](https://github.com/weaviate/recipes/tree/main/integrations/llamaindex/simple-query-engine)
+  * [Sub Question Query Engine](https://github.com/weaviate/recipes/tree/main/integrations/llamaindex/sub-question-query-engine)
 
 
 ## Feedback ❓
