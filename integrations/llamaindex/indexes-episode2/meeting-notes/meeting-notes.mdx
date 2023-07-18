@@ -1,0 +1,28 @@
+Meeting Notes
+Date: July 13, 2023
+Attendees: Connor (C), Weaviate (W)
+
+Agenda: Exploring Multi-Tenancy with Weaviate's Vector Database
+
+Introduction and Goals of Meeting (B):
+
+Connor explained that the primary goal of the meeting was to discuss how Weaviate's vector database could be integrated into Connor's platform, a photo sharing platform, with a specific focus on multi-tenancy.
+Explanation of Vector Databases (W):
+
+Weaviate provided an overview of vector databases, focusing on how they handle high-dimensional data points and efficiently perform similarity searches.
+Benefits of Multi-Tenancy (W):
+
+Weaviate explained the concept of multi-tenancy, highlighting its potential for resource sharing, cost reduction, and ease of maintenance. They mentioned that their vector database is capable of supporting multi-tenant architecture.
+Connors's Interest in Multi-Tenancy (B):
+
+Connor confirmed the importance of multi-tenancy for their platform. Given that they serve many different users and organizations, it's crucial for them to isolate each tenant's data while still using the same physical infrastructure.
+Implementing Multi-Tenancy with Weaviate (W):
+
+Weaviate laid out a preliminary plan for implementing multi-tenancy. This included isolating data on a per-tenant basis, setting up resource quotas and access controls, and providing tools for monitoring and management. They also discussed how the vector search capabilities could be applied on a per-tenant basis.
+Concerns and Questions (B):
+
+Connor raised questions about how to handle data migration, backup, and recovery in a multi-tenant setup. They also asked about scalability and performance considerations, including how to ensure one tenant's activities don't impact others'.
+Addressing Concerns and Next Steps (B):
+
+Weaviate addressed Connor's concerns, explaining how they handle data management and backups, and assuring them that their system is designed to prevent cross-tenant performance impacts. They proposed a follow-up meeting to delve into technical details and to start planning a potential proof-of-concept integration.
+Next Steps: A follow-up meeting will be arranged to discuss technical details, potential challenges, and the planning of a proof-of-concept for the multi-tenant vector database integration.

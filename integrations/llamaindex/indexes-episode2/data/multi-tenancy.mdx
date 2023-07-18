@@ -1,0 +1,66 @@
+
+title: Multi-Tenancy Vector Search with millions of tenants
+
+
+Large-scale setups were always a great reason to choose Weaviate. Last year we wrote about the first time [a Weaviate setup ran with a billion objects & vectors](/blog/sphere-dataset-in-weaviate). What was a mere experiment back then is a regular production case today. But earlier this year, we saw a shift in usage patterns: As we onboarded more and more large-scale and enterprise users, the definition of scale shifted from the number of vectors to the number of individual tenants that can run on a single setup.
+
+Previously, Weaviate offered multiple ways to tackle multi-tenancy, but none were intended for a massive scale. Weaviate `v1.20` - coming in July 2023 - changes this once and for all: Native multi-tenancy support that scales to millions of tenants with 10s of thousands of active tenants per node. Yet scale is not the only point that makes the new multi-tenancy feature great; we put a lot of emphasis on compliance and a smooth UX. GDPR-compliant deletes with one command are just one of the many features. Let me walk you through what’s coming in the next Weaviate release and show you why I’m incredibly excited about this one.
+
+## The need for multi-tenancy
+We define multi-tenancy as the need to serve multiple distinct users or user groups from a single application. Imagine a fictional company called ACME Accounting Group that offers online accounting services that use AI to make accounting easy and fun. The company has over one million customers. Each customer is a company that can have many users and even more documents. Alice, who works for AliceCorp, should never be able to see the accounting information of Bob, who works for BobInc. Therefore, AliceCorp and BobInc are tenants from the perspective of ACME Accounting. Besides access isolation, ACME Accounting has other requirements for a multi-tenancy setup:
+
+* **Speed**: With millions of tenants, narrowing a request down to a single tenant should not take much work.
+
+* **Easy on and offboarding**: Just because ACME Accounting already has a million customers doesn’t mean that adding your business to ACME should take a considerable computational load. If AliceCorp cancels its contract, this should not affect other tenants.
+
+* **Resource boundaries**: If members of BobInc all get together to produce their annual report, this can put a lot of load onto ACME’s system. This should not interfere with AliceCorp, which might also have essential accounting deadlines.
+
+* **Cost-efficiency**: With usage peaking around tax season but most tenants inactive for many days of the month, ACME shouldn’t have to pay for a large setup that is essentially idle most of the time.
+
+* **Diversity of tenants**: ACME has both large and small customers. Their setup needs to be able to handle tenants of vastly different sizes. While most tenants are small, a few tenants can make up a large bulk of the data.
+
+## A time before multi-tenancy support
+Before Weaviate `v1.20`, you had two options to model a multi-tenancy landscape. Both had considerable drawbacks which made us completely rethink multi-tenancy:
+
+### Using Classes
+Classes were already isolation units within Weaviate, so you were already halfway there: Good isolation, easy deletes, and no filter required to scope a request to a tenant. However, there was one major problem: With classes, it was incredibly difficult to run with more than 5 to 10,000 tenants. Workarounds were needed to make it scale further, and there was a lot of duplication in the schema.
+
+### Using filters
+Another approach was to use a single class and use Weaviate’s built-in filtering feature to scope a request to a tenant. However, this came with multiple problems. From a performance perspective, you would build a giant monolithic vector index with potentially billions of vectors, yet you would only ever query a tiny fraction of it. With a median tenant storing between 1,000 and 100,000 objects, you would typically query less than 0.01% of the index. What a waste of resources. Additionally, dropping many tenants simultaneously would lead to expensive repair operations on the shared index. Resource isolation for tenants was also not possible.
+
+## No more workarounds: Native multi-tenancy support for the largest of cases
+
+![multi-tenancy](./img/multi-tenancy-dark.png#gh-dark-mode-only)
+![multi-tenancy](./img/multi-tenancy-light.png#gh-light-mode-only)
+
+Let me walk you through the best parts of the native multi-tenancy feature in Weaviate `v1.20` and even some of the plans that we have for upcoming releases. As you will see, Multi-Tenancy is not just an additional feature. It is rethinking from the ground up how your business, with its many customers, scales with Weaviate.
+
+### Ease of use of your favorite Weaviate features
+Weaviate’s new multi-tenancy mode is opt-in. If you don’t require it, there are no changes for you. But if you have a multi-tenancy case, all you need to do is select multi-tenancy for your class (or classes). You can keep using all your favorite features, including super-fast queries, cross-references, and replication. The only change? For every operation, specify the tenant key – a user-defined property in your schema. That’s all that changes. Weaviate will handle the rest for you.
+
+### Built-in isolation through lightweight shards
+To make sure we have isolation for both technical and compliance reasons, Weaviate must also store the data per tenant separately. This allows quick deletes, reduces resource sharing, restricts access, and more. Weaviate uses partition shards for this. With `v1.20`, shards have become a lot more lightweight because we expect you to have a lot of them. You can easily run with 50,000+ active shards per node. With just 20 nodes, you can support 1M concurrently active tenants. And with support for inactive tenants (coming soon - read below), there is no limit per node at all.
+
+### Fast and efficient querying
+You don’t need to set a filter to restrict a query to a tenant. The simple addition of a tenant key is enough, and Weaviate will find the right tenant’s shard for you. More importantly, every tenant has a dedicated high-performance vector index providing query speeds as if the tenant was the only user on your cluster. With more features in the pipeline, such as tenant-specific rate limiting or tenant-specific replication factors, you can customize performance per tenant even further.
+
+### GDPR-compliant and efficient deletes
+When discussing solutions made for many users, our first intuition is to worry about how we onboard and serve them. But deleting them is equally important – both for technical and legal reasons. Take GDPR as an example. Can you guarantee that all data related to a specific user is gone? With Weaviate’s multi-tenancy compliant deletes, you can! All data specific to a tenant is isolated in a dedicated shard. Deleting the entire tenant is as easy as deleting a file from your system.
+
+But deleting tenants is also interesting from a technical perspective; certain events can lead to mass onboarding followed by mass offboarding. For example, when your app goes viral on social media, you might get a lot of sign-ups for a free trial. While we wish you a high conversion rate, some of your trial users must be removed after 2 weeks. This should be quick and painless. It definitely shouldn’t affect your users who stay onboard. With a shared single index, it would. With Weaviate’s multi-tenancy isolation, it won’t.
+
+### Massive Scale
+Weaviate’s multi-tenancy support was built to scale with your business from the ground up. Supporting over 50,000+ active tenants per node, you need just a 20-node cluster for 1 million active tenants with billions of vectors in total. Run out of space, but want to onboard more tenants? Simply add a new node to your existing cluster. Weaviate will automatically schedule new tenants on the node with the least resource usage. With Weaviate’s rebalancing features (coming soon), you can ensure tenants are distributed across nodes exactly how you want them to – or leave it to Weaviate to do it for you.
+
+### Active and inactive tenants
+With traditional search and other vector search solutions, infrastructure is typically sized for the number of objects or vectors that could be served. But why should you pay for expensive compute and memory resources for users who aren’t currently active? Enabled by Weaviate’s strict isolation between tenants, Weaviate allows you to distinguish between active and inactive tenants. A user hasn’t been logged in for an hour? Their tenant shouldn’t take up valuable memory or file descriptors. A user hasn’t been logged in for days? Let’s offload their data to cloud storage and reload it on demand. Whether you want to control which of your users should be active or let Weaviate decide to activate and deactivate tenants automatically, you’ll save on infrastructure costs for sure!
+
+*Support for inactive tenants is coming later in 2023.*
+
+## We couldn’t have done it without you
+We know we built exactly what you need the most because you helped us design it. We’re incredibly grateful for all the community support and feedback, the out-in-the-open design discussions, and the valuable feedback from our existing and future customers. I can’t wait to demo the best parts of the Weaviate multi-tenancy future to all of you. Whether you’ve been part of the design discussions or are hearing about this for the first time, we appreciate all your feedback, so drop us a note with your thoughts and questions.  I’m incredibly proud of what our team has built and can’t wait for July 2023 when we go live with Weaviate `v1.20`!
+
+
+import WhatNext from '/_includes/what-next.mdx'
+
+<WhatNext />
