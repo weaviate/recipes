@@ -2,3 +2,6 @@
 *.env
 integrations/llamaindex/indexes-episode2/.devcontainer/Dockerfile
 integrations/llamaindex/indexes-episode2/.devcontainer/devcontainer.json
+integrations/llama2-demo/.devcontainer/devcontainer.json
+integrations/llama2-demo/.devcontainer/Dockerfile
+integrations/llama2-demo/data/.DS_Store
