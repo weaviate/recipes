@@ -34,8 +34,15 @@ This repo covers end-to-end examples on the various features and integrations wi
 
 * LlamaIndex
   * [Episode 1: Data Loaders](https://github.com/weaviate/recipes/tree/main/integrations/llamaindex/data-loaders-episode1)
+  * [Episode 2: Indexes](https://github.com/weaviate/recipes/tree/main/integrations/llamaindex/indexes-episode2)
   * [Simple Query Engine](https://github.com/weaviate/recipes/tree/main/integrations/llamaindex/simple-query-engine)
   * [Sub Question Query Engine](https://github.com/weaviate/recipes/tree/main/integrations/llamaindex/sub-question-query-engine)
+
+* Llama 2 Demo
+  * [Quick demo on using the Llama 2 model using Replicate and LlamaIndex](https://github.com/weaviate/recipes/tree/main/integrations/llama2-demo)
+
+* GPTCache
+  * [GPTCache notebook](https://github.com/weaviate/recipes/tree/main/integrations/gptcache)
 
 
 ## Feedback ❓
