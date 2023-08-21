@@ -94,7 +94,7 @@ Then, use the Cohere API to generate the vector like so, where `cohere_key` is t
 ```python
 import cohere
 co = cohere.Client(cohere_key)
-co_resp = co.embed([str_in], model="multilingual-22-12")
+co_resp = co.embed([str_in], model="embed-multilingual-v2.0")
 ```
 
 Then we run a `nearVector` based query to find the best matching object to this vector:
