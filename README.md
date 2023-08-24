@@ -44,6 +44,9 @@ This repo covers end-to-end examples on the various features and integrations wi
 * GPTCache
   * [GPTCache notebook](https://github.com/weaviate/recipes/tree/main/integrations/gptcache)
 
+## Ranking 🏅
+[Ranking](https://github.com/weaviate/recipes/tree/main/ranking) in Weaviate
+* [Cohere Rerank](https://github.com/weaviate/recipes/blob/main/ranking/cohere-ranking.ipynb)
 
 ## Feedback ❓
 Please note this is an ongoing project, and updates will be made frequently. If you have a feature you would like to see, please drop it in the [Weaviate Forum](https://forum.weaviate.io/c/general/4).
