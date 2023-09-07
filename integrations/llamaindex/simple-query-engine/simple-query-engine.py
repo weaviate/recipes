@@ -1,9 +1,12 @@
 from llama_index import SimpleDirectoryReader
 from llama_index.node_parser import SimpleNodeParser
+import os
 import weaviate
 
 # connect to your weaviate instance
-client = weaviate.Client("http://localhost:8080")
+client = weaviate.Client(
+    embedded_options=weaviate.embedded.EmbeddedOptions(), 
+    additional_headers={'X-OpenAI-Api-Key': os.environ["OPENAI_API_KEY"]})
 
 # load the blogs in using the reader
 blogs = SimpleDirectoryReader('./data').load_data()
