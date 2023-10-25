@@ -9,7 +9,7 @@ services:
     - '8080'
     - --scheme
     - http
-    image: semitechnologies/weaviate:1.21.6
+    image: semitechnologies/weaviate:1.21.7
     ports:
     - 8080:8080
     volumes:
@@ -24,7 +24,7 @@ services:
       ENABLE_MODULES: 'multi2vec-clip'
       CLUSTER_HOSTNAME: 'node1'
   multi2vec-clip:
-    image: semitechnologies/multi2vec-clip:ViT-B-32-quickgelu-laion400m_e32
+    image: semitechnologies/multi2vec-clip:sentence-transformers-clip-ViT-B-32-multilingual-v1
     environment:
       ENABLE_CUDA: '0'
 volumes:
