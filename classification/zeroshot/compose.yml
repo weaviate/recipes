@@ -1,0 +1,35 @@
+version: '3.4'
+
+volumes:
+  weaviate_data:
+
+services:
+  weaviate:
+    command:
+    - --host
+    - 0.0.0.0
+    - --port
+    - '8080'
+    - --scheme
+    - http
+    image: semitechnologies/weaviate:latest
+    restart: on-failure:0
+    ports:
+     - "8080:8080"
+     - "50051:50051"
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      QUERY_MAXIMUM_RESULTS: 10000
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: './data'
+      DEFAULT_VECTORIZER_MODULE: text2vec-transformers
+      ENABLE_MODULES: text2vec-transformers
+      CLUSTER_HOSTNAME: 'node1'
+      AUTOSCHEMA_ENABLED: 'true'
+      TRANSFORMERS_INFERENCE_API: http://t2v-transformers:8080
+    volumes:
+    - weaviate_data:/var/lib/weaviate      
+  t2v-transformers:
+    image: semitechnologies/transformers-inference:sentence-transformers-paraphrase-multilingual-MiniLM-L12-v2
+    environment:
+      ENABLE_CUDA: '0'
