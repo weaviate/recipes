@@ -1,0 +1,32 @@
+---
+version: '3.4'
+services:
+  weaviate:
+    command:
+    - --host
+    - 0.0.0.0
+    - --port
+    - '8080'
+    - --scheme
+    - http
+    image: semitechnologies/weaviate:1.21.8
+    ports:
+    - 8080:8080
+    volumes:
+    - weaviate_data:/var/lib/weaviate
+    restart: on-failure:0
+    environment:
+      BIND_INFERENCE_API: 'http://multi2vec-bind:8080'
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      DEFAULT_VECTORIZER_MODULE: 'multi2vec-bind'
+      ENABLE_MODULES: 'multi2vec-bind'
+      CLUSTER_HOSTNAME: 'node1'
+  multi2vec-bind:
+    image: semitechnologies/multi2vec-bind:imagebind
+    environment:
+      ENABLE_CUDA: '0'
+volumes:
+  weaviate_data:
+...
