@@ -1,0 +1,49 @@
+question,alpha,faithfulness ,answer_relevancy
+Why would I use Weaviate as my vector database?,0,0.17,0.95
+What is the difference between Weaviate and for example Elasticsearch?,0,0.40,0.94
+Do I need to know about Docker (Compose) to use Weaviate?,0,0.60,0.86
+What happens when the Weaviate Docker container restarts? Is my data in the Weaviate database lost?,0,1.00,0.90
+Are there any 'best practices' or guidelines to consider when designing a schema?,0,1.00,0.70
+Is it possible to create one-to-many relationships in the schema?,0,0.80,0.98
+Do Weaviate classes have namespaces?,0,1.00,1.00
+Are there restrictions on UUID formatting? Do I have to adhere to any standards?,0,0.50,0.95
+"If I do not specify a UUID during adding data objects, will Weaviate create one automatically?",0,1.00,0.95
+Can I use Weaviate to create a traditional knowledge graph?,0,0.80,0.98
+Why does Weaviate have a schema and not an ontology?,0,1.00,0.70
+How can I retrieve the total object count in a class?,0,1.00,0.94
+How do I get the cosine similarity from Weaviate's certainty?,0,1.00,0.95
+What is the best way to iterate through objects? Can I do paginated API calls?,0,1.00,0.86
+How does Weaviate's vector and scalar filtering work?,0,0.75,1.00
+Can I request a feature in Weaviate?,0,0.50,0.95
+Why would I use Weaviate as my vector database?,0.5,0.50,0.97
+What is the difference between Weaviate and for example Elasticsearch?,0.5,0.75,0.94
+Do I need to know about Docker (Compose) to use Weaviate?,0.5,1.00,0.90
+What happens when the Weaviate Docker container restarts? Is my data in the Weaviate database lost?,0.5,0.50,0.95
+Are there any 'best practices' or guidelines to consider when designing a schema?,0.5,0.00,0.70
+Is it possible to create one-to-many relationships in the schema?,0.5,0.80,1.00
+Do Weaviate classes have namespaces?,0.5,0.80,0.94
+Are there restrictions on UUID formatting? Do I have to adhere to any standards?,0.5,0.50,0.96
+"If I do not specify a UUID during adding data objects, will Weaviate create one automatically?",0.5,0.50,0.95
+Can I use Weaviate to create a traditional knowledge graph?,0.5,0.80,0.95
+Why does Weaviate have a schema and not an ontology?,0.5,0.80,0.93
+How can I retrieve the total object count in a class?,0.5,1.00,0.94
+How do I get the cosine similarity from Weaviate's certainty?,0.5,0.50,0.95
+What is the best way to iterate through objects? Can I do paginated API calls?,0.5,0.80,0.86
+How does Weaviate's vector and scalar filtering work?,0.5,0.93,0.95
+Can I request a feature in Weaviate?,0.5,1.00,0.99
+Why would I use Weaviate as my vector database?,1,0.89,0.96
+What is the difference between Weaviate and for example Elasticsearch?,1,0.75,0.95
+Do I need to know about Docker (Compose) to use Weaviate?,1,1.00,0.93
+What happens when the Weaviate Docker container restarts? Is my data in the Weaviate database lost?,1,1.00,0.93
+Are there any 'best practices' or guidelines to consider when designing a schema?,1,0.14,0.95
+Is it possible to create one-to-many relationships in the schema?,1,0.71,0.97
+Do Weaviate classes have namespaces?,1,0.67,0.92
+Are there restrictions on UUID formatting? Do I have to adhere to any standards?,1,0.56,0.96
+"If I do not specify a UUID during adding data objects, will Weaviate create one automatically?",1,1.00,0.95
+Can I use Weaviate to create a traditional knowledge graph?,1,1.00,0.98
+Why does Weaviate have a schema and not an ontology?,1,1.00,0.99
+How can I retrieve the total object count in a class?,1,1.00,0.94
+How do I get the cosine similarity from Weaviate's certainty?,1,0.33,0.95
+What is the best way to iterate through objects? Can I do paginated API calls?,1,0.83,0.86
+How does Weaviate's vector and scalar filtering work?,1,1.00,0.93
+Can I request a feature in Weaviate?,1,0.83,0.95
