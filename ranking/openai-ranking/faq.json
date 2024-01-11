@@ -1,0 +1,84 @@
+{
+    "questions": [
+        {
+            "question": "Why would I use Weaviate as my vector database?",
+            "answer": "Our goal is three-folded. Firstly, we want to make it as easy as possible for others to create their own semantic systems or vector search engines (hence, our APIs are GraphQL based). Secondly, we have a strong focus on the semantic element (the knowledge in vector databases, if you will). Our ultimate goal is to have Weaviate help you manage, index, and understand your data so that you can build newer, better, and faster applications. And thirdly, we want you to be able to run it everywhere. This is the reason why Weaviate comes containerized.",
+            "number": "1"
+        },
+        {
+            "question": "What is the difference between Weaviate and for example Elasticsearch?",
+            "answer": "Other database systems like Elasticsearch rely on inverted indices, which makes search super fast. Weaviate also uses inverted indices to store data and values. But additionally, Weaviate is also a vector-native search database, which means that data is stored as vectors, which enables semantic search. This combination of data storage is unique, and enables fast, filtered and semantic search from end-to-end.",
+            "number": "2"
+        },
+        {
+            "question": "Do I need to know about Docker (Compose) to use Weaviate?",
+            "answer": "Weaviate uses Docker images as a means to distribute releases and uses Docker Compose to tie a module-rich runtime together. If you are new to those technologies, we recommend reading the Docker Introduction for Weaviate Users.",
+            "number": "3"
+        },
+        {
+            "question": "What happens when the Weaviate Docker container restarts? Is my data in the Weaviate database lost?",
+            "answer": "There are three levels: You have no volume configured (the default in our Docker Compose files), if the container restarts (e.g. due to a crash, or because of docker stop/start) your data is kept. You have no volume configured (the default in our Docker Compose files), if the container is removed (e.g. from docker compose down or docker rm) your data is gone. If a volume is configured, your data is persisted regardless of what happens to the container. They can be completely removed or replaced, next time they start up with a volume, all your data will be there",
+            "number": "4"
+        },
+        {
+            "question": "Are there any 'best practices' or guidelines to consider when designing a schema?",
+            "answer": "As a rule of thumb, the smaller the units, the more accurate the search will be. Two objects of e.g. a sentence would most likely contain more information in their vector embedding than a common vector (which is essentially just the mean of sentences). At the same time more objects leads to a higher import time and (since each vector also makes up some data) more space. (E.g. when using transformers, a single vector is 768xfloat32 = 3KB. This can easily make a difference if you have millions, etc.) of vectors. As a rule of thumb, the more vectors you have the more memory you're going to need. So, basically, it's a set of tradeoffs. Personally we've had great success with using paragraphs as individual units, as there's little benefit in going even more granular, but it's still much more precise than whole chapters, etc. You can use cross-references to link e.g. chapters to paragraphs. Note that resolving a cross-references takes a slight performance penalty. Essentially resolving A1->B1 is the same cost as looking up both A1 and B1 indvidually. This cost however, will probably only matter at really large scale.",
+            "number": "5"
+        },
+        {
+            "question": "Is it possible to create one-to-many relationships in the schema?",
+            "answer": "Yes, it is possible to reference to one or more objects (Class -> one or more Classes) through cross-references. Referring to lists or arrays of primitives, this will be available soon.",
+            "number": "6"
+        },
+        {
+            "question": "Do Weaviate classes have namespaces?",
+            "answer": "Yes. Each class itself acts like namespaces. Additionally, you can use the multi-tenancy feature to create isolated storage for each tenant. This is especially useful for use cases where one cluster might be used to store data for multiple customers or users.",
+            "number": "7"
+        },
+        {
+            "question": "Are there restrictions on UUID formatting? Do I have to adhere to any standards?",
+            "answer": "The UUID must be presented as a string matching the Canonical Textual representation. If you don't specify a UUID, Weaviate will generate a v4 i.e. a random UUID. If you generate them yourself you could either use random ones or deterministically determine them based on some fields that you have. For this you'll need to use v3 or v5.",
+            "number": "8"
+        },
+        {
+            "question": "If I do not specify a UUID during adding data objects, will Weaviate create one automatically?",
+            "answer": "Yes, a UUID will be created if not specified.",
+            "number": "9"
+        },
+        {
+            "question": "Can I use Weaviate to create a traditional knowledge graph?",
+            "answer": "Yes, you can! Weaviate support ontology, RDF-like definitions in its schema, and it runs out of the box. It is scalable, and the GraphQL API will allow you to query through your knowledge graph easily. But now you are here. We like to suggest you really try its semantic features. After all, you are creating a knowledge graph 😉.",
+            "number": "10"
+        },
+        {
+            "question": "Why does Weaviate have a schema and not an ontology?",
+            "answer": "We use a schema because it focusses on the representation of your data (in our case in the GraphQL API) but you can use a Weaviate schema to express an ontology. One of Weaviate's core features is that it semantically interprets your schema (and with that your ontology) so that you can search for concepts rather than formally defined entities.",
+            "number": "11"
+        },
+        {
+            "question": "How can I retrieve the total object count in a class?",
+            "answer": "Sometimes, users work with custom terminology, which often comes in the form of abbreviations or jargon. You can find more information on how to use the endpoint here",
+            "number": "12"
+        },
+        {
+            "question": "How do I get the cosine similarity from Weaviate's certainty?",
+            "answer": "To obtain the cosine similarity from weaviate's certainty, you can do cosine_sim = 2*certainty - 1",
+            "number": "13"
+        },
+        {
+            "question": "What is the best way to iterate through objects? Can I do paginated API calls?",
+            "answer": "Yes, Weaviate supports cursor-based iteration as well as pagination through a result set. To iterate through all objects, you can use the after operator with both REST and GraphQL. For pagination through a result set, you can use the offset and limit operators for GraphQL API calls. Take a look at this page which describes how to use these operators, including tips on performance and limitations.",
+            "number": "14"
+        },
+        {
+            "question": "How does Weaviate's vector and scalar filtering work?",
+            "answer": "It's a 2-step process: 1. The inverted index (which is built at import time) queries to produce an allowed list of the specified document ids. Then the ANN index is queried with this allow list (the list being one of the reasons for our custom implementation). 2. If we encounter a document id which would be a close match, but isn't on the allow list the id is treated as a candidate (i.e. we add it to our list of links to evaluate), but is never added to the result set. Since we only add allowed IDs to the set, we don't exit early, i.e. before the top k elements are reached.",
+            "number": "15"
+        },
+        {
+            "question": "Can I request a feature in Weaviate?",
+            "answer": "Sure (also, feel free to issue a pull request 😉) you can add those requests here. The only thing you need is a GitHub account, and while you're there, make sure to give us a star 😇.",
+            "number": "16"
+        }
+    ]
+}
