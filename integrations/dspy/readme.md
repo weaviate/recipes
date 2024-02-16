@@ -2,11 +2,13 @@
 
 Hey everyone, welcome to the DSPy integration cookbook with Weaviate!
 
-Get started by importing data with `Weaviate-Import.ipynb`,
+This cookbook contains two parts:
+1. Below is a list of `Quick Recipes`, a reference for useful DSPy functionality.
+2. We also have notebooks numbered 1-K with full end-to-end DSPy tutorials. All the tutorials use the same data loaded into Weaviate. To get started from scratch, everything you need to start Weaviate is in the `docker-compose.yml` file (replace with your API key), the Weaviate blogs are chunked and loaded into this Weaviate instance in the `Weaviate-Import.ipynb` notebook. Once you complete these two steps, you are all set to dive into the end-to-end tutorials!
 
-and then you are all setup to dive into `1.Getting-Started-with-RAG-in-DSPy`!
+## Quick Recipes
 
-## Quick Nuggets
+Here are some quick recipes for DSPy.
 
 ### RAG Program Example
 
@@ -68,8 +70,22 @@ def llm_metric(gold, pred, trace=None):
     print(f"Detail: {detail.assessment_answer}")
     print(f"Overall: {overall.assessment_answer}")
     
-    
     total = float(detail.assessment_answer) + float(faithful.assessment_answer)*2 + float(overall.assessment_answer)
     
     return total / 5.0
+```
+
+### Tool Use Perspective with ReAct
+
+```python
+class RAGwithReAct(dspy.Module):
+    def __init__(self, passages_per_hop=3, max_hops=2):
+        super().__init__()
+        
+        self.retrieve = dspy.Retrieve(k=passages_per_hop)
+        self.generate_answer = dspy.ReAct(GenerateAnswer, tools=[self.retrieve])
+    
+    def forward(self, question):
+        pred = self.generate_answer(question=question).best_answer
+        return dspy.Prediction(answer=pred)
 ```
