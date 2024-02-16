@@ -20,7 +20,6 @@ services:
       AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
       PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
       DEFAULT_VECTORIZER_MODULE: 'text2vec-openai'
-      OPENAI_APIKEY: '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'
       ENABLE_MODULES: 'text2vec-openai'
       CLUSTER_HOSTNAME: 'node1'
 ...
