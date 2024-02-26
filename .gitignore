@@ -8,3 +8,6 @@ integrations/llama2-demo/data/.DS_Store
 integrations/gptcache/.devcontainer/devcontainer.json
 integrations/gptcache/.devcontainer/Dockerfile
 .DS_Store
+
+
+.venv
