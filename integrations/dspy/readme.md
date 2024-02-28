@@ -228,7 +228,7 @@ class Summarizer(dspy.Signature):
     context = dspy.InputField(desc="context filtered as relevant to the query by a search engine")
     summary = dspy.OutputField(desc="a 5 sentence summary of information in the context that would help answer the question.")
 
-class MetricProgram(dspy.Module):
+class RAGMetricProgram(dspy.Module):
     def __init__(self):
         self.evaluator = dspy.ChainOfThought(Evaluator)
         self.rating_parser = dspy.Predict(RatingParser)
