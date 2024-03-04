@@ -1,52 +1,33 @@
 # Welcome to the Weaviate Recipes repository!
 
-This repo covers end-to-end examples on the various features and integrations with [Weaviate](www.weaviate.io)! Here is an outline of the folders:
+![Weaviate logo](/Weaviate.png)
 
-## Similarity Search 🔎
-[Similarity Search](https://github.com/weaviate/recipes/tree/main/similarity-search) shows how to run `nearText`, `nearObject` and `nearVector` queries in Weaviate. It is divided by the different providers:
+This repo covers end-to-end examples on the various features and integrations with [Weaviate](www.weaviate.io)!
 
-* [Cohere](https://github.com/weaviate/recipes/blob/main/similarity-search/text2vec/similarity_search_cohere.ipynb)
-* [Contextionary](https://github.com/weaviate/recipes/blob/main/similarity-search/text2vec/similarity_search_contextionary.ipynb)
-* [HuggingFace](https://github.com/weaviate/recipes/blob/main/similarity-search/text2vec/similarity_search_huggingface.ipynb)
-* [OpenAI](https://github.com/weaviate/recipes/blob/main/similarity-search/text2vec/similarity_search_openai.ipynb)
-* [PaLM](https://github.com/weaviate/recipes/blob/main/similarity-search/text2vec/similarity_search_palm.ipynb)
-* [Transformers](https://github.com/weaviate/recipes/blob/main/similarity-search/text2vec/similarity_search_transformers.ipynb)
-
-## Hybrid Search ⚖️
-[Hybrid Search](https://github.com/weaviate/recipes/tree/main/hybrid-search) allows you to combine keyword and vector search. The notebook covers how to run a hybrid search query, search on a specific property, add in a `where` filter, and how to search with an embedding. It is divided by the different providers:
-
-* [Cohere](https://github.com/weaviate/recipes/blob/main/hybrid-search/hybrid_search_cohere.ipynb)
-* [Contextionary](https://github.com/weaviate/recipes/blob/main/hybrid-search/hybrid_search_contextionary.ipynb)
-* [HuggingFace](https://github.com/weaviate/recipes/blob/main/hybrid-search/hybrid_search_huggingface.ipynb)
-* [OpenAI](https://github.com/weaviate/recipes/blob/main/hybrid-search/hybrid_search_openai.ipynb)
-* [PaLM](https://github.com/weaviate/recipes/blob/main/hybrid-search/hybrid_search_palm.ipynb)
-* [Transformers](https://github.com/weaviate/recipes/blob/main/hybrid-search/hybrid_search_transformers.ipynb)
-
-## Generative Search ⌨️
-[Generative Search](https://github.com/weaviate/recipes/tree/main/generative-search) allows you to improve your search results by piping them through LLM models. It is divided by the different providers:
-
-* [Cohere](https://github.com/weaviate/recipes/blob/main/generative-search/generative_search_cohere.ipynb)
-* [OpenAI](https://github.com/weaviate/recipes/blob/main/generative-search/generative_search_openai.ipynb)
-* [PaLM](https://github.com/weaviate/recipes/blob/main/generative-search/generative_search_palm.ipynb)
+## Search 🔎
+This folder shows you how to search. It covers vector search, hybrid search, generative search, multi-modal search, and how to search in Japanese.
 
 ## Integrations 🤝
-[Integrations](https://github.com/weaviate/recipes/tree/main/integrations) with Weaviate
+Learn about the various [Integrations](https://github.com/weaviate/recipes/tree/main/integrations) with Weaviate! A few demos we have are:
+1. [DSPy](https://github.com/weaviate/recipes/tree/main/integrations/dspy) - Getting started with DSPy, Query to Blog Post demo, and more
+2. [LlamaIndex](https://github.com/weaviate/recipes/tree/main/integrations/llamaindex) - Indexes, Query Engines, Advanced RAG, and more
+3. [Nomic](https://github.com/weaviate/recipes/tree/main/integrations/nomic/vector-space-visualization) - Visualize your embeddings
+4. [Ragas](https://github.com/weaviate/recipes/tree/main/integrations/ragas) - Evaluate your RAG application
 
-* LlamaIndex
-  * [Episode 1: Data Loaders](https://github.com/weaviate/recipes/tree/main/integrations/llamaindex/data-loaders-episode1)
-  * [Episode 2: Indexes](https://github.com/weaviate/recipes/tree/main/integrations/llamaindex/indexes-episode2)
-  * [Simple Query Engine](https://github.com/weaviate/recipes/tree/main/integrations/llamaindex/simple-query-engine)
-  * [Sub Question Query Engine](https://github.com/weaviate/recipes/tree/main/integrations/llamaindex/sub-question-query-engine)
+## Reranking ☝️
+Learn how to implement pointwise and listwise reranking with Cohere and OpenAI. 
 
-* Llama 2 Demo
-  * [Quick demo on using the Llama 2 model using Replicate and LlamaIndex](https://github.com/weaviate/recipes/tree/main/integrations/llama2-demo)
+## Multi-Tenancy 👥
+Multi-tenancy is a key feature in Weaviate, allowing for the efficient and secure management of data across multiple users or tenants.
 
-* GPTCache
-  * [GPTCache notebook](https://github.com/weaviate/recipes/tree/main/integrations/gptcache)
+## Product Quantization 🗜️
+Enabling Product Quantization (PQ) Vector Compression for your Class.
 
-## Ranking 🏅
-[Ranking](https://github.com/weaviate/recipes/tree/main/ranking) in Weaviate
-* [Cohere Rerank](https://github.com/weaviate/recipes/blob/main/ranking/cohere-ranking.ipynb)
+## Classification ☯️
+Classification using KNN and zero-shot learning.
+
+## Spark Connector 💥
+Learn how to load data from a Spark Dataframe and feed it into Weaviate.
 
 ## Feedback ❓
 Please note this is an ongoing project, and updates will be made frequently. If you have a feature you would like to see, please drop it in the [Weaviate Forum](https://forum.weaviate.io/c/general/4).

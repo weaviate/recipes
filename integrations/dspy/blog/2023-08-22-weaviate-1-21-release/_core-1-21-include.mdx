@@ -1,0 +1,316 @@
+![Weaviate 1.21](./img/hero.png)
+
+Weaviate `1.21` is here!
+
+Here are the ⭐️*highlights*⭐️ relating to this release:
+
+<!-- truncate -->
+1. [`ContainsAny` and `ContainsAll` operators added](#containsany-and-containsall-operators) – Convenient, new operators to simplify complex queries.
+1. [Multi-tenancy improvements](#multi-tenancy-improvements) – Experimental tenant deactivation for efficiency, performance improvements.
+1. [New vectorizer modules](#new-modules)
+    - `text2vec-gpt4all` provides fast transformer inference on CPUs; and
+    - `multi2vec-bind` vectorizes multi-modal data from up to 7 modalities.
+1. [Performance improvements](#performance-improvements) – A suite of improvements to search, indexing and backup performance.
+1. [Hybrid search algorithm refinement](#hybrid-search-algorithm-refinement) - Improved scoring stability for small limits in hybrid search.
+
+:::tip Available on WCS
+`1.21` is already available on [Weaviate Cloud Services](https://console.weaviate.cloud/) - so try it out!
+:::
+
+For more details, keep scrolling ⬇️!
+
+## `ContainsAny` and `ContainsAll` operators
+
+![New `ContainsAll` / `ContainsAny` filter operators](./img/contains-all-any.png)
+
+You asked for it - and it’s here! `1.21` adds `ContainsAny` and `ContainsAll` operators to make your filters (syntactically) sweeter than ever.
+
+You can use these to reduce complex chains of `And` or `Or` where filters to simple, digestible, queries that are easier on your eye and your brain.
+
+These operators allow you to filter an array property, using a query array.
+
+`ContainsAny` will find all objects whose property contains one or more (i.e. *any*) of the query values. In other words - a series of `Or` statements.
+
+`ContainsAll`, on the other hand, will find all objects whose property contains every single one (i.e. *all*) of the query values. This can replace a series of `And` statements.
+
+This is one of our most-requested features, and we are very excited for you to try it out.
+
+<details>
+  <summary>Example usage</summary>
+
+Consider a dataset of people (class `Person`), where each `Person` object has a `name` and a `languages_spoken` property.
+
+A `ContainsAny` like this will return all `Person` objects whose `languages_spoken` values contain any of the listed languages in the query.
+
+```graphql
+{
+  Get {
+    Person (
+      where: {
+        path: ["languages_spoken"],
+        operator: ContainsAny,
+        valueText: ["Chinese", "French", "English"]
+      }
+    )
+    {
+      languages_spoken
+      name
+    }
+  }
+}
+```
+
+A `ContainsAll` query on the other hand will return all `Person` objects whose `languages_spoken` values contain every single one of the listed languages in the query.
+
+```graphql
+{
+  Get {
+    Person (
+      where: {
+        path: ["languages_spoken"],
+        operator: ContainsAll,
+        valueText: ["Chinese", "French", "English"]
+      }
+    )
+    {
+      languages_spoken
+      name
+    }
+  }
+}
+```
+
+:::note Client libraries will be updated to support these operators soon.
+:::
+</details>
+
+## Multi-tenancy improvements
+
+### Deactivate / activate tenant shards (experimental)
+
+![Activate / Deactivate tenants](./img/mt-inactive.png)
+
+We introduced multi-tenancy (MT) with `1.20`, and we are thrilled by your response so far.
+
+`1.21` adds an (experimental) feature to deactivate or activate individual tenants. This will allow you to scale even bigger with ease, because inactive tenants' data will not take up any space in memory.
+
+This is possible because under the hood, each [tenant is a partition shard](https://www.weaviate.io/blog/multi-tenancy-vector-search#built-in-isolation-through-lightweight-shards), and tenant shards can now be deactivated while still retaining the data. Deactivated (`COLD`) shards do not consume memory or file descriptors, so this enables an unlimited number of non-active shards, limited only by disk space, while giving active (`HOT`) shards access to resources that they need.
+
+Deactivating unused subsets of data will help to reduce cost and improve the overall performance. We are very excited for you to [try it out](/developers/weaviate/api/rest/schema#multi-tenancy).
+
+> Read more:
+> - [REST API: Schema: Multi-tenancy](/developers/weaviate/api/rest/schema#multi-tenancy)
+> - [Concepts: Data: Multi-tenancy](/developers/weaviate/concepts/data#multi-tenancy)
+
+:::note This is an experimental feature
+Please use it with caution.
+:::
+
+### Improved cycle management for MT
+
+With `1.21`, we've improved resource usage in a MT environment.
+
+As you might imagine, enabling large-scale MT requires managing a large number of processes, unifying and centralizing the scheduling of background processes in each shard.
+
+We've improved the way Weaviate manages these processes, leading to a more stable setup in a MT environment.
+
+## New modules
+
+### `text2vec-gpt4all` module
+
+![New `text2vec-gpt4all` module](./img/text2vec-gpt4all.png)
+
+This module allows you to perform local vectorization of text using the [gpt4all](https://docs.gpt4all.io/gpt4all_python_embedding.html) library.
+
+A key benefit of this module is that it is optimized for CPU using [`ggml`](https://github.com/ggerganov/ggml). For those of you without a GPU on hand, you can now take advantage of a transformer-architecture model without sacrificing speed.
+
+Currently, `text2vec-gpt4all` supports the [`all-MiniLM-L6-v2`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) model.
+
+If you are looking to perform local vectorization and don't have a GPU, this module could be a great option for you.
+
+:::note Limitations
+- Input text is truncated to 256 tokens. If you need to use longer chunks, you should explore a different module.
+- Available for `x86-64` devices only.
+:::
+
+> Read more:
+> - [Modules: text2vec-gpt4all](/developers/weaviate/modules/retriever-vectorizer-modules/text2vec-gpt4all)
+
+### `multi2vec-bind` module
+
+![New `multi2vec-bind` module](./img/multi2vec-bind.png)
+
+With `1.21` we are introducing a second multimodal module to Weaviate! The `multi2vec-bind` module will allow users to generate embeddings using the [ImageBind](https://github.com/facebookresearch/ImageBind) model from Meta AI/FAIR out of the box.
+
+We will cover some highlights about this great multimodal model below. For a detailed overview, have a look at this [blog](https://ai.meta.com/blog/imagebind-six-modalities-binding-ai/) and the [paper](https://arxiv.org/abs/2305.05665).
+
+`multi2vec-bind` can generate vectors from an impressive 7 different modalities of data! You can now embed data containing any combination of text, image, video, audio, inertial measurement unit (IMU) - accelerometer and gyroscope data, depth images, and thermal images with Weaviate.
+
+<details>
+  <summary>How is this possible?</summary>
+
+ImageBind is able to understand multiple modalities because it actually consists of multiple models, each that specializes in understanding one modality.
+
+The embedding space for these specialist models is then unified/fused by using a contrastive loss function. This loss function, similar to its use in training the CLIP model, is used to make sure that similar concepts across different modalities are located “closer” together in vector space.
+
+So for example the vector representations of the sound of a lion roaring, the image of a lion roaring and the text “lion roaring” should all be close in vector space whereas the multimodal representation of a car, should be further away.
+
+The ability to encode and represent all of these modalities of data is quite exciting because now Weaviate can understand and perform cross-modal search and retrieval.
+
+This means that when using the `multi2vec-bind` module you can query with and retrieve any of the above combinations of modalities. For example, you can perform a `nearAudio` search by passing in a sound file of a lion roaring as a query and retrieve a picture of a lion roaring. Or perhaps you want you’ve got a tune stuck in your head but can’t remember which song it’s from? You can now record yourself humming the tune and then pass that in as a query to perform audio to audio search to retrieve the closest matching song! The possibilities are excitingly endless.
+
+</details>
+
+We know you've just been dying to vectorize that data from your accelerometer and gyroscope, and now you can! 😉
+
+Take a look at some examples of cross-modal search with `multi2vec-bind` below. Here, we are searching over a set of images using an audio file and then a video file, respectively.
+
+#### Example 1: Audio Search with [car_audio.wav](https://drive.google.com/file/d/1TDQ5h8ewX_DXcTv1CEiHG-b81GVm6X-W/view?usp=sharing)
+
+:::note Search carried out with a preview version of the Python client
+:::
+
+```python
+client.query
+.get("BindExample", ["text"])
+.with_near_audio({"audio" : "car_audio.wav"})
+.do()
+```
+
+Top retrieved image:
+
+![Image of a car representing the top retrieved image from an audio search](./img/car.jpg)
+
+#### Example 2: Video Search with [bird.mp4](https://drive.google.com/file/d/11X9ump85jtgTYx-vtEUb1p5dT-vxjbf2/view?usp=drive_link)
+
+:::note Search carried out with a preview version of the Python client
+:::
+
+```python
+client.query
+.get("BindExample", ["text"])
+.with_near_video({"video" : "bird.mp4"})
+.do()
+```
+
+Top retrieved image:
+
+![Image of a bird representing the top retrieved image from a video search](./img/bird.jpg)
+
+We’ll explore the awesomeness of this new module more in a blog soon but for now, you can read more about the details of how you can use `multi2vec-bind` in the [documentation](https://weaviate.io/developers/weaviate/modules/retriever-vectorizer-modules/multi2vec-bind).
+
+> Read more:
+> - [Modules: multi2vec-bind](/developers/weaviate/modules/retriever-vectorizer-modules/multi2vec-bind)
+
+## Performance improvements
+
+![Performance improvements](./img/performance.png)
+
+### Alternative virtual memory access (pread vs mmap)
+
+There is now an option to use `pread` for virtual memory access by setting it in the `PERSISTENCE_LSM_ACCESS_STRATEGY` [environment variable](/developers/weaviate/config-refs/env-vars).
+
+Weaviate has been using `mmap` to map a portion of disk space to virtual memory. While `mmap` is performant, it can lead to stalling situations under heavy load or memory pressure due to Weaviate not being aware that the memory is in fact virtual.
+
+If this is an issue for you, you can use `pread` for virtual memory access.
+
+`pread` provides better responsiveness and avoids inducing downtime in a cluster. The tradeoff is that `pread` does not provide the same memory management benefits as `mmap`, and may not be as fast as memory access.
+
+The current default will remain `mmap` - so if you want to change it, you must set the `PERSISTENCE_LSM_ACCESS_STRATEGY` [environment variable](/developers/weaviate/config-refs/env-vars) to `pread`.
+
+<details>
+  <summary>Further technical details</summary>
+
+<p>
+
+With `mmap`, the operating system handles the disk access. It maps files or devices into memory, which can be beneficial for large files because it doesn't require the entire file to be loaded into memory. For example, it can cache the entire disk enough memory is available, resulting in fast access.
+
+</p><br/>
+<p>
+
+However, under heavy load or memory pressure, the use of `mmap` can lead to scalability issues and slow down the system.
+
+</p><br/>
+<p>
+
+On the other hand, the `pread` function performs regular disk I/O at a specific position.
+
+</p><br/>
+<p>
+
+It is similar to `mmap` in that it reads a specified number of bytes from a specific byte position. But, the Go runtime is aware of the disk I/O operations performed with `pread`, while it is not with `mmap` (as it is handled by the OS). So, disk I/O operations are handled differently between these two functions.
+
+</p><br/>
+<p>
+
+With `pread`, When a goroutine is waiting for disk I/O, the Go runtime parks it and works on other tasks in the meantime. This means that the goroutine is not blocked and does not cause performance issues.
+
+</p>
+
+</details>
+
+> Read more:
+> - [References: Configuration: Environment variables](/developers/weaviate/config-refs/env-vars)
+> - Paper: ["Do you really want to use mmap in your DBMS?"](https://db.cs.cmu.edu/mmap-cidr2022/)
+
+### Multiprocessing speedups for ARM64 processors
+
+For those of you on ARM processors, you'll be happy to know that `simd` multiprocessing instructions are now used for faster distance calculations on ARM64 processors.
+
+This optimization results in significant performance (up to ~40%!) improvements, especially for large data sets and high-dimensional embeddings.
+
+You don't have to do anything to take advantage of this feature. Weaviate automatically detects the architecture and enables the optimization if it is supported.
+
+:::note A similar feature is already available for `x86-64` processors
+:::
+
+> Read more:
+> - [References: Distance metrics: Implementations](/developers/weaviate/config-refs/distances#distance-implementations-and-optimizations)
+
+### Vector indexing improvements
+
+The vector indexing (HNSW) algorithm has been updated to improve performance.
+
+#### Delta encoding
+
+This release changes how the HNSW graph connections are stored in memory.
+
+Previously, the graph was stored as an array with all the edges. However, from `1.21`, the graph is stored as a delta-encoded array, which is more efficient. This reduces the memory footprint of the graph, and improves performance.
+
+#### Reduce HNSW lock contention
+
+This change reduces the potential for HNSW lock contention, improving performance.
+
+From `1.21` onward, the HNSW locking algorithms have been updated to be more selective about what needs to be protected and how, during read/write processes.
+
+Our internal testing showed improved performance by up to 20% in some cases.
+
+### Backup improvements
+
+Your backups will now be smaller, and will likely incur lower costs from cloud storage providers.
+
+The new and improved backup process combines and compresses the required files to one backup file. Where there are a large number of files - such as with multi-tenancy users - this will be particularly beneficial.
+
+Not only will it compress the data, it will reduce the number of file operations, improving efficiency and reducing cloud storage costs.
+
+:::note `1.21` backups cannot be used in `1.20` and below
+Due to this change, backups from `1.21` cannot be used to restore in a `1.20` instance.
+
+If you might need to roll back, we recommend making a backup from `1.20` before upgrading to `1.21`.
+:::
+
+## Hybrid search algorithm refinement
+
+We have introduced a small change with our new hybrid fusion scoring algorithm.
+
+Where hybrid search is carried out with a small limit, a higher (internal) limit is used to determine the scoring, before returning the results with the original limit.
+
+This addresses a potential issue where the scoring could be unstable with a small limit, as the scoring is based on a small number of results.
+
+As a user, you don't need to do anything to take advantage of this change. It is automatically applied to all hybrid searches.
+
+## Summary
+
+That's it from us - we hope you enjoy the new features and improvements in Weaviate `1.21`. This release is already available on [WCS](https://console.weaviate.cloud/). So you can try it out yourself on a free sandbox, or by upgrading!
+
+Thanks for reading, and see you next time 👋!
