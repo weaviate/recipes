@@ -19,7 +19,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Connect to Weaviate Retriever and configure LLM
+# Connect to Weaviate and configure LLM
+
 cohere_key = ""
 
 command_nightly = dspy.Cohere(model="command-nightly",max_tokens=1000, api_key=cohere_key)

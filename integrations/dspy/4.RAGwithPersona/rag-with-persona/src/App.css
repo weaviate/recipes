@@ -1,0 +1,81 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.chatbot {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 20px;
+}
+
+.chatbot h1 {
+  text-align: center;
+  margin-bottom: 1vh;
+  font-size: 8vh;
+  font-family: 'Montserrat';
+  font-weight: bold;
+  color: #092844;
+}
+
+.top-text {
+  margin-bottom: 20px;
+}
+
+.top-text input {
+  width: 100%;
+  padding: 20px;
+  font-size: 3vh;
+  font-family: "Plus Jakarta Sans";
+}
+
+.chat-history {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.message {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-family: "Plus Jakarta Sans";
+  font-size: 3vh;
+}
+
+.message.user {
+  background-color: #e6e6e6;
+  align-self: flex-end;
+  font-family: "Plus Jakarta Sans";
+  font-size: 3vh;
+}
+
+.input-container {
+  display: flex;
+}
+
+.input-container input {
+  flex: 1;
+  padding: 20px;
+  font-family: "Plus Jakarta Sans";
+  font-size: 3vh;
+}
+
+.input-container button {
+  padding: 10px 20px;
+  font-family: "Montserrat";
+  font-weight: bold;
+  font-size: 4vh;
+  background-color: #092844;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+}
+
+.input-container button:hover {
+  color: #092844;
+  background-color: white;
+}
