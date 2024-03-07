@@ -148,7 +148,7 @@ Below we provide code that allows you to implement MM-RAG by retrieving from the
 def retrieve_image(query):
     response = animals.query.near_text(
         query=query,
-        filters=wvc.query.Filter(path="mediaType").equal("image"),
+        filters=wvc.query.Filter.by_property(path="mediaType").equal("image"),
         return_properties=['name','path','mediaType','image'],
         limit = 1,
     )
