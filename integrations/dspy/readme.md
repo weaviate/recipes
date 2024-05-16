@@ -10,6 +10,16 @@ This cookbook contains two parts:
 
 Here are some quick recipes for DSPy.
 
+### Connect Weaviate
+
+```python
+from dspy.retrieve.weaviate_rm import WeaviateRM
+import weaviate
+
+weaviate_client = weaviate.connect_to_local()
+retriever_model = WeaviateRM("WeaviateBlogChunk", weaviate_client=weaviate_client)
+```
+
 ### RAG Program Examples
 
 #### Basic RAG
