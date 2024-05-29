@@ -16,7 +16,11 @@ Here are some quick recipes for DSPy.
 from dspy.retrieve.weaviate_rm import WeaviateRM
 import weaviate
 
-weaviate_client = weaviate.connect_to_local()
+weaviate_client = weaviate.connect_to_local(
+    host="localhost",
+    port="8080"
+) # these are the default arguments
+
 retriever_model = WeaviateRM("WeaviateBlogChunk", weaviate_client=weaviate_client)
 ```
 
