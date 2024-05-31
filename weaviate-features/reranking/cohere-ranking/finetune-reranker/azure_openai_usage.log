@@ -1,0 +1,3 @@
+Note: NumExpr detected 10 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+Giving up request(...) after 1 tries (cohere.error.CohereAPIError: invalid api token)
