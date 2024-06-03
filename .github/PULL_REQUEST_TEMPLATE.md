@@ -10,7 +10,7 @@ Thank you for contributing to Weaviate recipes! Please fill out the information 
 - [ ] Weaviate feature
 
 ## Promotion 
-<!-- Fill this section in if you would like us to promote your notebook on socials -->
+<!-- We'd love to promote your work on our socials! If you'd like to be featured, please complete the section below. -->
 - X handle
 - LinkedIn account
 - Company `@` if applicable
