@@ -4,18 +4,15 @@
 
 This repo covers end-to-end examples on the various features and integrations with [Weaviate](www.weaviate.io)!
 
-It is broken out into two categories, [Integrations]() and [Weaviate features]().
+It is broken out into two categories, [Integrations](https://github.com/weaviate/recipes/tree/main/integrations) and [Weaviate features](https://github.com/weaviate/recipes/tree/main/weaviate-features).
 
 1. Integrations: Notebooks showing you how to use Weaviate and a Partner's product:
-    * Cloud platforms
-    * ETL/Ingestion
-    * Evaluation
-    * Frameworks
-    * Model Inference
-    * Model Training
-    * Monitoring
-    * Observability
-2. Weaviate features:
+    * Cloud Hyperscalers
+    * Cloud Platforms
+    * Data Pipeline
+    * LLM Frameworks
+    * Observability and Evaluation
+2. Weaviate Features:
     * Classification
     * Vector Search Evaluation
     * Filters
