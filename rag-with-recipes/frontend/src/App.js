@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -10,7 +11,7 @@ function App() {
     const userMessage = { text: input, sender: 'user' };
     setMessages([...messages, userMessage]);
 
-    const response = await fetch('/sendMessage', {
+    const response = await fetch('http://localhost:8000/sendMessage', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
