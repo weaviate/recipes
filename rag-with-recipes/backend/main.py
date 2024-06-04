@@ -24,4 +24,5 @@ class Message(BaseModel):
 @app.post("/sendMessage")
 async def send_message(msg: Message):
     message = msg.message
-    return {"reply": "This is a response from the bot to your message: " + message[0]}
+    response = program(chat_history=message).answer
+    return {"reply": response}
