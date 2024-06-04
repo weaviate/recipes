@@ -30,6 +30,12 @@ body {
   flex-direction: column;
 }
 
+#chat-container h1 {
+  align-self: center;
+  font-family: 'Montserrat';
+  color: #092844;
+}
+
 #messages {
   display: flex;
   flex-direction: column;
