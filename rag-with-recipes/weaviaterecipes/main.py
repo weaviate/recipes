@@ -17,7 +17,6 @@ app.add_middleware(
 )
 
 
-
 class Message(BaseModel):
     message: str
 
@@ -25,4 +24,5 @@ class Message(BaseModel):
 async def send_message(msg: Message):
     message = msg.message
     response = program(chat_history=message).answer
+    print(response)
     return {"reply": response}

@@ -11,13 +11,15 @@ class AnswerQuestion(dspy.Signature):
     answer = dspy.OutputField()
 
 class LanguageProgram(dspy.Module):
-    def __init__(self, retrieval_k=3):
+    def __init__(self, retrieval_k=10):
         # Set desired LLM and your API Key as environment variables
         self.llm = os.getenv("LLM")
         print(self.llm)
         self.api_key = os.getenv("KEY")
         self.available_llms = {
-            "command-r-plus": lambda: dspy.Cohere(model="command-r-plus", api_key=self.api_key)
+            "command-r-plus": lambda: dspy.Cohere(model="command-r-plus", 
+                                                  api_key=self.api_key,
+                                                  max_tokens=4_000)
         } # save state for meta API
         if self.llm in self.available_llms:
             self.base_llm = self.available_llms[self.llm]()
@@ -39,6 +41,5 @@ class LanguageProgram(dspy.Module):
 
     def forward(self, chat_history):
         context = self.retrieve(chat_history).passages
-        #pred = self.answer_question(context=context, question=chat_history).answer
-        pred=context
+        pred = self.answer_question(context=context, question=chat_history).answer
         return dspy.Prediction(answer=pred)

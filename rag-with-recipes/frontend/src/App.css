@@ -46,6 +46,52 @@ body {
   padding: 10px;
   width: 90%;
   border-radius: 5px;
+  white-space: pre-wrap;
+}
+
+/* Basic Markdown-like styling */
+.message strong { /* Bold text */
+  font-weight: bold;
+}
+
+.message em { /* Italic text */
+  font-style: italic;
+}
+
+.message code { /* Inline code */
+  background-color: #f0f0f0;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+.message pre { /* Code blocks */
+  background-color: #f0f0f0;
+  padding: 10px;
+  overflow-x: auto;
+  white-space: pre-wrap; /* Preserve line breaks in code blocks */
+}
+
+.message blockquote { /* Blockquotes */
+  border-left: 4px solid #ccc;
+  padding-left: 10px;
+  margin-left: 0;
+  color: #666;
+}
+
+/* Code block styling with language annotation */
+.message code[class*="language-"] {  /* Target code blocks with language classes */
+  display: block;                      /* Make code blocks full width */
+  background-color: #f8f8f8;          /* Slightly different background for code */
+  padding: 10px;                     
+  overflow-x: auto;                   /* Horizontal scroll for long lines */
+  font-family: monospace;            /* Use a monospace font for code */
+  border-radius: 5px;
+}
+
+/* Additional styling for language-specific code blocks (example: Python) */
+.message code.language-python {
+  color: #306998;  /* Python-specific color */
 }
 
 .user {
@@ -56,8 +102,9 @@ body {
 
 .bot {
   background-color: #dcedc8;
-  align-self: flex-end;
-  text-align: right;
+  margin-left: auto;
+  text-align: left;
+  max-width: 80%;
 }
 
 #input-container {
