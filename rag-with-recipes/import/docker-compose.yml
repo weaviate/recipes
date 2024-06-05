@@ -15,7 +15,7 @@ services:
     - 50051:50051
     restart: on-failure:0
     environment:
-      COHERE_APIKEY: 'Ew13fNmR843lC8w1ZGDaqdkwH7kJlXdYgImZBXqx'
+      COHERE_APIKEY: 'sk-foobar'
       QUERY_DEFAULTS_LIMIT: 25
       AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
       PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
