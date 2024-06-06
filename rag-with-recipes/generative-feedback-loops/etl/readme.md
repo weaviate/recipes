@@ -1,2 +1,2 @@
 ## Run
-`poetry run python run_notebook Write-Queries.ipynb`  
+`poetry run python3 run_notebook.py Write-Queries.ipynb`  
