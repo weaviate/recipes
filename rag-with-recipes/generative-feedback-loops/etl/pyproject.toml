@@ -7,9 +7,12 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+langchain = "^0.2.2"
 langchain-cohere = "^0.1.5"
 dspy-ai = "^2.4.9"
 weaviate-client = "^4.6.4"
+pydantic = "^2.7.3"
+ipykernel = "^6.0.0"
 
 
 [build-system]
