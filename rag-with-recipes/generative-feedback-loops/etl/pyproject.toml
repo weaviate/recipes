@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "etl"
+version = "0.1.0"
+description = ""
+authors = ["Connor Shorten <connorshorten300@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+langchain-cohere = "^0.1.5"
+dspy-ai = "^2.4.9"
+weaviate-client = "^4.6.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
