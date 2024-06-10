@@ -1,5 +1,7 @@
 # RAG with Recipes
 
+![Demo](./demo.gif)
+
 ## How to run!
 
 ### Frontend
