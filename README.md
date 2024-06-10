@@ -2,7 +2,7 @@
 
 ![Weaviate logo](/Weaviate.png)
 
-This repo covers end-to-end examples on the various features and integrations with [Weaviate](www.weaviate.io)!
+This repo covers end-to-end examples on the various features and integrations with [Weaviate](https://www.weaviate.io)!
 
 It is broken out into two categories, [Integrations](https://github.com/weaviate/recipes/tree/main/integrations) and [Weaviate features](https://github.com/weaviate/recipes/tree/main/weaviate-features).
 
