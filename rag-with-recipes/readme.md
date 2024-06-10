@@ -1,5 +1,17 @@
 # RAG with Recipes
 
-- `frontend`: Chatbot UI built with React JS
-- `backend`: Weaviate client with FastAPI
-- `generative-feedback-loops`: Batch processing with LLMs
+## How to run!
+
+### Frontend
+```bash
+cd frontend
+npm start
+```
+
+### Backend
+```bash
+cd weaviaterecipes
+./set_env.sh --llm command-r --key YOUR-COHERE-KEY
+```
+
+This will set the api key, restore a Weaviate backup, and start a FastAPI server!
