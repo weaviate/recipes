@@ -2051,6 +2051,16 @@ files = [
 ptyprocess = ">=0.5"
 
 [[package]]
+name = "phoenix"
+version = "0.9.1"
+description = "MUS Interface for Phoenix Emulator 3.x"
+optional = false
+python-versions = "*"
+files = [
+    {file = "phoenix-0.9.1.zip", hash = "sha256:16c5d61d2e13c0ece7d2f656bcbd4532755ca36c1a3753f9158a5d53f58ebb20"},
+]
+
+[[package]]
 name = "platformdirs"
 version = "4.2.2"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a `user data dir`."
@@ -3444,4 +3454,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "c6171a904da8ada34d3f6d054605699e5a1e9a24c4162798dbe20e0aa1b4c5c5"
+content-hash = "28d44da33278dbb1b0f811cdaad1eeb7d8d98f83b40ebb20d11e5d03cedcc9a3"

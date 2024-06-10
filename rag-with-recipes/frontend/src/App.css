@@ -19,8 +19,8 @@ body {
 
 #chat-container {
   width: 95%;
-  max-width: 1200px;
-  height: 80vh;
+  max-width: 1600px;
+  height: 85vh;
   border: 2px solid #ccc;
   border-radius: 10px;
   background: white;
@@ -30,8 +30,31 @@ body {
   flex-direction: column;
 }
 
-#chat-container h1 {
-  align-self: center;
+#header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+#header img {
+  object-fit: contain;
+}
+
+#left-image {
+  margin-right: 10px;
+  height: 8vh;
+  width: 10vw;
+}
+
+#right-image {
+  margin-left: 10px;
+  height: 10vh;
+  width: 10vw;
+}
+
+#header h1 {
+  font-size: 4vh;
   font-family: 'Montserrat';
   color: #092844;
 }
@@ -82,7 +105,7 @@ body {
   border-left: 4px solid #ccc;
   padding-left: 10px;
   margin-left: 0;
-  color: #666;
+  color: #666; /* 666 */
 }
 
 /* Code block styling with language annotation */
@@ -97,20 +120,22 @@ body {
 
 /* Additional styling for language-specific code blocks (example: Python) */
 .message code.language-python {
-  color: #306998;  /* Python-specific color */
+  color: black;  /* Python-specific color */
 }
 
 .user {
   background-color: #e1f5fe;
   align-self: flex-start;
   text-align: left;
+  font-size: 2.2vh;
 }
 
 .bot {
-  background-color: #dcedc8;
+  background-color: #abd4f7;
   margin-left: auto;
   text-align: left;
   max-width: 80%;
+  font-size: 1.8vh;
 }
 
 #input-container {
@@ -120,7 +145,7 @@ body {
 #input-container input {
   flex: 1;
   padding: 15px;
-  font-size: 1.2em;
+  font-size: 1.5em;
   border: 2px solid #ccc;
   border-radius: 10px 0 0 10px;
 }
@@ -128,13 +153,42 @@ body {
 #input-container button {
   padding: 15px;
   font-size: 1.2em;
-  border: 2px solid #ccc;
   background-color: #092844;
   color: white;
   border-radius: 0 10px 10px 0;
   cursor: pointer;
+  transition: 0.1s ease-in;
+  box-shadow: 0.3vh 0.3vh 0.2vh #092844;
 }
 
 #input-container button:hover {
-  background-color: #092844;
+  background-color: white;
+  color: #092844;
+  box-shadow: 0 0 0 white;
+}
+
+.loading-animation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  animation: spin 1s linear infinite;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

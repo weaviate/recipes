@@ -13,6 +13,7 @@ dspy-ai = "^2.4.9"
 weaviate-client = "^4.6.4"
 pydantic = "^2.7.3"
 ipykernel = "^6.0.0"
+phoenix = "^0.9.1"
 
 
 [build-system]
