@@ -1,7 +1,3 @@
-
-
-
-
 ## Integrations 🤝
 Learn about the various [Integrations](https://github.com/weaviate/recipes/tree/main/integrations) with Weaviate! A few demos we have are:
 1. [DSPy](https://github.com/weaviate/recipes/tree/main/integrations/llm-frameworks/dspy) - Getting started with DSPy, Query to Blog Post demo, and more
