@@ -1,1 +1,0 @@
-{"startedAt":"2024-06-10T14:57:51.445481218Z","completedAt":"2024-06-10T15:00:13.512427506Z","id":"rag-with-recipes-backup","nodes":{"node1":{"classes":["WeaviateRecipesChunk","MemGPTMemory"],"status":"SUCCESS","error":""}},"node_mapping":null,"status":"SUCCESS","version":"2.1","serverVersion":"1.25.0","leader":"node1","error":""}
