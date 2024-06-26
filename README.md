@@ -1,30 +1,42 @@
-# Welcome to the Weaviate Recipes repository!
+# Welcome to Weaviate Recipes 💚
 
-![Weaviate logo](/Weaviate.png)
+![Weaviate logo](.github/Weaviate.png)
 
-This repo covers end-to-end examples on the various features and integrations with [Weaviate](https://www.weaviate.io)!
+This repository covers end-to-end examples of the various features and integrations with [Weaviate](https://www.weaviate.io).
 
-It is broken out into two categories, [Integrations](https://github.com/weaviate/recipes/tree/main/integrations) and [Weaviate features](https://github.com/weaviate/recipes/tree/main/weaviate-features).
+| Category                                | Description                                                                                 |
+| ----------------------------------------|---------------------------------------------------------------------------------------------|
+| [Integrations](/integrations)           | Notebooks showing you how to use Weaviate plus another technology                           |
+| [Weaviate Features](/weaviate-features) | Notebooks covering **vector**, **hybrid** and **generative search**, **reranking**, **multi-tenancy** and more |
 
-1. Integrations: Notebooks showing you how to use Weaviate and a Partner's product:
-    * Cloud Hyperscalers
-    * Cloud Platforms
-    * Data Pipeline
-    * LLM Frameworks
-    * Observability and Evaluation
-2. Weaviate Features:
-    * Classification
-    * Vector Search Evaluation
-    * Filters
-    * Generative Search
-    * Hybrid Search
-    * Media Search
-    * Multi-Tenancy
-    * Product Quantization
-    * Reranking
-    * Search with Vectors or Japanese
-    * Similarity Search 
+
+## Integrations 🌐
+| Company Category | Companies |
+|------------------|-----------|
+| Cloud Hyperscalers | Google, AWS |
+| Cloud Platforms | Replicate |
+| Data Pipeline | Spark, Unstructured, Firecrawl |
+| LLM Frameworks | DSPy, LangChain, LlamaIndex, Semantic Kernel |
+| Observability and Evaluation | Arize, Langtrace, Nomic, Ragas, Weights & Biases |
+
+
+## Weaviate Features 🔧
+
+| Feature | Description |
+|---------|-------------|
+| Similarity Search | Use Weaviate's `nearText` operator to run semantic search queries (broken out by model provider) |
+| Hybrid Search | Use Weaviate's `hybrid` operator to run hybrid search queries (broken out by model provider) |
+| Generative Search | Build a simple RAG workflow using Weaviate's `.generate` (broken out by model provider) |
+| Filters | Narrow down your search results by adding filters to your queries |
+| Reranking | Add reranking to your pipeline to improve search results (broken out by model provider) |
+| Media Search | Use Weaviate's `nearImage` and `nearVideo` operator to search using images and videos |
+| Classification | Learn how to use KNN and zero-shot classification |
+| Multi-Tenancy | Store tenants on separate shards for complete data isolation |
+| Product Quantization | Compress vector embeddings and reduce the memory footprint using Weaviate's PQ feature |
+| Evaluation | Evaluate your search system |
+| CRUD APIs | Learn how to use Weaviate's `.create`, `.read`, `.update`, and `.delete` APIs |
+| Generative Feedback Loops | Write back to your database by storing the language model outputs |
 
 
 ## Feedback ❓
-Please note this is an ongoing project, and updates will be made frequently. If you have a feature you would like to see, please drop it in the [Weaviate Forum](https://forum.weaviate.io/c/general/4) or feel free to contribute one yourself!
+Please note this is an ongoing project, and updates will be made frequently. If you have a feature you would like to see, please create a GitHub issue or feel free to contribute one yourself!
