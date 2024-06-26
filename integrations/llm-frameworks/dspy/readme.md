@@ -1,6 +1,6 @@
 # DSPy and Weaviate!
 
-Hey everyone, welcome to the DSPy integration cookbook with Weaviate!
+Hey everyone, welcome to the [DSPy integration cookbook with Weaviate](https://dspy-docs.vercel.app/docs/deep-dive/retrieval_models_clients/WeaviateRM)!
 
 This cookbook contains two parts:
 1. Below is a list of `Quick Recipes`, a reference for useful DSPy functionality.
