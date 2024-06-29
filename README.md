@@ -34,7 +34,7 @@ This repository covers end-to-end examples of the various features and integrati
 | Multi-Tenancy | Store tenants on separate shards for complete data isolation |
 | Product Quantization | Compress vector embeddings and reduce the memory footprint using Weaviate's PQ feature |
 | Evaluation | Evaluate your search system |
-| CRUD APIs | Learn how to use Weaviate's `.create`, `.read`, `.update`, and `.delete` APIs |
+| CRUD APIs | Learn how to use Weaviate's Create, Read, Update, and Delete APIs |
 | Generative Feedback Loops | Write back to your database by storing the language model outputs |
 
 
