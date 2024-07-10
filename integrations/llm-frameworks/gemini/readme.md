@@ -7,6 +7,8 @@ Learn more about the Gemini Python client [here!](https://ai.google.dev/gemini-a
 ```python
 import google.generativeai as genai
 
+genai.configure(api_key=MY_GOOGLE_API_KEY)
+
 model = genai.GenerativeModel("gemini-1.5-pro")
 ```
 
