@@ -14,7 +14,7 @@ This repository covers end-to-end examples of the various features and integrati
 | Company Category | Companies |
 |------------------|-----------|
 | Cloud Hyperscalers | Google, AWS |
-| Cloud Platforms | Replicate |
+| Container Infrastructure | Modal, Replicate |
 | Data Pipeline | Spark, Unstructured, Firecrawl |
 | LLM Frameworks | DSPy, LangChain, LlamaIndex, Semantic Kernel |
 | Observability and Evaluation | Arize, Langtrace, Nomic, Ragas, Weights & Biases |
