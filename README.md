@@ -17,7 +17,7 @@ This repository covers end-to-end examples of the various features and integrati
 | Container Infrastructure | Modal, Replicate |
 | Data Pipeline | Spark, Unstructured, Firecrawl |
 | LLM Frameworks | DSPy, LangChain, LlamaIndex, Semantic Kernel |
-| Observability and Evaluation | Arize, Langtrace, Nomic, Ragas, Weights & Biases |
+| Observability and Evaluation | Arize, Langtrace, LangWatch, Nomic, Ragas, Weights & Biases |
 
 
 ## Weaviate Features 🔧
