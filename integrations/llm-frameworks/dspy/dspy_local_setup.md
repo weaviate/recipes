@@ -19,7 +19,7 @@ curl -sSL https://install.python-poetry.org | python3 -
 Navigate to your project directory:
 
 ```bash
-cd path/to/dspy-dev-8-6-24
+cd path/to/dspy-dev
 ```
 
 Initialize a new Poetry project:
@@ -34,7 +34,7 @@ Edit the `pyproject.toml` file to include your local package:
 
 ```toml
 [tool.poetry]
-name = "dspy-dev-8-6-24"
+name = "dspy-dev"
 version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
@@ -65,7 +65,7 @@ poetry add jupyter ipykernel
 Create a new Jupyter kernel:
 
 ```bash
-poetry run python -m ipykernel install --user --name dspy-env --display-name "Python (dspy-env)"
+poetry run python -m ipykernel install --user --name dspy-dev --display-name "Python (dspy-dev)"
 ```
 
 # Step 4: Launch Jupyter Notebook
