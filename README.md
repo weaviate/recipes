@@ -15,7 +15,7 @@ This repository covers end-to-end examples of the various features and integrati
 |------------------|-----------|
 | Cloud Hyperscalers | Google, AWS |
 | Compute Infrastructure | Modal, Replicate |
-| Data Pipeline | Confluent, Spark, Unstructured, Firecrawl |
+| Data Platforms| Confluent, Spark, Unstructured, Firecrawl |
 | LLM Frameworks | DSPy, LangChain, LlamaIndex, Semantic Kernel |
 | Observability and Evaluation | Arize, Langtrace, LangWatch, Nomic, Ragas, Weights & Biases |
 
