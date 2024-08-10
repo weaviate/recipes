@@ -15,7 +15,7 @@ lms = [
     {"name": "Gemini-1.5-Pro", "lm": gemini_1_5_pro
     {"name": "GPT-4", "lm": gpt4},
     {"name": "Claude Opus", "lm": claude_opus},
-    {"name": "Command R+", "lm": command_r_plus}
+    {"name": "Command R+", "lm": command_r_plus},
     {"name": "Llama 3.1", "lm": ollama_llama3}
 ]
 
