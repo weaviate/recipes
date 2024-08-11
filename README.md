@@ -13,7 +13,7 @@ This repository covers end-to-end examples of the various features and integrati
 ## Integrations 🌐
 | Company Category | Companies |
 |------------------|-----------|
-| Cloud Hyperscalers | Google, AWS |
+| Cloud Hyperscalers | Google, AWS, NVIDIA |
 | Compute Infrastructure | Modal, Replicate |
 | Data Platforms| Confluent, Spark, Unstructured, Firecrawl |
 | LLM Frameworks | DSPy, LangChain, LlamaIndex, Semantic Kernel |
