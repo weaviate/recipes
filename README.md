@@ -16,7 +16,7 @@ This repository covers end-to-end examples of the various features and integrati
 | Cloud Hyperscalers | Google, AWS, NVIDIA |
 | Compute Infrastructure | Modal, Replicate |
 | Data Platforms| Confluent, Spark, Unstructured, Firecrawl |
-| LLM Frameworks | DSPy, LangChain, LlamaIndex, Semantic Kernel |
+| LLM Frameworks | DSPy, LangChain, LlamaIndex, Semantic Kernel, Ollama |
 | Observability and Evaluation | Arize, Langtrace, LangWatch, Nomic, Ragas, Weights & Biases |
 
 
