@@ -1,0 +1,19 @@
+source:
+  source_data_type: "Local File"
+  file_path: "./customers-100.csv"
+  file_type: "csv"
+  chunk_size: 1000
+  chunk_overlap: 0
+
+embedding:
+  embedding_model: "OpenAI"
+  api_key: "your-openai-key" #replace with your OpenAI API key
+  model_name: "text-embedding-ada-002"
+
+target:
+  target_database: "Weaviate"
+  weaviate_url: "https://your-cluster-details.weaviate.cloud" #replace with your Weaviate cluster url
+  weaviate_api_key: "your-cluster-api-key" #replace with your Weaviate API keys
+  class_name: "customers"
+
+embed_columns: []
