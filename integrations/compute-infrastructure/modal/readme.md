@@ -6,30 +6,9 @@ Resources:
 * [Repository](https://github.com/modal-labs/vector-analogies-wikipedia)
 * [Blog Post](https://weaviate.io/blog/modal-and-weaviate)
 
-Taken from [`Hello, world! | Modal Docs`](https://modal.com/docs/examples/hello_world)
+## Modal + vLLM + Outlines
 
-1. Install `modal` with `pip install modal`
-2. Setup with `python3 -m modal setup`
-
-This will set you up with a Modal API Key. You can then test it quickly with this simple app:
-
-```python
-import modal
-
-app = modal.App("example-get-started")
-
-@app.function()
-def square(x):
-    print("This code is running on a remote worker!")
-    return x**2
-
-
-@app.local_entrypoint()
-def main():
-    print("the square is", square.remote(42))
-```
-
-There are three files in this repo to setup a vLLM server with Outlines Structured Decoding on Modal:
+There are additionally four files in this repo that demonstrate how to setup a vLLM server with Outlines Structured Decoding on Modal:
 
 To achieve this run these commands:
 ```bash
