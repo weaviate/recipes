@@ -20,3 +20,6 @@ Test with:
 ```bash
 python3 vllm_outlines_query.py
 ```
+
+Learn more about vLLM [here](https://github.com/vllm-project/vllm)!
+Learn more about Outlines Structured Decoding [here](https://github.com/outlines-dev/outlines)!
