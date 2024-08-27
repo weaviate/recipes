@@ -20,7 +20,7 @@ DTYPE = "float16"
 MAX_INPUT_LEN = 256
 MAX_OUTPUT_LEN = 256
 
-app = modal.App("example-vllm-outlines")
+app = modal.App("example-vllm-outlines", image=vllm_image)
 
 from pydantic import BaseModel
 class Answer(BaseModel):
@@ -52,14 +52,8 @@ class Model:
 
         self.engine = LLMEngine.from_engine_args(engine_args)
 
-        '''
-        JSONLogitsProcessor(
-            schema: Union[dict, Type[BaseModel], str],
-            tokeniezr: "Tokenizer",
-            whitespace_pattern: Optional[str] = None,
-        )
-        '''
-        logits_processor = JSONLogitsProcessor(schema=Answer, tokenizer=self.engine.get_tokenizer())
+        logits_processor = JSONLogitsProcessor(schema=Answer, llm=self.engine)
+
         self.sampling_params = SamplingParams(
             max_tokens=MAX_OUTPUT_LEN,
             temperature=0.7,
