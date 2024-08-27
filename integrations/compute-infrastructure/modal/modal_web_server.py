@@ -3,7 +3,6 @@ import modal.gpu
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
-# from worker.src.llm.handlers.modal.engine import Model, app
 from vllm_outlines_setup import Model, app
 
 MINUTE = 60
