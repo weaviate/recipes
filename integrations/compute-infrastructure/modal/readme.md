@@ -29,6 +29,15 @@ def main():
     print("the square is", square.remote(42))
 ```
 
-There are two files in this repo to setup a vLLM server with Outlines Structured Decoding on Modal:
-1. `vllm_outlines_setup.py` (Run this with `modal deploy vllm_outlines_setup.py`)
-2. `vllm_outlines_query.py` (Run this with `python3 vllm_outlines_query.py`)
+There are three files in this repo to setup a vLLM server with Outlines Structured Decoding on Modal:
+
+To achieve this run these commands:
+```bash
+modal run download_llama.py
+modal deploy vllm_outlines_setup.py
+```
+
+Test with:
+```bash
+python3 vllm_outlines_query.py
+```
