@@ -39,4 +39,8 @@ embed_columns: []
 
 We have included some additional configuration examples in the [examples](examples) directory. These examples illustrate how to use VectorETL with a range of data sources and embedding models.
 
+1. **gcs-to-weaviate-using-cohere.yaml**: Extract file(s) from Google Cloud Storage, embed using Cohere and write the resulting embeddings to Weaviate
+2. **postgres-to-weaviate.yaml**: Extract data from a PostgreSQL table using a defined SQL statement, embed the results using Cohere and write the resulting embeddings to Weaviate
+3. **s3-to-weaviate.yaml**: Extract file(s) from Amazon S3, embed using Cohere and write the resulting embeddings to Weaviate
+
 Happy Vectoring!
