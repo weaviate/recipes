@@ -16,7 +16,8 @@ p.s. If you work at Weaviate, please update the integration page with a link to 
 - [ ] Weaviate feature
 
 ## Promotion 
-<!-- We'd love to promote your work on our socials! If you'd like to be featured, please complete the section below. -->
-- X handle: 
-- LinkedIn account: 
-- Company `@` if applicable: 
+<!-- We'd love to promote your work on our socials! If you'd like a shoutout, please complete the section below. -->
+- Personal X handle (optional): 
+- Personal LinkedIn account (optional): 
+- Company X handle:
+- Company LinkedIn account:  
