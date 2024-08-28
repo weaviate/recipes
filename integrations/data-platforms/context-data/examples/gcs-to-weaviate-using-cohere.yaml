@@ -1,0 +1,21 @@
+source:
+  source_data_type: "Google Cloud Storage"
+  credentials_path: "/path/to/your/credentials.json"
+  bucket_name: "myBucket"
+  prefix: "prefix/"
+  file_type: "csv" #required if prefix is a directory: Will retrieve all files with filetype
+  chunk_size: 1000 #[Optional] Default is 1000
+  chunk_overlap: 0 #[Optional] Default is 0
+
+embedding:
+  embedding_model: "Cohere"
+  api_key: "my-cohere-key"
+  model_name: "embed-english-v3.0"
+
+target:
+ target_database: "Weaviate"
+ weaviate_url: "https://your-cluster-details.weaviate.cloud" #replace with your Weaviate cluster url
+ weaviate_api_key: "your-cluster-api-key" #replace with your Weaviate API keys
+ class_name: "collection-name" #replace with an existing or new collection name
+
+embed_columns: [] #Empty Array: File based sources do not require embedding columns
