@@ -23,3 +23,9 @@ python3 vllm_outlines_query.py
 
 Learn more about vLLM [here](https://github.com/vllm-project/vllm)!
 Learn more about Outlines Structured Decoding [here](https://github.com/outlines-dev/outlines)!
+
+## Modal + cuVS
+
+We are additionally researching Vector Search on GPUs with NVIDIA's cuVS and Modal's GPU computing infrastructure.
+
+Learn more about CAGRA [here])https://arxiv.org/pdf/2308.15136)!
