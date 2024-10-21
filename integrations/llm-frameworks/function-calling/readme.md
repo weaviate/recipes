@@ -102,7 +102,7 @@ def search_weaviate_collection(
 
 What if we want to add Weaviate's filters to our function calling systems? This requires taking the training wheels off a bit since Weaviate's filter syntax is a more complex argument type.
 
-## 1. Define a Filter Parser
+## Filter Parser
 
 ```python
 from weaviate.classes.query import Filter
@@ -167,7 +167,7 @@ print(parsed_filter)
 # <weaviate.collections.classes.filters._FilterAnd object at 0x106109570>
 ```
 
-## 2. Define the `get_objects_with_filters` function
+## Filtering with `get_objects_with_filters` and `search_collection_with_filters`
 
 ```python
 def get_objects_with_filters(
@@ -235,3 +235,5 @@ def search_collection_with_filters(
 
   return stringified_response
 ```
+
+# 3. Symbolic Aggregation
