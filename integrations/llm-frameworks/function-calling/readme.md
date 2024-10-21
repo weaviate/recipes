@@ -237,3 +237,7 @@ def search_collection_with_filters(
 ```
 
 # 3. Symbolic Aggregation
+
+Weaviate also supports symbolic aggregrations, such as calculating the average or maximum integer-valued age property. Weaviate also supports grouping objects by values and further computing such aggregations, for example we can group product items by category, such as "table", "chair", or "lamp", and then compute the average age of each category.
+
+To enable Weaviate's Symbolic Aggregations in Function Calling, we will again construct a Domain-Specific Language for it, similar to Filtering.
