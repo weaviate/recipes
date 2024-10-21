@@ -162,8 +162,7 @@ parsed_filter = parse_filter(filter_string)
 print(parsed_filter)
 
 # Prints
-# Read 100 schema files from ToySchemas folder.
-{'operator': 'And', 'operands': [{'path': ['category'], 'operator': {'operator': 'Equal', 'valueString': 'Python'}}, {'operator': 'Or', 'operands': [{'path': ['(points'], 'operator': {'operator': 'GreaterThan', 'valueNumber': 300.0}}, {'path': ['difficulty'], 'operator': {'operator': 'Like', 'valueString': '*hard*)'}}]}]}
+# {'operator': 'And', 'operands': [{'path': ['category'], 'operator': {'operator': 'Equal', 'valueString': 'Python'}}, {'operator': 'Or', 'operands': [{'path': ['(points'], 'operator': {'operator': 'GreaterThan', 'valueNumber': 300.0}}, {'path': ['difficulty'], 'operator': {'operator': 'Like', 'valueString': '*hard*)'}}]}]}
 ```
 
 ## 2. 
