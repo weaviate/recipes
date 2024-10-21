@@ -105,14 +105,10 @@ What if we want to add Weaviate's filters to our function calling systems? This 
 ## 1. Define a Filter Parser
 
 ```python
-import re
-from typing import Dict, Any
+from weaviate.classes.query import Filter
 
-def parse_filter(filter_string: str) -> Dict[str, Any]:
-    if not filter_string:
-        return {}
-
-    def parse_condition(condition: str) -> Dict[str, Any]:
+def build_weaviate_filter(filter_string: str) -> Filter:
+    def parse_condition(condition: str) -> Filter:
         parts = condition.split(':')
         if len(parts) < 3:
             raise ValueError(f"Invalid condition: {condition}")
@@ -120,31 +116,38 @@ def parse_filter(filter_string: str) -> Dict[str, Any]:
         property, operator, value = parts[0], parts[1], ':'.join(parts[2:])
         
         if operator == '==':
-            return {'operator': 'Equal', 'valueString': value}
+            return Filter.by_property(property).equal(value)
         elif operator == '!=':
-            return {'operator': 'NotEqual', 'valueString': value}
-        elif operator in ['>', '<', '>=', '<=']:
-            op_map = {'>' : 'GreaterThan', '<': 'LessThan', '>=': 'GreaterThanEqual', '<=': 'LessThanEqual'}
-            return {'operator': op_map[operator], 'valueNumber': float(value)}
+            return Filter.by_property(property).not_equal(value)
+        elif operator == '>':
+            return Filter.by_property(property).greater_than(float(value))
+        elif operator == '<':
+            return Filter.by_property(property).less_than(float(value))
+        elif operator == '>=':
+            return Filter.by_property(property).greater_than_equal(float(value))
+        elif operator == '<=':
+            return Filter.by_property(property).less_than_equal(float(value))
         elif operator == 'LIKE':
-            return {'operator': 'Like', 'valueString': value}
+            return Filter.by_property(property).like(value)
         elif operator == 'CONTAINS_ANY':
-            return {'operator': 'ContainsAny', 'valueStringArray': value.split(',')}
+            return Filter.by_property(property).contains_any(value.split(','))
         elif operator == 'CONTAINS_ALL':
-            return {'operator': 'ContainsAll', 'valueStringArray': value.split(',')}
+            return Filter.by_property(property).contains_all(value.split(','))
         elif operator == 'WITHIN':
             lat, lon, dist = map(float, value.split(','))
-            return {'operator': 'WithinGeoRange', 'valueGeoRange': {'geoCoordinates': {'latitude': lat, 'longitude': lon}, 'distance': dist}}
+            return Filter.by_property(property).within_geo_range(lat, lon, dist)
         else:
             raise ValueError(f"Unsupported operator: {operator}")
 
-    def parse_group(group: str) -> Dict[str, Any]:
+    def parse_group(group: str) -> Filter:
         if 'AND' in group:
-            return {'operator': 'And', 'operands': [parse_group(g.strip()) for g in group.split('AND')]}
+            conditions = [parse_group(g.strip()) for g in group.split('AND')]
+            return Filter.all_of(conditions)
         elif 'OR' in group:
-            return {'operator': 'Or', 'operands': [parse_group(g.strip()) for g in group.split('OR')]}
+            conditions = [parse_group(g.strip()) for g in group.split('OR')]
+            return Filter.any_of(conditions)
         else:
-            return {'path': [group.split(':')[0]], 'operator': parse_condition(group)}
+            return parse_condition(group)
 
     # Remove outer parentheses if present
     filter_string = filter_string.strip()
@@ -158,12 +161,11 @@ Example:
 
 ```python
 filter_string = "category:==:Python AND (points:>:300 OR difficulty:LIKE:*hard*)"
-parsed_filter = parse_filter(filter_string)
+parsed_filter = build_weaviate_filter(filter_string)
 print(parsed_filter)
 
-# Prints
-# {'operator': 'And', 'operands': [{'path': ['category'], 'operator': {'operator': 'Equal', 'valueString': 'Python'}}, {'operator': 'Or', 'operands': [{'path': ['(points'], 'operator': {'operator': 'GreaterThan', 'valueNumber': 300.0}}, {'path': ['difficulty'], 'operator': {'operator': 'Like', 'valueString': '*hard*)'}}]}]}
+# <weaviate.collections.classes.filters._FilterAnd object at 0x106109570>
 ```
 
-## 2. 
+## 2. Define the `search_collection_with_filters` function
 
