@@ -77,7 +77,7 @@ Building an external search function is pretty straightforward. We wrap our Weav
 
 ```python
 def search_weaviate_collection(
-  weaviate_client: weaviate.WeaviateClient
+  weaviate_client: weaviate.WeaviateClient,
   collection_name: str, 
   search_query: str,
   limit: int
@@ -167,5 +167,71 @@ print(parsed_filter)
 # <weaviate.collections.classes.filters._FilterAnd object at 0x106109570>
 ```
 
-## 2. Define the `search_collection_with_filters` function
+## 2. Define the `get_objects_with_filters` function
 
+```python
+def get_objects_with_filters(
+  weaviate_client: weaviate.WeaviateClient,
+  collection_name: str,
+  filters: str,
+  limit: int
+) -> str:
+  """Sends a query to Weaviate's /objects API."""
+
+  search_collection = weaviate_client.collection.get(collection_name)
+  filters = build_weaviate_filter(filters)
+  response = search_collection.query.fetch_objects(
+    filters=filters,
+    limit=limit
+  )
+
+  stringified_response = ""
+
+  for idx, o in enumerate(response.objects):
+    stringified_response += f"Search Result {idx+1}:\n"
+    for prop in o.properties:
+        stringified_response+=f"{prop}:{o.properties[prop]}"
+    stringified_response += "\n"
+
+  return stringified_response
+```
+
+### Let's also add, `search_collection_with_filters`
+
+```python
+from typing import Optional
+
+def search_collection_with_filters(
+  weaviate_client: weaviate.WeaviateClient,
+  collection_name: str,
+  search_query: str,
+  limit: int,
+  filter_string: Optional[str] = None,
+) -> str:
+  """Sends a query to Weaviate's /objects API."""
+  search_collection = weaviate_client.collection.get(collection_name)
+
+  if filters:
+    filters = build_weaviate_filter(filter_string)
+
+    response = search_collection.query.hybrid(
+       query=search_query,
+       filters=filters,
+       limit=limit  
+    )
+  else:
+     response = search_collection.query.hybrid(
+        query=search_query,
+        limit=limit
+     )
+
+  stringified_response = ""
+
+  for idx, o in enumerate(response.objects):
+      stringified_response += f"Search Result {idx+1}:\n"
+      for prop in o.properties:
+          stringified_response+=f"{prop}:{o.properties[prop]}"
+      stringified_response += "\n"
+
+  return stringified_response
+```
