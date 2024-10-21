@@ -1,4 +1,4 @@
-# Function Calling with Weaviate
+# A Guide to Function Calling with Weaviate
 
 Function calling is one of the most powerful emerging design patterns in AI-native applications. Function calling describes equipping Foundation Models, such as Large Language Models (LLMs), with external tools. More particularly, this is achieved by defining a schema that describes the name of a function and what it does, as well as its respective arguments, and what they do. The LLM then performs inference in a function calling loop, at each step deciding to either complete the response or call one of the external functions.
 
