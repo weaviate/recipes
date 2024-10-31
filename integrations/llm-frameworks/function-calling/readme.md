@@ -1,6 +1,6 @@
 # Function Calling with Weaviate
 
-Quick Reference:
+## Quick Reference:
 
 ```python
 def code_search(query: str) -> str:
