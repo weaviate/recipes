@@ -17,9 +17,7 @@ Taken from OpenAI.com, "You can define a set of functions as tools that the mode
 This is further visualized in the following image, please note the responsibility of your application to execute the function requested by the model.
 
 
-Now that you have a sense of how Function Calling works, equipping LLMs with a set of tool schemas, and looping between LLM responses and tool execution, let's now dive into some practical examples of how to define these tool schemas and interface them with querying Weaviate.
-
-this is achieved by defining a Tool Schema that describes the name of a Tool and what it does, as well as its respective arguments, and what they do. The LLM then performs inference in a function calling loop, at each step deciding to either complete the response or call one of the external functions.
+Now that you have a sense of how Function Calling works, let's dive further into how we equip LLMs with a set of tool schemas, and loop between LLM responses and tool execution. This is achieved by defining a Tool Schema that describes the name of a Tool and what it does, as well as its respective arguments, and what they do. The LLM then performs inference in a function calling loop, at each step deciding to either complete the response or call one of the external functions.
 
 We will now cover 2 different Weaviate as a Tool setups, a **Simple Weaviate Tool** and an **Advanced Weaviate Tool**. There are three core abstractions underlying all Tool setups:
 
@@ -27,11 +25,23 @@ We will now cover 2 different Weaviate as a Tool setups, a **Simple Weaviate Too
 2. Implementing the Tool Execution
 3. Executing Tools in the Function Calling loop
 
+## Simple Weaviate Tool
 
-Function calling is one of the most powerful emerging design patterns in AI-native applications. Function calling describes equipping Foundation Models, such as Large Language Models (LLMs), with external tools. More particularly, this is achieved by defining a schema that describes the name of a function and what it does, as well as its respective arguments, and what they do. The LLM then performs inference in a function calling loop, at each step deciding to either complete the response or call one of the external functions.
-
+This Weaviate Tool is defined as Simple because it (1) only searches in a single hard-coded collection and (2) only retrieves data from the collection based on a search query.
 
 ## 1. Define a tools_schema such as:
+
+The first thing to note here is that the LLM SDKs expect slightly different Tool Schemas :(.
+
+We have things like LiteLLM and the use of Gemini through OpenAI's SDK that are aiming to unify this.
+
+But for now, we recommend Weaviate users pay attention to this if for example you are switching from Anthropic Function Calling to OpenAI Function Calling.
+
+Here is the OpenAI Tool Schema interfaced as typed Pydantic models:
+
+```python
+
+```
 
 ```python
 tools_schema=[{
@@ -53,19 +63,76 @@ tools_schema=[{
 }]
 ```
 
-## 2. Define a mapping from the names of functions to where they will be executed (e.g. in the Python runtime)
+## 2. Implement the Tool Execution
+
+```python
+def get_search_results(query: str) -> str:
+    """Sends a query to Weaviate's Hybrid Search. Parases the response into a {k}:{v} string."""
+    
+    '''
+    Please note, this is a key detail of why we call this a "Simple" Weaviate Tool
+    `knowledge_base` is global to the runtime,
+    
+    So you could simply define this above the function calling block with e.g.
+    `knowledge_base = weaviate_client.collections.get("KnowledgeBase")`
+
+    Or what we commonly do is wrap function calling in Classes and save this as internal state with e.g.
+    `self.knowledge_base = weaviate_client.collections.get("KnowledgeBase")`
+
+    The "Advanced" Weaviate Tool will illustrate a multi-collection query strategy
+    '''
+    response = knowledge_base.query.hybrid(
+        query,
+        limit=3
+    )
+    
+    stringified_response = ""
+    for idx, o in enumerate(response.objects):
+        stringified_response += f"\033[92mSearch Result: {idx+1}\033[0m\n"
+        for prop in o.properties:
+            stringified_response += f"{prop}: {o.properties[prop]}"
+        stringified_response += "\n\n"
+    
+    return stringified_response
+```
+
+The key thing to note here is how you scope the connection to Weaviate and/or the collection you are searching in, for example you could also do this:
+
+```python
+def search_weaviate_collection(
+  weaviate_client: weaviate.WeaviateClient,
+  collection_name: str, 
+  search_query: str,
+  limit: int
+  ) -> str:
+  """Sends a query to Weaviate’s Hybrid Search."""
+
+  weaviate_client = weaviate.connect_to_wcs(...)
+
+  search_collection = weaviate_client.collections.get(collection_name)
+  response = search_collection.query.hybrid(search_query, limit)
+
+  stringified_response = ""
+
+  for idx, o in enumerate(response.objects):
+    stringified_response += f"Search Result {idx+1}:\n"
+    for prop in o.properties:
+        stringified_response+=f"{prop}:{o.properties[prop]}"
+    stringified_response += "\n"
+
+    weaviate_client.close()
+
+  return stringified_response
+```
+
+
+## 3. Extend LLM generation with the function calling **loop**
 
 ```python
 tool_mapping = {
     "get_search_results": get_search_results
 }
-```
 
-Note, `get_search_results` could wrap a request to an API not defined in the same runtime as the function calling loop.
-
-## 3. Extend LLM generation with the function calling **loop**
-
-```python
 def ollama_generation_with_tools(user_message: str,
                                  tools_schema: List, tool_mapping: Dict,
                                  model_name: str = "llama3.1") -> str:
@@ -121,146 +188,4 @@ def search_weaviate_collection(
   return stringified_response
 ```
 
-# Add Weaviate Filters to Function Calling
 
-What if we want to add Weaviate's filters to our function calling systems? This requires taking the training wheels off a bit since Weaviate's filter syntax is a more complex argument type.
-
-## Filter Parser
-
-```python
-from weaviate.classes.query import Filter
-
-def build_weaviate_filter(filter_string: str) -> Filter:
-    def parse_condition(condition: str) -> Filter:
-        parts = condition.split(':')
-        if len(parts) < 3:
-            raise ValueError(f"Invalid condition: {condition}")
-        
-        property, operator, value = parts[0], parts[1], ':'.join(parts[2:])
-        
-        if operator == '==':
-            return Filter.by_property(property).equal(value)
-        elif operator == '!=':
-            return Filter.by_property(property).not_equal(value)
-        elif operator == '>':
-            return Filter.by_property(property).greater_than(float(value))
-        elif operator == '<':
-            return Filter.by_property(property).less_than(float(value))
-        elif operator == '>=':
-            return Filter.by_property(property).greater_than_equal(float(value))
-        elif operator == '<=':
-            return Filter.by_property(property).less_than_equal(float(value))
-        elif operator == 'LIKE':
-            return Filter.by_property(property).like(value)
-        elif operator == 'CONTAINS_ANY':
-            return Filter.by_property(property).contains_any(value.split(','))
-        elif operator == 'CONTAINS_ALL':
-            return Filter.by_property(property).contains_all(value.split(','))
-        elif operator == 'WITHIN':
-            lat, lon, dist = map(float, value.split(','))
-            return Filter.by_property(property).within_geo_range(lat, lon, dist)
-        else:
-            raise ValueError(f"Unsupported operator: {operator}")
-
-    def parse_group(group: str) -> Filter:
-        if 'AND' in group:
-            conditions = [parse_group(g.strip()) for g in group.split('AND')]
-            return Filter.all_of(conditions)
-        elif 'OR' in group:
-            conditions = [parse_group(g.strip()) for g in group.split('OR')]
-            return Filter.any_of(conditions)
-        else:
-            return parse_condition(group)
-
-    # Remove outer parentheses if present
-    filter_string = filter_string.strip()
-    if filter_string.startswith('(') and filter_string.endswith(')'):
-        filter_string = filter_string[1:-1]
-
-    return parse_group(filter_string)
-```
-
-Example:
-
-```python
-filter_string = "category:==:Python AND (points:>:300 OR difficulty:LIKE:*hard*)"
-parsed_filter = build_weaviate_filter(filter_string)
-print(parsed_filter)
-
-# <weaviate.collections.classes.filters._FilterAnd object at 0x106109570>
-```
-
-## Filtering with `get_objects_with_filters` and `search_collection_with_filters`
-
-```python
-def get_objects_with_filters(
-  weaviate_client: weaviate.WeaviateClient,
-  collection_name: str,
-  filters: str,
-  limit: int
-) -> str:
-  """Sends a query to Weaviate's /objects API."""
-
-  search_collection = weaviate_client.collection.get(collection_name)
-  filters = build_weaviate_filter(filters)
-  response = search_collection.query.fetch_objects(
-    filters=filters,
-    limit=limit
-  )
-
-  stringified_response = ""
-
-  for idx, o in enumerate(response.objects):
-    stringified_response += f"Search Result {idx+1}:\n"
-    for prop in o.properties:
-        stringified_response+=f"{prop}:{o.properties[prop]}"
-    stringified_response += "\n"
-
-  return stringified_response
-```
-
-### Let's also add, `search_collection_with_filters`
-
-```python
-from typing import Optional
-
-def search_collection_with_filters(
-  weaviate_client: weaviate.WeaviateClient,
-  collection_name: str,
-  search_query: str,
-  limit: int,
-  filter_string: Optional[str] = None,
-) -> str:
-  """Sends a query to Weaviate's /objects API."""
-  search_collection = weaviate_client.collection.get(collection_name)
-
-  if filters:
-    filters = build_weaviate_filter(filter_string)
-
-    response = search_collection.query.hybrid(
-       query=search_query,
-       filters=filters,
-       limit=limit  
-    )
-  else:
-     response = search_collection.query.hybrid(
-        query=search_query,
-        limit=limit
-     )
-
-  stringified_response = ""
-
-  for idx, o in enumerate(response.objects):
-      stringified_response += f"Search Result {idx+1}:\n"
-      for prop in o.properties:
-          stringified_response+=f"{prop}:{o.properties[prop]}"
-      stringified_response += "\n"
-
-  return stringified_response
-```
-
-# 3. Symbolic Aggregation
-
-Weaviate also supports symbolic aggregrations, such as calculating the average or maximum integer-valued age property. Weaviate also supports grouping objects by values and further computing such aggregations, for example we can group product items by category, such as "table", "chair", or "lamp", and then compute the average age of each category.
-
-To enable Weaviate's Symbolic Aggregations in Function Calling, we will again construct a Domain-Specific Language for it, similar to Filtering.
