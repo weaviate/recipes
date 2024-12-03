@@ -3,8 +3,8 @@
 This guide will explain how to use Weaviate with Function Calling in 3 sections:
 
 1. Introduction to Function Calling
-2. Simple Weaviate Tool
-3. Advanced Weaviate Tool
+2. Simple Weaviate Search Tool
+3. Advanced Weaviate Querying Tool
 
 *\*Please note, `Tool` and `Function` mean the same thing.*
 
@@ -25,7 +25,7 @@ We will now cover 2 different Weaviate as a Tool setups, a **Simple Weaviate Too
 2. Implementing the Tool Execution
 3. Executing Tools in the Function Calling loop
 
-## Simple Weaviate Tool
+## Simple Weaviate Search Tool
 
 This Weaviate Tool is defined as Simple because it (1) only searches in a single hard-coded collection and (2) only retrieves data from the collection based on a search query.
 
@@ -162,6 +162,8 @@ There is a little more to how this changes the typical function calling loop to 
 
 ## 3. Extend LLM generation with the function calling **loop**
 
+# ToDo -- Switch from Ollama to OpenAI Example
+
 ```python
 tool_mapping = {
     "get_search_results": get_search_results
@@ -197,5 +199,20 @@ def ollama_generation_with_tools(user_message: str,
 
 Note, another strategy we use in our Function Calling setups is a `tool_call_budget` that tracks 
 
-# Advanced Weaviate Tool
+# Advanced Weaviate Querying Tool
 
+We will now take a look at a more advanced Weaviate Querying Tool. As the section title suggests, one of the key reasons this is more "advanced" is that we will use all of Weaviate's Query APIs instead of just search queries. This means that the agent can retrieve objects from a Weaviate Collection based on filter matches, rather than just search queries. This is useful for queries such as "Show me my unread emails from last week". Further, this Advanced Weaviate Query Tool will add `collection_name` as an argument, enabling the Agent to send queries across multiple collections stored in Weaviate.
+
+We can further apply Aggregations to the results of a Weaviate query.
+
+...
+
+Groupby and Sort
+
+## 1. Define the Advanced Weaviate Query Tool Schema
+
+## 2. Implement the Tool Execution
+
+## 3. Interface in the Function Calling Loop
+
+This is identical to the Simple Weaviate Query Tool example above
