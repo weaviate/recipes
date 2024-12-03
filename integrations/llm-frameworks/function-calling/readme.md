@@ -40,27 +40,48 @@ But for now, we recommend Weaviate users pay attention to this if for example yo
 Here is the OpenAI Tool Schema interfaced as typed Pydantic models:
 
 ```python
+class OpenAIParameterProperty(BaseModel):
+    type: str
+    description: str
+    enum: Optional[list[str]] = None
 
+
+class OpenAIParameters(BaseModel):
+    type: Literal["object"]
+    properties: dict[str, OpenAIParameterProperty]
+    required: Optional[list[str]]
+
+
+class OpenAIFunction(BaseModel):
+    name: str
+    description: str
+    parameters: OpenAIParameters
+
+
+class OpenAITool(BaseModel):
+    type: Literal["function"]
+    function: OpenAIFunction
 ```
 
+Implement `search_blogs` as an OpenAITool
+
 ```python
-tools_schema=[{
-    'type': 'function',
-    'function': {
-        'name': 'search_weaviate_collection',
-        'description': 'Get search results for a provided query from a provided collection of data.',
-        'parameters': {
-          'type': 'object',
-          'properties': {
-            'query': {
-              'type': 'string',
-              'description': 'The search query.',
-            },
-          },
-          'required': ['query'],
-        },
-    },
-}]
+tools_schema=[
+    OpenAITool(
+        function=OpenAIFunction(
+            name="search_blogs"",
+            description="Search for relevant chunks in a collection of Weaviate's Blog Posts.",
+            parameters=OpenAIParameters(
+                type="object",
+                properties=OpenAIParameterProperty(
+                    type="str",
+                    description="The search query."
+                ),
+                required=["search_query"]
+            )
+        )
+    )
+]
 ```
 
 ## 2. Implement the Tool Execution
