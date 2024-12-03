@@ -63,7 +63,7 @@ class OpenAITool(BaseModel):
     function: OpenAIFunction
 ```
 
-Implement `search_blogs` as an OpenAITool
+Implement `search_blogs` as an OpenAITool:
 
 ```python
 tools_schema=[
@@ -146,6 +146,19 @@ def search_weaviate_collection(
   return stringified_response
 ```
 
+Most LLM SDKs that offer Function Calling also offer **Parallel** Function Calling. We can further speed this up by implementing our Weaviate Searches to run asynchronously so that each search request can run in parallel. Note, to achieve this make the following change in your search function.
+
+```python
+async def search_weaviate_collection(
+    weaviate_client: weaviate.WeaviateAsyncClient,
+    # ... everything else remains the same
+):
+    # .... everything else remains the same
+    response = await search_collection.query.hybrid(search_query, limit)
+    # ... everything else remains the same
+```
+
+There is a little more to how this changes the typical function calling loop to enable parallel function calling as well which we will see below, starting without the use of parallel function calling and async weaviate querying.
 
 ## 3. Extend LLM generation with the function calling **loop**
 
@@ -182,31 +195,7 @@ def ollama_generation_with_tools(user_message: str,
     return final_response["message"]["content"]
 ```
 
-# Add Weaviate Search to Function Calling
+Note, another strategy we use in our Function Calling setups is a `tool_call_budget` that tracks 
 
-Building an external search function is pretty straightforward. We wrap our Weaviate hybrid search in a function that takes a search_query string as an argument and the collection_name string as the argument of which Weaviate collection to search through.
-
-```python
-def search_weaviate_collection(
-  weaviate_client: weaviate.WeaviateClient,
-  collection_name: str, 
-  search_query: str,
-  limit: int
-  ) -> str:
-  """Sends a query to Weaviate’s Hybrid Search."""
-
-  search_collection = weaviate_client.collections.get(collection_name)
-  response = search_collection.query.hybrid(search_query, limit)
-
-  stringified_response = ""
-
-  for idx, o in enumerate(response.objects):
-    stringified_response += f"Search Result {idx+1}:\n"
-    for prop in o.properties:
-        stringified_response+=f"{prop}:{o.properties[prop]}"
-    stringified_response += "\n"
-
-  return stringified_response
-```
-
+# Advanced Weaviate Tool
 
