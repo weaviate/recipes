@@ -1,10 +1,12 @@
 # Function Calling with Weaviate
 
-This guide will explain how to use Weaviate as a tool with Function Calling Systems in 3 parts:
+This guide will explain how to use Weaviate with Function Calling in 3 sections:
 
 1. Introduction to Function Calling
 2. Simple Weaviate Tool
 3. Advanced Weaviate Tool
+
+*Please note, `Tool` and `Function` mean the same thing.*
 
 ## Introduction to Function Calling
 
@@ -17,39 +19,17 @@ This is further visualized in the following image, please note the responsibilit
 
 Now that you have a sense of how Function Calling works, equipping LLMs with a set of tool schemas, and looping between LLM responses and tool execution, let's now dive into some practical examples of how to define these tool schemas and interface them with querying Weaviate.
 
-We will now cover 2 different Weaviate as a Tool setups, a **Simple Weaviate Tool** and an **Advanced Weaviate Tool**. Underpinning both is the general flow of:
+this is achieved by defining a Tool Schema that describes the name of a Tool and what it does, as well as its respective arguments, and what they do. The LLM then performs inference in a function calling loop, at each step deciding to either complete the response or call one of the external functions.
+
+We will now cover 2 different Weaviate as a Tool setups, a **Simple Weaviate Tool** and an **Advanced Weaviate Tool**. There are three core abstractions underlying all Tool setups:
 
 1. Defining the Tool Schema
 2. Implementing the Tool Execution
 3. Executing Tools in the Function Calling loop
 
-## Simple Weaviate Tool
-
-
-
-
-## Quick Reference:
-
-```python
-def code_search(query: str) -> str:
-    code_collection = client.collections.get("Code")
-    response = code_collection.query.hybrid(query, limit=5)
-
-    stringified_response = ""
-    for idx, o in enumerate(response.objects):
-        stringified_response += f"Search Result: {idx+1}:\n"
-        for prop in o.properties:
-            stringified_response += f"{prop}: {o.properties[prop]}\n"
-        stringified_response += "\n"
-
-    return stringified_response
-```
-
-## Detailed Guide to Function Calling with Weaviate
 
 Function calling is one of the most powerful emerging design patterns in AI-native applications. Function calling describes equipping Foundation Models, such as Large Language Models (LLMs), with external tools. More particularly, this is achieved by defining a schema that describes the name of a function and what it does, as well as its respective arguments, and what they do. The LLM then performs inference in a function calling loop, at each step deciding to either complete the response or call one of the external functions.
 
-There are three core abstractions underlying most function calling frameworks:
 
 ## 1. Define a tools_schema such as:
 
@@ -62,10 +42,6 @@ tools_schema=[{
         'parameters': {
           'type': 'object',
           'properties': {
-            'collection_name': {
-              'type': 'string',
-              'description': 'The collection in Weaviate to search through.',
-            },
             'query': {
               'type': 'string',
               'description': 'The search query.',
