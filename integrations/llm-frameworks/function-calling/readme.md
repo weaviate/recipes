@@ -1,5 +1,7 @@
 # Function Calling with Weaviate
 
+
+
 ## Quick Reference:
 
 ```python
