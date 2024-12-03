@@ -6,7 +6,7 @@ This guide will explain how to use Weaviate with Function Calling in 3 sections:
 2. Simple Weaviate Tool
 3. Advanced Weaviate Tool
 
-*Please note, `Tool` and `Function` mean the same thing.*
+*\*Please note, `Tool` and `Function` mean the same thing.*
 
 ## Introduction to Function Calling
 
