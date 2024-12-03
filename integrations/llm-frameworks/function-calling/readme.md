@@ -1,6 +1,6 @@
 # Function Calling with Weaviate
 
-The capabilities of AI systems built with Large Language Models (LLMs) are advancing rapidly largely thanks to their connection with external tools. There are many ways of building these systems, but Function Calling has stood the test of time as one of the most popular methods.
+The capabilities of AI systems built with Large Language Models (LLMs) are advancing rapidly largely thanks to their connection with external tools. `Function Calling` has stood the test of time as one of the most popular methods of building these systems.
 
 From OpenAI.com, "Function calling enables developers to connect language models to external data and systems. You can define a set of functions as tools that the model has access to, and it can use them when appropriate based on the conversation history. You can then execute those functions on the application side, and provide results back to the model."
 
