@@ -1,8 +1,30 @@
 # Function Calling with Weaviate
 
-The capabilities of AI systems built with Large Language Models (LLMs) are advancing rapidly largely thanks to their connection with external tools. `Function Calling` has stood the test of time as one of the most popular methods of building these systems.
+This guide will explain how to use Weaviate as a tool with Function Calling Systems in 3 parts:
 
-From OpenAI.com, "Function calling enables developers to connect language models to external data and systems. You can define a set of functions as tools that the model has access to, and it can use them when appropriate based on the conversation history. You can then execute those functions on the application side, and provide results back to the model."
+1. Introduction to Function Calling
+2. Simple Weaviate Tool
+3. Advanced Weaviate Tool
+
+## Introduction to Function Calling
+
+The capabilities of AI systems built with Large Language Models (LLMs) are advancing rapidly largely thanks to their connection with external tools. **Function Calling** has stood the test of time as one of the most powerful design patterns for implementing these connections between LLMs and tools.
+
+Taken from OpenAI.com, "You can define a set of functions as tools that the model has access to, and it can use them when appropriate based on the conversation history. You can then execute those functions on the application side, and provide results back to the model."
+
+This is further visualized in the following image, please note the responsibility of your application to execute the function requested by the model.
+
+
+Now that you have a sense of how Function Calling works, equipping LLMs with a set of tool schemas, and looping between LLM responses and tool execution, let's now dive into some practical examples of how to define these tool schemas and interface them with querying Weaviate.
+
+We will now cover 2 different Weaviate as a Tool setups, a **Simple Weaviate Tool** and an **Advanced Weaviate Tool**. Underpinning both is the general flow of:
+
+1. Defining the Tool Schema
+2. Implementing the Tool Execution
+3. Executing Tools in the Function Calling loop
+
+## Simple Weaviate Tool
+
 
 
 
