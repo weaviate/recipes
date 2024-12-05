@@ -191,10 +191,11 @@ def openai_function_calling_loop(user_message: str, openai_client: openai.OpenAI
             return message.content
 
         else:
-            for tool in response["message"]["tool_calls"]:
-                function_to_call = tool_mapping[tool["function"]["name"]]
+            for tool_call in message.tool_calls:
+                function_to_call = tool_call.function.name
                 print(f"Calling function {function_to_call}...")
-                function_response = function_to_call(tool["function"]["arguments"]["query"])
+                tool_arguments = json.loads(tool_call.function.arguments)
+                function_response = function_to_call(tool_arguments),
                 messages.append({
                     "role": "tool",
                     "content": function_response,
