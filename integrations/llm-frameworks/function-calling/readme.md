@@ -100,7 +100,7 @@ def get_search_results(query: str) -> str:
     Or what we commonly do is wrap function calling in Classes and save this as internal state with e.g.
     `self.knowledge_base = weaviate_client.collections.get("KnowledgeBase")`
 
-    The "Advanced" Weaviate Tool will illustrate a multi-collection query strategy
+    The "Advanced" Weaviate Tool will illustrate a multi-collection query strategy.
     '''
     response = knowledge_base.query.hybrid(
         query,
@@ -162,42 +162,46 @@ There is a little more to how this changes the typical function calling loop to 
 
 ## 3. Extend LLM generation with the function calling **loop**
 
-# ToDo -- Switch from Ollama to OpenAI Example
+
 
 ```python
 tool_mapping = {
     "get_search_results": get_search_results
 }
 
-def ollama_generation_with_tools(user_message: str,
-                                 tools_schema: List, tool_mapping: Dict,
-                                 model_name: str = "llama3.1") -> str:
+def openai_function_calling_loop(user_message: str, openai_client: openai.OpenAI,
+                                 tools: List[OpenAITool], tool_mapping: Dict,
+                                 call_budget: int = 5,
+                                 model_name: str = "gpt-4o") -> str:
     messages=[{
         "role": "user",
         "content": user_message
     }]
-    response = ollama.chat(
+    response = openai_client.chat.completions.create(
         model=model_name,
         messages=messages,
-        tools=tools_schema
+        tools=tools,
+        parallel_tool_calls=True
     )
-    if not response["message"].get("tool_calls"):
-        return response["message"]["content"]
-    else:
-        for tool in response["message"]["tool_calls"]:
-            function_to_call = tool_mapping[tool["function"]["name"]]
-            print(f"Calling function {function_to_call}...")
-            function_response = function_to_call(tool["function"]["arguments"]["query"])
-            messages.append({
-                "role": "tool",
-                "content": function_response,
-            })
+
+    while calls < call_budget:
+        message = response.choices[0].message
     
-    final_response = ollama.chat(model=model_name, messages=messages)
-    return final_response["message"]["content"]
+        if not message.tool_calls
+            return message.content
+
+        else:
+            for tool in response["message"]["tool_calls"]:
+                function_to_call = tool_mapping[tool["function"]["name"]]
+                print(f"Calling function {function_to_call}...")
+                function_response = function_to_call(tool["function"]["arguments"]["query"])
+                messages.append({
+                    "role": "tool",
+                    "content": function_response,
+                }) 
 ```
 
-Note, another strategy we use in our Function Calling setups is a `tool_call_budget` that tracks 
+### Async Tool Execution
 
 # Advanced Weaviate Querying Tool
 
@@ -211,7 +215,112 @@ Groupby and Sort
 
 ## 1. Define the Advanced Weaviate Query Tool Schema
 
+```python
+def get_weaviate_gorilla_tool(
+    collections_description: str, collections_enum: list[str]
+) -> Tool:
+    properties: Dict[str, Dict[str, Any]] = {
+            "collection_name": {
+                "type": "string",
+                "description": "The collection to query.",
+                "enum": collections_enum
+            },
+            "search_query": {
+                "type": "string",
+                "description": "A search query to return objects from a search index."
+            },
+            "integer_property_filter": {
+                "type": "object",
+                "description": "Filter numeric properties using comparison operators.",
+                "properties": {
+                    "property_name": {"type": "string"},
+                    "operator": {"type": "string", "enum": ["=", "<", ">", "<=", ">="]},
+                    "value": {"type": "number"}
+                },
+            },
+            "text_property_filter": {
+                "type": "object", 
+                "description": "Filter text properties using equality or LIKE operators",
+                "properties": {
+                    "property_name": {"type": "string"},
+                    "operator": {"type": "string", "enum": ["=", "LIKE"]},
+                    "value": {"type": "string"}
+                }
+            },
+            "boolean_property_filter": {
+                "type": "object",
+                "description": "Filter boolean properties using equality operators",
+                "properties": {
+                    "property_name": {"type": "string"},
+                    "operator": {"type": "string", "enum": ["=", "!="]},
+                    "value": {"type": "boolean"}
+                }
+            },
+            "integer_property_aggregation": {
+                "type": "object",
+                "description": "Aggregate numeric properties using statistical functions",
+                "properties": {
+                    "property_name": {"type": "string"},
+                    "metrics": {"type": "string", "enum": ["COUNT", "TYPE", "MIN", "MAX", "MEAN", "MEDIAN", "MODE", "SUM"]}
+                }
+            },
+            "text_property_aggregation": {
+                "type": "object",
+                "description": "Aggregate text properties using frequency analysis",
+                "properties": {
+                    "property_name": {"type": "string"},
+                    "metrics": {"type": "string", "enum": ["COUNT", "TYPE", "TOP_OCCURRENCES"]},
+                    "top_occurrences_limit": {"type": "integer"}
+                }
+            },
+            "boolean_property_aggregation": {
+                "type": "object",
+                "description": "Aggregate boolean properties using statistical functions",
+                "properties": {
+                    "property_name": {"type": "string"},
+                    "metrics": {"type": "string", "enum": ["COUNT", "TYPE", "TOTAL_TRUE", "TOTAL_FALSE", "PERCENTAGE_TRUE", "PERCENTAGE_FALSE"]}
+                }
+            },
+            "groupby_property": {
+                "type": "string",
+                "description": "Group the results by a property."
+            }
+        }
+    return Tool(
+        type="function",
+        function=Function(
+            name="query_database",
+            description=f"""Query a database with an optional search query or optional filters or aggregations on the results.
+
+            IMPORTANT! Please be mindful of the available query APIs you can use such as search queries, filters, aggregations, and groupby!
+
+            Available collections in this database:
+            {collections_description}""",
+            parameters=Parameters(
+                type="object",
+                properties=properties,
+                required=["collection_name"]
+            )
+        )
+    )
+
+collections_description = "\n".join(
+    [c.description for c in self.collections if c.description]
+)
+
+collections_enum = [c.name for c in self.collections]
+
+tools = [get_weaviate_gorilla_tool(
+    collections_description=collections_description,
+    collections_enum=collections_enum
+)]
+```
+
 ## 2. Implement the Tool Execution
+
+```python
+
+```
 
 ## 3. Interface in the Function Calling Loop
 
