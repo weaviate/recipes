@@ -320,9 +320,125 @@ tools = [get_weaviate_gorilla_tool(
 ## 2. Implement the Tool Execution
 
 ```python
+async def query_weaviate_database(
+    self, 
+    tool_args: dict
+) -> str:
+    collection_name = tool_args["collection_name"]
+    collection = self.weaviate_client.collections.get(collection_name)
+    # Check if aggregation is requested
+    has_aggregation = any(key.endswith('_aggregation') for key in tool_args.keys())
+    
+    if has_aggregation:
+        # Handle aggregation query
+        agg_args: Dict[str, Any] = {}
+        
+        # Add groupby if specified
+        if 'groupby_property' in tool_args:
+            agg_args['group_by'] = tool_args['groupby_property']
+        
+        # Always include total count
+        agg_args['total_count'] = True
+        
+        # Process aggregation metrics
+        for agg_type in ['integer_property_aggregation', 'text_property_aggregation', 'boolean_property_aggregation']:
+            if agg_type in tool_args:
+                prop_name = tool_args[agg_type]['property_name']
+                metrics = tool_args[agg_type]['metrics'].lower()
+                
+                if prop_name: # Only add metrics if property name is not empty
+                    if agg_type.startswith('integer'):
+                        metric_args = {metrics: True}
+                        agg_args['return_metrics'] = wvc.query.Metrics(prop_name).integer(**metric_args)
+                    elif agg_type.startswith('text'):
+                        metric_args = {metrics: True}
+                        agg_args['return_metrics'] = wvc.query.Metrics(prop_name).text(**metric_args)
+                    elif agg_type.startswith('boolean'):
+                        metric_args = {metrics: True}
+                        agg_args['return_metrics'] = wvc.query.Metrics(prop_name).boolean(**metric_args)
 
+        # Check if there's also a search query for combined search + aggregation
+        if 'search_query' in tool_args:
+            # Only include agg_args if they are valid (have metrics defined)
+            if 'return_metrics' in agg_args:
+                response = await collection.aggregate.near_text(
+                    query=tool_args['search_query'],
+                    object_limit=5,
+                    total_count=agg_args['total_count'],
+                    group_by=agg_args.get('group_by'),
+                    return_metrics=agg_args['return_metrics']
+                )
+                final_response = format_query_result(response)
+                return final_response
+            else:
+                # Fall back to regular search if no valid metrics
+                response = await collection.query.hybrid(
+                    query=tool_args['search_query'],
+                    limit=5
+                )
+                final_response = format_query_result(response)
+                return final_response
+        
+        response = await collection.aggregate.over_all(
+            total_count=agg_args['total_count'],
+            group_by=agg_args.get('group_by'),
+            return_metrics=agg_args.get('return_metrics')
+        )
+        final_response = format_query_result(response)
+        return final_response
+    
+    else:
+        # Handle regular search query
+        query_params: Dict[str, Any] = {}
+        
+        # Add search query if specified
+        if 'search_query' in tool_args:
+            response = await collection.query.hybrid(
+                query=tool_args['search_query'],
+                limit=5
+            )
+            final_response = format_query_result(response)
+            return final_response
+        
+        # Add filters if specified
+        filters = []
+        for filter_type in ['integer_property_filter', 'text_property_filter', 'boolean_property_filter']:
+            if filter_type in tool_args:
+                prop_name = tool_args[filter_type]['property_name']
+                operator = tool_args[filter_type]['operator']
+                value = tool_args[filter_type]['value']
+                
+                filter_obj = Filter.by_property(prop_name)
+                if operator == '=':
+                    filters.append(filter_obj.equal(value))
+                elif operator == '!=':
+                    filters.append(filter_obj.not_equal(value))
+                elif operator == '>':
+                    filters.append(filter_obj.greater_than(value))
+                elif operator == '<':
+                    filters.append(filter_obj.less_than(value))
+                elif operator == '>=':
+                    filters.append(filter_obj.greater_or_equal(value))
+                elif operator == '<=':
+                    filters.append(filter_obj.less_or_equal(value))
+                elif operator == 'LIKE':
+                    filters.append(filter_obj.like(value))
+        
+        if filters:
+            # Combine multiple filters using & operator instead of Filter.and_
+            combined_filter = filters[0]
+            for f in filters[1:]:
+                combined_filter = combined_filter & f
+            query_params['filters'] = combined_filter
+        
+        response = await collection.query.fetch_objects(
+            limit=5,
+            filters=query_params.get('filters')
+        )
+        final_response = format_query_result(response)
+        return final_response
 ```
 
 ## 3. Interface in the Function Calling Loop
 
-This is identical to the Simple Weaviate Query Tool example above
+This is identical to the Simple Weaviate Query Tool example above.
