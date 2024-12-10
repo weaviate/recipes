@@ -216,6 +216,107 @@ Groupby and Sort
 
 ## 1. Define the Advanced Weaviate Query Tool Schema
 
+### Just the JSON
+
+```python
+{
+  "type": "function",
+  "function": {
+    "name": "query_database",
+    "description": f"Query a database with an optional search query or optional filters or aggregations on the results.\n\nIMPORTANT! Please be mindful of the available query APIs you can use such as search queries, filters, aggregations, and groupby!\n\nAvailable collections in this database:\n{collections_description}",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "collection_name": {
+          "type": "string",
+          "description": "The collection to query.",
+          "enum": collections_list
+        },
+        "search_query": {
+          "type": "string",
+          "description": "A search query to return objects from a search index."
+        },
+        "integer_property_filter": {
+          "type": "object",
+          "description": "Filter numeric properties using comparison operators.",
+          "properties": {
+            "property_name": { "type": "string" },
+            "operator": { "type": "string", "enum": ["=", "<", ">", "<=", ">="] },
+            "value": { "type": "number" }
+          }
+        },
+        "text_property_filter": {
+          "type": "object",
+          "description": "Filter text properties using equality or LIKE operators",
+          "properties": {
+            "property_name": { "type": "string" },
+            "operator": { "type": "string", "enum": ["=", "LIKE"] },
+            "value": { "type": "string" }
+          }
+        },
+        "boolean_property_filter": {
+          "type": "object",
+          "description": "Filter boolean properties using equality operators",
+          "properties": {
+            "property_name": { "type": "string" },
+            "operator": { "type": "string", "enum": ["=", "!="] },
+            "value": { "type": "boolean" }
+          }
+        },
+        "integer_property_aggregation": {
+          "type": "object",
+          "description": "Aggregate numeric properties using statistical functions",
+          "properties": {
+            "property_name": { "type": "string" },
+            "metrics": {
+              "type": "string",
+              "enum": ["COUNT", "TYPE", "MIN", "MAX", "MEAN", "MEDIAN", "MODE", "SUM"]
+            }
+          }
+        },
+        "text_property_aggregation": {
+          "type": "object",
+          "description": "Aggregate text properties using frequency analysis",
+          "properties": {
+            "property_name": { "type": "string" },
+            "metrics": {
+              "type": "string",
+              "enum": ["COUNT", "TYPE", "TOP_OCCURRENCES"]
+            },
+            "top_occurrences_limit": { "type": "integer" }
+          }
+        },
+        "boolean_property_aggregation": {
+          "type": "object",
+          "description": "Aggregate boolean properties using statistical functions",
+          "properties": {
+            "property_name": { "type": "string" },
+            "metrics": {
+              "type": "string",
+              "enum": [
+                "COUNT",
+                "TYPE",
+                "TOTAL_TRUE",
+                "TOTAL_FALSE",
+                "PERCENTAGE_TRUE",
+                "PERCENTAGE_FALSE"
+              ]
+            }
+          }
+        },
+        "groupby_property": {
+          "type": "string",
+          "description": "Group the results by a property."
+        }
+      },
+      "required": ["collection_name"]
+    }
+  }
+}
+```
+
+### ... Wrapped in a function it looks like this:
+
 ```python
 def get_weaviate_gorilla_tool(
     collections_description: str, collections_enum: list[str]
