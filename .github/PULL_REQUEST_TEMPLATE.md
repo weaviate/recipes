@@ -5,7 +5,7 @@ Thank you for contributing to Weaviate recipes! Please fill out the information 
     i.e. Weaviate version `1.25.3`, Weaviate python client `4.6.5`, and Unstructured `0.14.5`
 - Add your name and social handles to the top of the notebook. You can use a company name if preferred!
 
-p.s. If you work at Weaviate, please update the integration page with a link to the notebook!
+p.s. If you work at Weaviate, please update or add to the [integration documentation](https://weaviate.io/developers/integrations) with a link to the notebook!
 -->
 
 ## Description 
