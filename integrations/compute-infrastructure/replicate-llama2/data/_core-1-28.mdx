@@ -1,0 +1,147 @@
+Weaviate `1.28` brings enterprise-grade security, faster indexing, and improved multilingual support to your vector database. This release introduces role-based access control (RBAC), enhanced async indexing improvements, and native Japanese language support - making Weaviate more secure, faster, and globally accessible than ever.
+
+Here are the key highlights:
+
+Here are the release ⭐️*highlights*⭐️!
+
+![Weaviate 1.28](./img/hero.png)
+
+- [**Improved security 👤🔐: Role-based access control preview**](#role-based-access-control-rbac️)
+- [**Speedier, more robust 🏎️ async vector indexing**](#async-indexing-improvements)
+- [**Conflict resolution improvements 🤝 for deletions**](#conflict-resolution-improvements)
+- [**New Japanese 🇯🇵 `kagome_ja` tokenizer for keyword/hybrid search**](#new-japanese-tokenizer)
+- [**Groundwork for Keyword & Hybrid search 🔠 improvements: BlockMax WAND**](#blockmax-wand-experimental)
+- [**Improvements since 1.27**](#other-improvements)
+    - [**Voyage AI Multimodal model support**](#voyage-ai-multimodal-model-support)
+    - [**Weaviate Embeddings**](#weaviate-embeddings)
+
+## Role-based access control (RBAC)️
+
+Weaviate `1.28` introduces role-based access control (RBAC) as a technical preview, offering more granular control over user permissions.
+
+:::caution 🚧 Technical Preview
+Role-based access control (RBAC) is added `v1.28` as a **technical preview**. This means that the feature is still under development and may change in future releases, including potential breaking changes. **We do not recommend using this feature in production environments at this time.**
+<br/>
+
+We appreciate [your feedback](https://forum.weaviate.io/) on this feature.
+:::
+
+This powerful new feature is another big step that is built for our power and enterprise users. It allows you to provide granular sets of permissions through built-in and custom roles to control access to your Weaviate instance.
+
+With RBAC, you can:
+
+- Assign built-in roles (`admin`, `viewer`) to users for common access patterns
+- Create custom roles with fine-grained permissions for different resources
+- Assign multiple roles to users
+- Control access at various levels including collections, objects, backups, and cluster operations
+
+![Authorization flow as an image](./img/authz-diagram.png)
+
+For example, you could create roles like:
+
+A "data scientist" role with read-only access to specific collections
+An "app service" role that can only write to certain collections
+A "backup operator" role that can only manage backups
+A "devops" role with access to view cluster and node metadata
+
+Permissions can be as specific as needed - from broad access to all collections down to operations on individual collections. The system is additive, meaning if a user has multiple roles, they'll gain the combined permissions of all their roles.
+
+To learn more, check out our [Authentication](/developers/weaviate/configuration/authentication) and [Authorization and RBAC](/developers/weaviate/configuration/authorization) documentation, along with the [Roles](/developers/weaviate/configuration/roles) guide.
+
+While RBAC is currently in technical preview (meaning there might be changes before the final release), we're excited to get feedback from the community on this important security feature. For production environments, we recommend continuing to use the existing authentication and authorization mechanisms for now.
+
+## Async indexing improvements
+
+We've enhanced our [asynchronous vector indexing](/developers/weaviate/concepts/vector-index#asynchronous-indexing) feature in `v1.28`, making it more robust and capable than ever. While async indexing (introduced in `v1.22`) already helped speed up batch imports by handling vector indexing in the background, we've now expanded its capabilities and rebuilt its foundations.
+
+The async indexing system now handles all operations related to the vector index, including:
+- Single object imports
+- Object deletions
+- Object updates
+- All batch operations (as before)
+
+This results in a unified system that is more robust, and also more performant. One reason is that it reduces lock contention, which can slow down indexing operations if multiple requests are trying to update the index at the same time.
+
+Another change is that we've replaced the previous in-memory queue with an on-disk queue system. This architectural change reduces memory usage.
+
+This feature is particularly valuable when you're working with large datasets. While the object store updates immediately, vector indexing happens in the background, allowing your requests to complete faster.
+
+Want to try it out? Just set `ASYNC_INDEXING=true` in your environment variables. Weaviate Cloud users can enable it with a single click in the Cloud Console.
+
+As you can see, we are still making improvements to the async indexing feature. This is still marked as **experimental**, so we'd love to hear your feedback on how it's working for you.
+
+## Conflict resolution improvements
+
+When running Weaviate across multiple replicas, it's crucial to maintain [consistency](/developers/weaviate/concepts/replication-architecture/consistency) across the cluster. One common challenge is how to handle conflicts when objects are deleted, as a deleted object might be mistaken for an object that is yet to be created.
+
+`v1.28` introduces three deletion resolution strategies that you can choose from based on your needs:
+
+- `DeleteOnConflict`: The most conservative option that ensures deletions are always honored. Once an object is marked for deletion, it stays deleted across all replicas.
+- `TimeBasedResolution`: A timestamp-based approach where the most recent operation wins. For example, if an object is deleted and then recreated later, the recreation takes precedence. But if the deletion happened after the recreation attempt, the object stays deleted.
+- `NoAutomatedResolution`: The classic approach (and default setting) for those who prefer manual control over conflict resolution.
+
+These strategies work seamlessly with Weaviate's existing replication and repair features to ensure your data stays consistent across your cluster, while giving you control over how deletion conflicts should be handled.
+
+This improvement is particularly valuable for production deployments where data consistency is critical and manual intervention should be minimized.
+
+To use this feature, [set the deletion strategy at the collection level under replication settings](/developers/weaviate/manage-data/collections#replication-settings).
+
+### New Japanese tokenizer
+
+We 🫶 our community, and seeing Weaviate usage grow around the world. So we are very excited to show off this feature that expands our existing set of keyword tokenizers for Japanese text. Especially so as it was contributed to us by [Jun Ohtani](https://github.com/johtani), a Weaviate community user!
+
+This feature adds a new Japanese tokenizer, `kagome_ja`, to Weaviate's keyword and hybrid search capabilities. This tokenizer uses the [Kagome](https://github.com/ikawaha/kagome) library, a morphological analyzer for Japanese text, to break down Japanese text into individual tokens for indexing and searching.
+
+To use this tokenizer, set the `ENABLE_TOKENIZER_KAGOME_JA` [environment variable](/developers/weaviate/config-refs/env-vars) to `true`, and set the [tokenization method](/developers/weaviate/config-refs/schema#kagome_ja-tokenization-method) for the relevant properties to `kagome_ja`.
+
+## BlockMax WAND (Experimental)
+
+:::caution 🚧 Experimental Feature
+This iteration of BlockMax WAND is not for production use.
+<br/>
+
+Currently, this feature must be enabled before ingesting any data, as it requires a different form of an inverted index. For this experimental version, we do not support migrations. The disk format may change in future releases, which will require a re-index, meaning a potential re-ingestion of data.
+:::
+
+BM25 searches form the foundation of Weaviate's keyword and hybrid search capabilities, so we're always looking for further improvements.
+
+`v1.28` lays the groundwork for this by introducing an experimental implementation for the [BlockMax WAND](http://engineering.nyu.edu/~suel/papers/bmw.pdf) algorithm. This highly experimental feature aims to speed up BM25 and hybrid searches by more efficiently evaluating search results, using "blocks" of documents to reduce the number of calculations needed.
+
+While this feature isn't ready for production use, we're including it in 1.28 for those interested in testing and providing feedback. You can try it out by enabling two environment variables:
+
+- `USE_INVERTED_SEARCHABLE: true`: Enables an experimental disk format optimized for BlockMax WAND
+- `USE_BLOCKMAX_WAND: true`: Activates the BlockMax WAND algorithm for queries
+
+We're excited about the potential performance improvements this could bring to keyword and hybrid search in future releases.
+
+## Other improvements
+
+### Voyage AI Multimodal model support
+
+![Voyage AI embeddings integration schematic](../../developers/weaviate/model-providers/_includes/integration_voyageai_embedding.png)
+
+Weaviate recently added support for [Voyage AI's Multimodal model](https://blog.voyageai.com/2024/11/12/voyage-multimodal-3/), a powerful model that combines text and image embeddings for multimodal search.
+
+This model integration was added to Weaviate recently, with `v1.27.8`, `v1.26.12` and `v1.25.28`. You can now use the [Voyage AI model integration](/developers/weaviate/model-providers/voyageai) to build AI-driven applications that can search for objects based on both text and image data.
+
+Note: Client support and official documentation will follow very soon
+
+### Weaviate Embeddings
+
+![Weaviate Embeddings](https://weaviate.io/img/site/weaviate-embedding-image.svg)
+
+In case you missed it, we recently introduced a new service called [Weaviate Embeddings](/developers/wcs/embeddings). This service provides secure, scalable embedding generation as a fully managed service, tightly integrated with Weaviate Cloud instances.
+
+This allows you to generate text embeddings using single authentication, and benefits of unified billing with your Weaviate Cloud account. Read more about it in our [announcement blog post](../introducing-weaviate-embeddings/).
+
+## Summary
+
+Ready to Get Started?
+
+Enjoy the new features and improvements in Weaviate `1.28`. The release is available open-source as always [on GitHub](https://github.com/weaviate/weaviate/releases/tag/v1.28.0), and will be available for new Sandboxes on [Weaviate Cloud](https://console.weaviate.cloud/) very shortly.
+
+For those of you upgrading a self-hosted version, please check the [migration guide](/developers/weaviate/more-resources/migration#general-upgrade-instructions) for detailed instructions.
+
+It will be available for Serverless clusters on Weaviate Cloud soon as well.
+
+Thanks for reading, see you next time 👋!
