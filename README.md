@@ -7,8 +7,7 @@ This repository covers end-to-end examples of the various features and integrati
 | Category                                | Description                                                                                 |
 | ----------------------------------------|---------------------------------------------------------------------------------------------|
 | [Integrations](/integrations)           | Notebooks showing you how to use Weaviate plus another technology                           |
-| [Weaviate Features](/weaviate-features) | Notebooks covering **vector**, **hybrid** and **generative search**, **reranking**, **multi-tenancy** and more |
-
+| [Weaviate Features](/weaviate-features) | Notebooks covering vector, hybrid and generative search, reranking, multi-tenancy, and more |
 
 ## Integrations 🌐
 Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers/integrations)!
