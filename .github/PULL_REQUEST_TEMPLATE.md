@@ -13,6 +13,7 @@ p.s. If you work at Weaviate, please update or add to the [integration documenta
 
 ## Contribution Type
 - [ ] Integration
+- [ ] Weaviate service
 - [ ] Weaviate feature
 
 ## Promotion 
