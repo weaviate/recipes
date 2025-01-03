@@ -4,9 +4,10 @@
 
 This repository covers end-to-end examples of the various features and integrations with [Weaviate](https://www.weaviate.io).
 
-| Category                                | Description                                                                                 |
-| ----------------------------------------|---------------------------------------------------------------------------------------------|
-| [Integrations](/integrations)           | Notebooks showing you how to use Weaviate plus another technology                           |
+| Category | Description |
+| -------------|---------|
+| [Integrations](/integrations)| Notebooks showing you how to use Weaviate plus another technology |
+| [Weaviate Services](/weaviate-services/) | Notebooks showing you how to build with Weaviate Services |
 | [Weaviate Features](/weaviate-features) | Notebooks covering vector, hybrid and generative search, reranking, multi-tenancy, and more |
 
 ## Integrations 🌐
@@ -19,6 +20,12 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 | Data Platforms| Databricks, Confluent Cloud, Spark, Unstructured, Firecrawl, Context Data, Aryn, Astronomer, Airbyte, IBM (Docling) |
 | LLM Frameworks | DSPy, LangChain, LlamaIndex, Semantic Kernel, Ollama, Composio, Haystack |
 | Operations | Arize, Langtrace, LangWatch, Nomic, Ragas, Weights & Biases |
+
+
+## Weaviate Services 🧰
+| Service | Description |
+|---------|-------------|
+| Weaviate Embeddings | [Weaviate Embeddings](https://weaviate.io/developers/wcs/embeddings) enables you to generate embeddings directly from a [Weaviate Cloud](https://console.weaviate.cloud/) database instance. | 
 
 
 ## Weaviate Features 🔧
