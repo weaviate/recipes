@@ -1,0 +1,25 @@
+[config]
+layout = "recipes"
+toc = true
+colab = "https://colab.research.google.com/github/weaviate/recipes/blob/main/"
+
+[[recipe]]
+title = "Hybrid Search with Mistral"
+notebook = "weaviate-features/hybrid-search/hybrid_search_mistral.ipynb"
+tags = ["Hybrid Search", "Mistral"]
+
+[[recipe]]
+title = "RAG with Cohere on Amazon Bedrock and Weaviate on AWS Market place"
+notebook = "integrations/cloud-hyperscalers/aws/RAG_Cohere_Weaviate_v4_client.ipynb"
+tags = ["RAG", "Cohere", "AWS", "Amazon Bedrock"]
+
+[[recipe]]
+title = "How to use ColPali with Weaviate's Named Vectors"
+notebook = "weaviate-features/named-vectors/NamedVectors-ColPali-POC.ipynb"
+tags = ["ColPali", "Named Vectors"]
+
+[[recipe]]
+title = "How to Use Weaviate Embedding Service"
+notebook = "weaviate-services/weaviate_embeddings_service.ipynb"
+tags = ["Weaviate Embeddings", "Weaviate Cloud"]
+featured = true
