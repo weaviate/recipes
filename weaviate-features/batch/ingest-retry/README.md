@@ -21,3 +21,12 @@ python -m venv .venv
 . .venv/bin/activate
 pip install -r requirements.txt
 ```
+
+Also make sure that you start the weaviate docker images and ollama like below:
+
+```bash
+docker compose -f docker-compose.yaml up -d
+ollama serve
+ollama pull mxbai-embed-large:latest
+ollama pull llama3.2:latest
+```
