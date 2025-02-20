@@ -34,6 +34,7 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 | Media Search | Use Weaviate's `nearImage` and `nearVideo` operator to search using images and videos |
 | Classification | Learn how to use KNN and zero-shot classification |
 | Multi-Tenancy | Store tenants on separate shards for complete data isolation |
+| Multi-Vector Embeddings | Use Weaviate with powerful ColBERT-style embeddings to improve search results |
 | Product Quantization | Compress vector embeddings and reduce the memory footprint using Weaviate's PQ feature |
 | Evaluation | Evaluate your search system |
 
