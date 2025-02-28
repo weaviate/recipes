@@ -41,6 +41,7 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 ## Weaviate Services 🧰
 | Service | Description |
 |---------|-------------|
+| Agents | Use Weaviate's inherent agents like the `QueryAgent` & `TransformationAgent` |
 | Weaviate Embeddings | [Weaviate Embeddings](https://weaviate.io/developers/wcs/embeddings) enables you to generate embeddings directly from a [Weaviate Cloud](https://console.weaviate.cloud/) database instance. | 
 
 ## Feedback ❓
