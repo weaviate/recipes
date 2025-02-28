@@ -26,7 +26,6 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 
 | Feature | Description |
 |---------|-------------|
-| Agents | Use Weaviate's inherent agents like the `QueryAgent` & `TransformationAgent` |
 | Similarity Search | Use Weaviate's `nearText` operator to run semantic search queries (broken out by model provider) |
 | Hybrid Search | Use Weaviate's `hybrid` operator to run hybrid search queries (broken out by model provider) |
 | Generative Search | Build a simple RAG workflow using Weaviate's `.generate` (broken out by model provider) |
@@ -42,6 +41,7 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 ## Weaviate Services 🧰
 | Service | Description |
 |---------|-------------|
+| Agents | Use Weaviate's inherent agents like the `QueryAgent` & `TransformationAgent` |
 | Weaviate Embeddings | [Weaviate Embeddings](https://weaviate.io/developers/wcs/embeddings) enables you to generate embeddings directly from a [Weaviate Cloud](https://console.weaviate.cloud/) database instance. | 
 
 ## Feedback ❓
