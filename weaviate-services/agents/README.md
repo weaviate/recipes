@@ -7,7 +7,7 @@ Weaviate Agents are pre-built agentic services designed for specific tasks.
 
 
 
-### Query Agent as a Tool
+## Query Agent as a Tool
 Learn how to use the Weaviate Query Agent as a tool with LLM SDKs and Agent Frameworks.
 
 | Company name | Solution Type   | Notebook Link  |
