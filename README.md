@@ -19,7 +19,7 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 | Compute Infrastructure | Modal, Replicate |
 | Data Platforms| Databricks, Confluent Cloud, Spark, Unstructured, Firecrawl, Context Data, Aryn, Astronomer, Airbyte, IBM (Docling) |
 | LLM and Agent Frameworks | Agno, CrewAI, DSPy, LangChain, LlamaIndex, Pydantic, Semantic Kernel, Ollama, Composio, Haystack |
-| Operations | Arize, Langtrace, LangWatch, Nomic, Ragas, Weights & Biases |
+| Operations | Arize, DeepEval, Langtrace, LangWatch, Nomic, Ragas, Weights & Biases |
 
 
 ## Weaviate Features 🔧
