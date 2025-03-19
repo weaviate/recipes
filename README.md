@@ -17,7 +17,7 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 |------------------|-----------|
 | Cloud Hyperscalers | Google, AWS, NVIDIA |
 | Compute Infrastructure | Modal, Replicate |
-| Data Platforms| Databricks, Confluent Cloud, Box, Spark, Unstructured, Firecrawl, Context Data, Aryn, Astronomer, Airbyte, IBM (Docling) |
+| Data Platforms| Databricks, Confluent, Box, Spark, Unstructured, Firecrawl, Context Data, Aryn, Astronomer, Airbyte, IBM (Docling) |
 | LLM and Agent Frameworks | Agno, CrewAI, DSPy, LangChain, LlamaIndex, Pydantic, Semantic Kernel, Ollama, Composio, Haystack |
 | Operations | Arize, DeepEval, Langtrace, LangWatch, Nomic, Ragas, Weights & Biases |
 
