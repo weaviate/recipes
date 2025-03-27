@@ -44,5 +44,20 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 | Agents | Use Weaviate's inherent agents like the `QueryAgent` & `TransformationAgent` |
 | Weaviate Embeddings | [Weaviate Embeddings](https://weaviate.io/developers/wcs/embeddings) enables you to generate embeddings directly from a [Weaviate Cloud](https://console.weaviate.cloud/) database instance. | 
 
+## Contribution Guidelines for Adding Recipe to Weaviate Website
+
+Requirement: For a recipe to be added to the website, it should be a Python notebook
+
+In your PR, you should make sure you've completed the following steps:
+
+1. Add an entry for your recipe into `index.toml`. Add any relevant and optional tags: `tags: a list of topic tags`, `agent: true or false`, `integration: true or false` etc.
+2. `pip install -r requirements.
+3. `python scripts/generate_markdowns.py`: This will generate a markdown version of your recipe including the frontmatter needed for the website. Check that the markdown looks correct and fix any errors that running this script causes.
+4. Create the PR which should incliude: your recipe, an edit to the `index.toml` as well as the genreated markdown in `markdowns/`
+
+> 🌅 Handling images: If your recipe has an image displayed in it, we recommend embedding the image via it's github url.
+
+> ⚠️ If you are making changed to the `recipes` repository layout, please make sure you've corrected the recipe paths in `index.toml` if they have changed location!
+
 ## Feedback ❓
 Please note this is an ongoing project, and updates will be made frequently. If you have a feature you would like to see, please create a GitHub issue or feel free to contribute one yourself!
