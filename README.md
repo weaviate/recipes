@@ -51,7 +51,7 @@ Requirement: For a recipe to be added to the website, it should be a Python note
 In your PR, you should make sure you've completed the following steps:
 
 1. Add an entry for your recipe into `index.toml`. Add any relevant and optional tags: `tags: a list of topic tags`, `agent: true or false`, `integration: true or false` etc.
-2. `pip install -r requirements.
+2. `pip install -r requirements.txt`
 3. `python scripts/generate_markdowns.py`: This will generate a markdown version of your recipe including the frontmatter needed for the website. Check that the markdown looks correct and fix any errors that running this script causes.
 4. Create the PR which should incliude: your recipe, an edit to the `index.toml` as well as the genreated markdown in `markdowns/`
 
