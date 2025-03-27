@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+weaviate-client = "*"
+colpali-engine = "*"
+jupyter = "*"
+datasets = "*"
+numpy = "*"
+torch = "*"
+qwen-vl-utils = "*"
+transformers = {git = "https://github.com/huggingface/transformers"}
+accelerate = "*"
+torchvision = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.13"

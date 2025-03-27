@@ -9,12 +9,12 @@ p.s. If you work at Weaviate, please update or add to the [integration documenta
 -->
 
 ## Description 
-<!-- A short description of the notebook -->
+<!-- Short description of the notebook(s) -->
 
 ## Contribution Type
 - [ ] Integration
-- [ ] Weaviate service
 - [ ] Weaviate feature
+- [ ] Weaviate service
 
 ## Promotion 
 <!-- We'd love to promote your work on our socials! If you'd like a shoutout, please complete the section below. -->
