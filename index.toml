@@ -15,11 +15,50 @@ tags = ["RAG", "Cohere", "AWS", "Amazon Bedrock"]
 
 [[recipe]]
 title = "How to use ColPali with Weaviate's Named Vectors"
-notebook = "weaviate-features/named-vectors/NamedVectors-ColPali-POC.ipynb"
+notebook = "weaviate-features/multi-vector/NamedVectors-ColPali-POC.ipynb"
 tags = ["ColPali", "Named Vectors"]
 
 [[recipe]]
 title = "How to Use Weaviate Embedding Service"
-notebook = "weaviate-services/weaviate_embeddings_service.ipynb"
+notebook = "weaviate-services/embedding-service/weaviate_embeddings_service.ipynb"
 tags = ["Weaviate Embeddings", "Weaviate Cloud"]
 featured = true
+
+[[recipe]]
+title = "Build A Weaviate Query Agent - The E-Commerce Assistant"
+notebook = "weaviate-services/agents/query-agent-get-started.ipynb"
+tags = ["Query Agent"]
+agent = true
+featured = true
+
+[[recipe]]
+title = "Build A Weaviate Transformation Agent"
+notebook = "weaviate-services/agents/transformation-agent-get-started.ipynb"
+tags = ["Transformation Agent"]
+agent = true
+featured = true
+
+[[recipe]]
+title = "Benchmarking Arctic 2.0 vs. Arctic 1.5 with Synthetic RAG Evals"
+notebook = "weaviate-services/agents/transformation-agent-retrieval-benchmark.ipynb"
+tags = ["Transformation Agent"]
+agent = true
+featured = true
+
+[[recipe]]
+title = "Weaviate Query Agent with Crew AI"
+notebook = "integrations/llm-agent-frameworks/crewai/crewai-query-agent-as-tool.ipynb"
+tags = ["Query Agent, Integration"]
+integration = true
+
+[[recipe]]
+title = "Weaviate Query Agent with Haystack"
+notebook = "integrations/llm-agent-frameworks/haystack/haystack-query-agent-tool.ipynb"
+tags = ["Query Agent, Integration"]
+integration = true
+
+[[recipe]]
+title = "Weaviate Query Agent with LlamaIndex"
+notebook = "integrations/llm-agent-frameworks/llamaindex/agents/agent-workflow-with-weaviate-query-agent-.ipynb"
+tags = ["Query Agent, Integration"]
+integration = true

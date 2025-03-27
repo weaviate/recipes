@@ -1,20 +1,23 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main//weaviate-features/named-vectors/NamedVectors-ColPali-POC.ipynb
+colab: https://colab.research.google.com/github/weaviate/recipes/blob/main//weaviate-features/multi-vector/NamedVectors-ColPali-POC.ipynb
 toc: True
 title: "How to use ColPali with Weaviate's Named Vectors"
-download: /downloads/NamedVectors-ColPali-POC.ipynb
 featured: False
+integration: False
+agent: False
 tags: ['ColPali', 'Named Vectors']
 ---
     
 
 
+**Please note: The multi-vector feature was added to Weaviate `1.29`. Test out the feature in [this notebook](weaviate-features/multi-vector/multi-vector-colipali-rag.ipynb).**
+
 ColPali uses a multi-vector embedding search method similar to ColBERT, embedding an image into 1024 patch vectors.
 
 This notebook will show you how to embed images with ColPali, how to import patch vectors into Weaviate using Named Vectors, and how to query with Weaviate's Named Vectors!
 
-Note: This is a workaround solution that does not yet implement the MaxSim operator.
+**Note: This is a workaround solution that does not yet implement the MaxSim operator.**
 
 We will test this with 3 PDFs:
 - NBA_voting.pdf

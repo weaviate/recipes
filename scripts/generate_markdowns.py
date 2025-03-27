@@ -16,6 +16,8 @@ colab: {notebook.get("colab")}
 toc: True
 title: "{notebook["title"]}"
 featured: {notebook.get("featured", False)}
+integration: {notebook.get("integration", False)}
+agent: {notebook.get("agent", False)}
 tags: {notebook.get("tags", False)}
 ---
     """
@@ -90,6 +92,8 @@ if __name__ == "__main__":
             "title": recipe_data["title"],
             "colab": f"{index_data['config']['colab']}/{recipe_data['notebook']}",
             "featured": recipe_data.get("featured", False),
+            "integration": recipe_data.get("integration", False),
+            "agent": recipe_data.get("agent", False),
             "tags": recipe_data.get("tags", False),
         }
         generate_markdown_from_notebook(data, args.output)

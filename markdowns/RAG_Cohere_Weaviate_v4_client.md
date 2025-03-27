@@ -3,8 +3,9 @@ layout: recipe
 colab: https://colab.research.google.com/github/weaviate/recipes/blob/main//integrations/cloud-hyperscalers/aws/RAG_Cohere_Weaviate_v4_client.ipynb
 toc: True
 title: "RAG with Cohere on Amazon Bedrock and Weaviate on AWS Market place"
-download: /downloads/RAG_Cohere_Weaviate_v4_client.ipynb
 featured: False
+integration: False
+agent: False
 tags: ['RAG', 'Cohere', 'AWS', 'Amazon Bedrock']
 ---
     

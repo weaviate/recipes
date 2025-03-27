@@ -3,8 +3,9 @@ layout: recipe
 colab: https://colab.research.google.com/github/weaviate/recipes/blob/main//weaviate-features/hybrid-search/hybrid_search_mistral.ipynb
 toc: True
 title: "Hybrid Search with Mistral"
-download: /downloads/hybrid_search_mistral.ipynb
 featured: False
+integration: False
+agent: False
 tags: ['Hybrid Search', 'Mistral']
 ---
     
