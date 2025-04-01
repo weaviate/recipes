@@ -61,6 +61,13 @@ def generate_markdown_from_notebook(notebook, output_path):
 
     print(f"Processing {notebook['file']}")
     filename = notebook["file"].stem
+
+    if notebook.get("agent", False):
+        output_path = "markdowns/agents"
+    elif notebook.get("integration", False):
+        output_path = "markdowns/integrations"
+    else: output_path = "markdowns/weaviate"
+    
     with open(f"{output_path}/{filename}.md", "w", encoding="utf-8") as f:
         try:
             f.write(frontmatter + "\n\n")
