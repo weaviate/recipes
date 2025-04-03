@@ -8,6 +8,7 @@ from nbconvert import MarkdownExporter
 from nbconvert.filters.strings import get_lines
 from nbformat import read, NO_CONVERT
 
+RAW_IMAGE_PATH = "https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/"
 
 def generate_frontmatter(notebook):
     frontmatter = f"""---
@@ -53,21 +54,30 @@ def generate_markdown_from_notebook(notebook, output_path):
     cleaned_nb = clean_colab_dataframe_cells(nb)
 
     body, _ = md_exporter.from_notebook_node(cleaned_nb)
-    body = get_lines(body, start=1)
-    
-    # remove output images from the markdown: they are not handled properly
-    img_pattern=r'^!\[png\]\(.*\.png\)$'
-    body = re.sub(img_pattern, '', body, flags=re.MULTILINE)
 
-    print(f"Processing {notebook['file']}")
+    body = get_lines(body, start=1)
+
+    # remove output images from the markdown: they are not handled properly
+    output_img_pattern=r'^!\[png\]\(.*\.png\)$'
+    body = re.sub(output_img_pattern, '', body, flags=re.MULTILINE)
+    
     filename = notebook["file"].stem
 
+    images = re.findall(r"(?:[!]\[(?P<caption>.*?)\])\((?P<image>.*?)\)", body)
+    path = notebook["relative_repo_path"].split(filename)[0]
+    if images:
+        for img in images:
+            body = body.replace(tuple(img)[1].split(' ')[0], f"{RAW_IMAGE_PATH}{path}{tuple(img)[1].split(' ')[0].removeprefix('./')}")
+            print("Image: ", tuple(img)[1].split(' ')[0].removeprefix('./'))
+            print("Replace with", f"{RAW_IMAGE_PATH}{path}{tuple(img)[1].split(' ')[0].removeprefix('./')}")
+    print(f"Processing {notebook['file']}")
+    
     if notebook.get("agent", False):
         output_path = "markdowns/agents"
     elif notebook.get("integration", False):
         output_path = "markdowns/integrations"
     else: output_path = "markdowns/weaviate"
-    
+
     with open(f"{output_path}/{filename}.md", "w", encoding="utf-8") as f:
         try:
             f.write(frontmatter + "\n\n")
@@ -102,5 +112,6 @@ if __name__ == "__main__":
             "integration": recipe_data.get("integration", False),
             "agent": recipe_data.get("agent", False),
             "tags": recipe_data.get("tags", False),
+            "relative_repo_path": recipe_data["notebook"],
         }
         generate_markdown_from_notebook(data, args.output)

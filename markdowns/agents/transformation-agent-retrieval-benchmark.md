@@ -28,7 +28,7 @@ The Arctic 2.0 model demonstrates superior performance, with particularly notabl
 
 ## Here is an overview of what this notebook illustrates:
 
-![Embedding Benchmark with the Transformation Agent](./images/synthetic-query-overview-new.png "Embedding Benchmark with the Transformation Agent")
+![Embedding Benchmark with the Transformation Agent](https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/images/synthetic-query-overview-new.png "Embedding Benchmark with the Transformation Agent")
 
 
 ```python
@@ -149,12 +149,12 @@ print(blog_chunks[0])
     slug: intel
     authors: [zain, asdine, john]
     date: 2024-03-26
-    image: ./img/hero.png
+    image: https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/img/hero.png
     tags: ['engineering', 'research']
     description: 'Boosting Weaviate using SIMD-AVX512, Loop Unrolling and Compiler Optimizations'
     ---
     
-    ![HERO image](./img/hero.png)
+    ![HERO image](https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/img/hero.png)
     
     **Overview of Key Sections:**
     - [**Vector Distance Calculations**](#vector-distance-calculations) Different vector distance metrics popularly used in Weaviate. - [**Implementations of Distance Calculations in Weaviate**](#vector-distance-implementations) Improvements under the hood for implementation of Dot product and L2 distance metrics. - [**Intel’s 5th Gen Intel Xeon Processor, Emerald Rapids**](#enter-intel-emerald-rapids)  More on Intel's new 5th Gen Xeon processor. - [**Benchmarking Performance**](#lets-talk-numbers) Performance numbers on microbenchmarks along with simulated real-world usage scenarios. What’s the most important calculation a vector database needs to do over and over again?
@@ -331,10 +331,10 @@ for i, result in enumerate(results, 1):
     authors: [charles-pierse, tuana, alvin]
     date: 2025-03-05
     tags: ['concepts', 'agents', 'release']
-    image: ./img/hero.png
+    image: https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/img/hero.png
     description: "Learn about the Query Agent, our new agentic search service that redefines how you interact with Weaviate’s database!"
     ---
-    ![Introducing the Weaviate Query Agent](./img/hero.png)
+    ![Introducing the Weaviate Query Agent](https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/img/hero.png)
     
     
     We’re incredibly excited to announce that we’ve released a brand new service for our [Serverless Weaviate Cloud](https://weaviate.io/deployment/serverless) users (including free Sandbox users) to preview, currently in Alpha: the _**Weaviate Query Agent!**_ Ready to use now, this new feature provides a simple interface for users to ask complex multi-stage questions about your data in Weaviate, using powerful foundation LLMs. In this blog, learn more about what the Weaviate Query Agent is, and discover how you can build your own!
@@ -368,7 +368,7 @@ for i, result in enumerate(results, 1):
     -   Regular [semantic search](/blog/vector-search-explained) with optional filters
     -   Aggregations
     
-    In essence, we’ve released a multi-agent system that can route queries to one or the other and synthesise a final answer for the user. ![Query Agent](img/query-agent.png)
+    In essence, we’ve released a multi-agent system that can route queries to one or the other and synthesise a final answer for the user. ![Query Agent](https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/img/query-agent.png)
     
     ### Routing to Search vs Aggregations
     
@@ -525,4 +525,4 @@ Here are some more resources to learn about the Snowflake Arctic Embedding model
 
 ## Massive thanks to Luke and Puxuan for reviewing this notebook!
 
-![Arctic Embed on the Weaviate Podcast](./images/pod-110-thumbnail.png "Arctic Embed on the Weaviate Podcast!")
+![Arctic Embed on the Weaviate Podcast](https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/images/pod-110-thumbnail.png "Arctic Embed on the Weaviate Podcast!")
