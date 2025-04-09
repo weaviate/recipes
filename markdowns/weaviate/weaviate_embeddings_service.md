@@ -1,6 +1,6 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main//weaviate-services/embedding-service/weaviate_embeddings_service.ipynb
+colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/embedding-service/weaviate_embeddings_service.ipynb
 toc: True
 title: "How to Use Weaviate Embedding Service"
 featured: True
@@ -9,7 +9,7 @@ agent: False
 tags: ['Weaviate Embeddings', 'Weaviate Cloud']
 ---
     
-
+# Weaviate Embedding Service
 
 [Weaviate Embeddings](https://weaviate.io/developers/wcs/embeddings) enables you to generate embeddings directly from a [Weaviate Cloud](https://console.weaviate.cloud/) database instance. 
 
@@ -184,15 +184,15 @@ for item in response.objects:
     print("Data:", json.dumps(item.properties, indent=2), "\n")
 ```
 
-    Data: {
+    Data: \{
       "value": "NaN",
       "answer": "the narwhal",
       "question": "A part of this marine mammal was prized by medieval folk, who thought it belonged to a unicorn",
       "category": "THE ANIMAL KINGDOM"
     } 
     
-    Data: {
-      "value": "$400",
+    Data: \{
+      "value": "&#36;400",
       "answer": "the walrus",
       "question": "You could say this Arctic mammal, Odobenus rosmarus, has a Wilford Brimley mustache",
       "category": "MAMMALS"
@@ -222,15 +222,15 @@ for item in response.objects:
     print("Data:", json.dumps(item.properties, indent=2), "\n")
 ```
 
-    Data: {
+    Data: \{
       "value": "NaN",
       "answer": "the narwhal",
       "question": "A part of this marine mammal was prized by medieval folk, who thought it belonged to a unicorn",
       "category": "THE ANIMAL KINGDOM"
     } 
     
-    Data: {
-      "value": "$400",
+    Data: \{
+      "value": "&#36;400",
       "answer": "the walrus",
       "question": "You could say this Arctic mammal, Odobenus rosmarus, has a Wilford Brimley mustache",
       "category": "MAMMALS"
@@ -255,15 +255,15 @@ for item in response.objects:
     print("Data:", json.dumps(item.properties, indent=2), "\n")
 ```
 
-    Data: {
-      "value": "$200",
+    Data: \{
+      "value": "&#36;200",
       "answer": "Disney",
       "question": "This company operates the 4 most popular theme parks in North America",
       "category": "BUSINESS & INDUSTRY"
     } 
     
-    Data: {
-      "value": "$400",
+    Data: \{
+      "value": "&#36;400",
       "answer": "Yamaha",
       "question": "This firm began in 1897 as Nippon Gakki Company, an organ manufacturer; electronic organs came along in 1959",
       "category": "BUSINESS & INDUSTRY"

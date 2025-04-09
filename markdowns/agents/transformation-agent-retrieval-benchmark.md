@@ -1,6 +1,6 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main//weaviate-services/agents/transformation-agent-retrieval-benchmark.ipynb
+colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/transformation-agent-retrieval-benchmark.ipynb
 toc: True
 title: "Benchmarking Arctic 2.0 vs. Arctic 1.5 with Synthetic RAG Evals"
 featured: True
@@ -9,7 +9,7 @@ agent: True
 tags: ['Transformation Agent']
 ---
     
-
+# Benchmarking Arctic 2.0 vs. Arctic 1.5 with Synthetic RAG Evals
 
 Traditionally, AI system evaluation has relied heavily on human-written evaluation sets. Most notably, this process demands substantial time and resource investment, preventing most developers from creating and properly evaluating their AI systems.
 
@@ -99,7 +99,7 @@ def chunk_list(lst, chunk_size):
 
 def split_into_sentences(text):
     """Split text into sentences using regular expressions."""
-    sentences = re.split(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', text)
+    sentences = re.split(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?&lt;=\.|\?)\s', text)
     return [sentence.strip() for sentence in sentences if sentence.strip()]
 
 def read_and_chunk_index_files(main_folder_path):
@@ -149,7 +149,7 @@ print(blog_chunks[0])
     slug: intel
     authors: [zain, asdine, john]
     date: 2024-03-26
-    image: https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/img/hero.png
+    image: ./img/hero.png
     tags: ['engineering', 'research']
     description: 'Boosting Weaviate using SIMD-AVX512, Loop Unrolling and Compiler Optimizations'
     ---
@@ -264,7 +264,7 @@ for operation in response:  # The response is a list of TransformationResponse o
     print(agent.get_status(workflow_id=operation.workflow_id))  # Use the workflow_id to check the status of each operation
 ```
 
-    {'workflow_id': 'TransformationWorkflow-e979d5f69b91575e7289ab61d559cafa', 'status': {'batch_count': 0, 'end_time': None, 'start_time': '2025-03-12 01:21:58', 'state': 'running', 'total_duration': None, 'total_items': 0}}
+    \{'workflow_id': 'TransformationWorkflow-e979d5f69b91575e7289ab61d559cafa', 'status': \{'batch_count': 0, 'end_time': None, 'start_time': '2025-03-12 01:21:58', 'state': 'running', 'total_duration': None, 'total_items': 0}}
 
 
 
@@ -275,8 +275,8 @@ agent.get_status(workflow_id=response[0].workflow_id)
 
 
 
-    {'workflow_id': 'TransformationWorkflow-e979d5f69b91575e7289ab61d559cafa',
-     'status': {'batch_count': 9,
+    \{'workflow_id': 'TransformationWorkflow-e979d5f69b91575e7289ab61d559cafa',
+     'status': \{'batch_count': 9,
       'end_time': '2025-03-12 01:23:01',
       'start_time': '2025-03-12 01:21:58',
       'state': 'completed',
@@ -331,7 +331,7 @@ for i, result in enumerate(results, 1):
     authors: [charles-pierse, tuana, alvin]
     date: 2025-03-05
     tags: ['concepts', 'agents', 'release']
-    image: https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/img/hero.png
+    image: ./img/hero.png
     description: "Learn about the Query Agent, our new agentic search service that redefines how you interact with Weaviate’s database!"
     ---
     ![Introducing the Weaviate Query Agent](https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/img/hero.png)

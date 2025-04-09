@@ -1,6 +1,6 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main//weaviate-services/agents/transformation-agent-get-started.ipynb
+colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/transformation-agent-get-started.ipynb
 toc: True
 title: "Build A Weaviate Transformation Agent"
 featured: True
@@ -9,7 +9,7 @@ agent: True
 tags: ['Transformation Agent']
 ---
     
-
+# Build a Weaviate Transformation Agent
 
 In this recipe, we will use a Weaviate [`TransformationAgent`](https://weaviate.io/developers/agents/transformation) to enhance our data in Weaviate. We will build an agent that has access to a collection containing a bunch or research papers, their abstracts and titles. We will then use the agent to create additional properties for eaach of our objects in the collection.
 
@@ -77,63 +77,63 @@ To use the Weaviate Transformation Agent, first, create a [Weaviate Cloud](https
     Collecting datasets
       Using cached datasets-3.3.2-py3-none-any.whl.metadata (19 kB)
     Requirement already satisfied: weaviate-client[agents] in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (4.11.1)
-    Requirement already satisfied: httpx<0.29.0,>=0.26.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client[agents]) (0.27.0)
+    Requirement already satisfied: httpx&lt;0.29.0,>=0.26.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client[agents]) (0.27.0)
     Requirement already satisfied: validators==0.34.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client[agents]) (0.34.0)
-    Requirement already satisfied: authlib<1.3.2,>=1.2.1 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client[agents]) (1.3.1)
-    Requirement already satisfied: pydantic<3.0.0,>=2.8.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client[agents]) (2.10.5)
-    Requirement already satisfied: grpcio<2.0.0,>=1.66.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client[agents]) (1.69.0)
-    Requirement already satisfied: grpcio-tools<2.0.0,>=1.66.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client[agents]) (1.69.0)
-    Requirement already satisfied: grpcio-health-checking<2.0.0,>=1.66.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client[agents]) (1.69.0)
-    Requirement already satisfied: weaviate-agents<1.0.0,>=0.3.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client[agents]) (0.4.0)
+    Requirement already satisfied: authlib&lt;1.3.2,>=1.2.1 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client[agents]) (1.3.1)
+    Requirement already satisfied: pydantic&lt;3.0.0,>=2.8.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client[agents]) (2.10.5)
+    Requirement already satisfied: grpcio&lt;2.0.0,>=1.66.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client[agents]) (1.69.0)
+    Requirement already satisfied: grpcio-tools&lt;2.0.0,>=1.66.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client[agents]) (1.69.0)
+    Requirement already satisfied: grpcio-health-checking&lt;2.0.0,>=1.66.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client[agents]) (1.69.0)
+    Requirement already satisfied: weaviate-agents&lt;1.0.0,>=0.3.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client[agents]) (0.4.0)
     Requirement already satisfied: filelock in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from datasets) (3.17.0)
     Requirement already satisfied: numpy>=1.17 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from datasets) (2.2.2)
     Collecting pyarrow>=15.0.0 (from datasets)
       Using cached pyarrow-19.0.1-cp313-cp313-macosx_12_0_arm64.whl.metadata (3.3 kB)
-    Collecting dill<0.3.9,>=0.3.0 (from datasets)
+    Collecting dill&lt;0.3.9,>=0.3.0 (from datasets)
       Using cached dill-0.3.8-py3-none-any.whl.metadata (10 kB)
     Requirement already satisfied: pandas in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from datasets) (2.2.3)
     Requirement already satisfied: requests>=2.32.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from datasets) (2.32.3)
     Requirement already satisfied: tqdm>=4.66.3 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from datasets) (4.67.1)
     Collecting xxhash (from datasets)
       Using cached xxhash-3.5.0-cp313-cp313-macosx_11_0_arm64.whl.metadata (12 kB)
-    Collecting multiprocess<0.70.17 (from datasets)
+    Collecting multiprocess&lt;0.70.17 (from datasets)
       Using cached multiprocess-0.70.16-py312-none-any.whl.metadata (7.2 kB)
-    Requirement already satisfied: fsspec<=2024.12.0,>=2023.1.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from fsspec[http]<=2024.12.0,>=2023.1.0->datasets) (2024.12.0)
+    Requirement already satisfied: fsspec&lt;=2024.12.0,>=2023.1.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from fsspec[http]&lt;=2024.12.0,>=2023.1.0->datasets) (2024.12.0)
     Requirement already satisfied: aiohttp in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from datasets) (3.11.11)
     Requirement already satisfied: huggingface-hub>=0.24.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from datasets) (0.27.1)
     Requirement already satisfied: packaging in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from datasets) (24.2)
     Requirement already satisfied: pyyaml>=5.1 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from datasets) (6.0.2)
-    Requirement already satisfied: cryptography in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from authlib<1.3.2,>=1.2.1->weaviate-client[agents]) (44.0.0)
+    Requirement already satisfied: cryptography in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from authlib&lt;1.3.2,>=1.2.1->weaviate-client[agents]) (44.0.0)
     Requirement already satisfied: aiohappyeyeballs>=2.3.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from aiohttp->datasets) (2.4.4)
     Requirement already satisfied: aiosignal>=1.1.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from aiohttp->datasets) (1.3.2)
     Requirement already satisfied: attrs>=17.3.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from aiohttp->datasets) (24.3.0)
     Requirement already satisfied: frozenlist>=1.1.1 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from aiohttp->datasets) (1.5.0)
-    Requirement already satisfied: multidict<7.0,>=4.5 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from aiohttp->datasets) (6.1.0)
+    Requirement already satisfied: multidict&lt;7.0,>=4.5 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from aiohttp->datasets) (6.1.0)
     Requirement already satisfied: propcache>=0.2.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from aiohttp->datasets) (0.2.1)
-    Requirement already satisfied: yarl<2.0,>=1.17.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from aiohttp->datasets) (1.18.3)
-    Requirement already satisfied: protobuf<6.0dev,>=5.26.1 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from grpcio-health-checking<2.0.0,>=1.66.2->weaviate-client[agents]) (5.29.3)
-    Requirement already satisfied: setuptools in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from grpcio-tools<2.0.0,>=1.66.2->weaviate-client[agents]) (75.1.0)
-    Requirement already satisfied: anyio in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx<0.29.0,>=0.26.0->weaviate-client[agents]) (4.8.0)
-    Requirement already satisfied: certifi in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx<0.29.0,>=0.26.0->weaviate-client[agents]) (2024.12.14)
-    Requirement already satisfied: httpcore==1.* in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx<0.29.0,>=0.26.0->weaviate-client[agents]) (1.0.7)
-    Requirement already satisfied: idna in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx<0.29.0,>=0.26.0->weaviate-client[agents]) (3.10)
-    Requirement already satisfied: sniffio in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx<0.29.0,>=0.26.0->weaviate-client[agents]) (1.3.1)
-    Requirement already satisfied: h11<0.15,>=0.13 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpcore==1.*->httpx<0.29.0,>=0.26.0->weaviate-client[agents]) (0.14.0)
+    Requirement already satisfied: yarl&lt;2.0,>=1.17.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from aiohttp->datasets) (1.18.3)
+    Requirement already satisfied: protobuf&lt;6.0dev,>=5.26.1 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from grpcio-health-checking&lt;2.0.0,>=1.66.2->weaviate-client[agents]) (5.29.3)
+    Requirement already satisfied: setuptools in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from grpcio-tools&lt;2.0.0,>=1.66.2->weaviate-client[agents]) (75.1.0)
+    Requirement already satisfied: anyio in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx&lt;0.29.0,>=0.26.0->weaviate-client[agents]) (4.8.0)
+    Requirement already satisfied: certifi in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx&lt;0.29.0,>=0.26.0->weaviate-client[agents]) (2024.12.14)
+    Requirement already satisfied: httpcore==1.* in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx&lt;0.29.0,>=0.26.0->weaviate-client[agents]) (1.0.7)
+    Requirement already satisfied: idna in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx&lt;0.29.0,>=0.26.0->weaviate-client[agents]) (3.10)
+    Requirement already satisfied: sniffio in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx&lt;0.29.0,>=0.26.0->weaviate-client[agents]) (1.3.1)
+    Requirement already satisfied: h11&lt;0.15,>=0.13 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpcore==1.*->httpx&lt;0.29.0,>=0.26.0->weaviate-client[agents]) (0.14.0)
     Requirement already satisfied: typing-extensions>=3.7.4.3 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from huggingface-hub>=0.24.0->datasets) (4.12.2)
-    Requirement already satisfied: annotated-types>=0.6.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from pydantic<3.0.0,>=2.8.0->weaviate-client[agents]) (0.7.0)
-    Requirement already satisfied: pydantic-core==2.27.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from pydantic<3.0.0,>=2.8.0->weaviate-client[agents]) (2.27.2)
-    Requirement already satisfied: charset-normalizer<4,>=2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from requests>=2.32.2->datasets) (3.4.1)
-    Requirement already satisfied: urllib3<3,>=1.21.1 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from requests>=2.32.2->datasets) (2.3.0)
-    Requirement already satisfied: rich>=13.9.4 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-agents<1.0.0,>=0.3.0->weaviate-client[agents]) (13.9.4)
+    Requirement already satisfied: annotated-types>=0.6.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from pydantic&lt;3.0.0,>=2.8.0->weaviate-client[agents]) (0.7.0)
+    Requirement already satisfied: pydantic-core==2.27.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from pydantic&lt;3.0.0,>=2.8.0->weaviate-client[agents]) (2.27.2)
+    Requirement already satisfied: charset-normalizer&lt;4,>=2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from requests>=2.32.2->datasets) (3.4.1)
+    Requirement already satisfied: urllib3&lt;3,>=1.21.1 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from requests>=2.32.2->datasets) (2.3.0)
+    Requirement already satisfied: rich>=13.9.4 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-agents&lt;1.0.0,>=0.3.0->weaviate-client[agents]) (13.9.4)
     Requirement already satisfied: python-dateutil>=2.8.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from pandas->datasets) (2.9.0.post0)
     Requirement already satisfied: pytz>=2020.1 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from pandas->datasets) (2024.2)
     Requirement already satisfied: tzdata>=2022.7 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from pandas->datasets) (2025.1)
     Requirement already satisfied: six>=1.5 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from python-dateutil>=2.8.2->pandas->datasets) (1.17.0)
-    Requirement already satisfied: markdown-it-py>=2.2.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from rich>=13.9.4->weaviate-agents<1.0.0,>=0.3.0->weaviate-client[agents]) (3.0.0)
-    Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from rich>=13.9.4->weaviate-agents<1.0.0,>=0.3.0->weaviate-client[agents]) (2.19.1)
-    Requirement already satisfied: cffi>=1.12 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from cryptography->authlib<1.3.2,>=1.2.1->weaviate-client[agents]) (1.17.1)
-    Requirement already satisfied: pycparser in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from cffi>=1.12->cryptography->authlib<1.3.2,>=1.2.1->weaviate-client[agents]) (2.22)
-    Requirement already satisfied: mdurl~=0.1 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from markdown-it-py>=2.2.0->rich>=13.9.4->weaviate-agents<1.0.0,>=0.3.0->weaviate-client[agents]) (0.1.2)
+    Requirement already satisfied: markdown-it-py>=2.2.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from rich>=13.9.4->weaviate-agents&lt;1.0.0,>=0.3.0->weaviate-client[agents]) (3.0.0)
+    Requirement already satisfied: pygments&lt;3.0.0,>=2.13.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from rich>=13.9.4->weaviate-agents&lt;1.0.0,>=0.3.0->weaviate-client[agents]) (2.19.1)
+    Requirement already satisfied: cffi>=1.12 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from cryptography->authlib&lt;1.3.2,>=1.2.1->weaviate-client[agents]) (1.17.1)
+    Requirement already satisfied: pycparser in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from cffi>=1.12->cryptography->authlib&lt;1.3.2,>=1.2.1->weaviate-client[agents]) (2.22)
+    Requirement already satisfied: mdurl~=0.1 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from markdown-it-py>=2.2.0->rich>=13.9.4->weaviate-agents&lt;1.0.0,>=0.3.0->weaviate-client[agents]) (0.1.2)
     Using cached datasets-3.3.2-py3-none-any.whl (485 kB)
     Using cached dill-0.3.8-py3-none-any.whl (116 kB)
     Using cached multiprocess-0.70.16-py312-none-any.whl (146 kB)
@@ -145,29 +145,29 @@ To use the Weaviate Transformation Agent, first, create a [Weaviate Cloud](https
     Requirement already satisfied: rich>=13.9.4 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-agents) (13.9.4)
     Requirement already satisfied: weaviate-client>=4.11.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-agents) (4.11.1)
     Requirement already satisfied: markdown-it-py>=2.2.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from rich>=13.9.4->weaviate-agents) (3.0.0)
-    Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from rich>=13.9.4->weaviate-agents) (2.19.1)
-    Requirement already satisfied: httpx<0.29.0,>=0.26.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client>=4.11.0->weaviate-agents) (0.27.0)
+    Requirement already satisfied: pygments&lt;3.0.0,>=2.13.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from rich>=13.9.4->weaviate-agents) (2.19.1)
+    Requirement already satisfied: httpx&lt;0.29.0,>=0.26.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client>=4.11.0->weaviate-agents) (0.27.0)
     Requirement already satisfied: validators==0.34.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client>=4.11.0->weaviate-agents) (0.34.0)
-    Requirement already satisfied: authlib<1.3.2,>=1.2.1 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client>=4.11.0->weaviate-agents) (1.3.1)
-    Requirement already satisfied: pydantic<3.0.0,>=2.8.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client>=4.11.0->weaviate-agents) (2.10.5)
-    Requirement already satisfied: grpcio<2.0.0,>=1.66.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client>=4.11.0->weaviate-agents) (1.69.0)
-    Requirement already satisfied: grpcio-tools<2.0.0,>=1.66.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client>=4.11.0->weaviate-agents) (1.69.0)
-    Requirement already satisfied: grpcio-health-checking<2.0.0,>=1.66.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client>=4.11.0->weaviate-agents) (1.69.0)
-    Requirement already satisfied: cryptography in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from authlib<1.3.2,>=1.2.1->weaviate-client>=4.11.0->weaviate-agents) (44.0.0)
-    Requirement already satisfied: protobuf<6.0dev,>=5.26.1 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from grpcio-health-checking<2.0.0,>=1.66.2->weaviate-client>=4.11.0->weaviate-agents) (5.29.3)
-    Requirement already satisfied: setuptools in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from grpcio-tools<2.0.0,>=1.66.2->weaviate-client>=4.11.0->weaviate-agents) (75.1.0)
-    Requirement already satisfied: anyio in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx<0.29.0,>=0.26.0->weaviate-client>=4.11.0->weaviate-agents) (4.8.0)
-    Requirement already satisfied: certifi in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx<0.29.0,>=0.26.0->weaviate-client>=4.11.0->weaviate-agents) (2024.12.14)
-    Requirement already satisfied: httpcore==1.* in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx<0.29.0,>=0.26.0->weaviate-client>=4.11.0->weaviate-agents) (1.0.7)
-    Requirement already satisfied: idna in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx<0.29.0,>=0.26.0->weaviate-client>=4.11.0->weaviate-agents) (3.10)
-    Requirement already satisfied: sniffio in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx<0.29.0,>=0.26.0->weaviate-client>=4.11.0->weaviate-agents) (1.3.1)
-    Requirement already satisfied: h11<0.15,>=0.13 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpcore==1.*->httpx<0.29.0,>=0.26.0->weaviate-client>=4.11.0->weaviate-agents) (0.14.0)
+    Requirement already satisfied: authlib&lt;1.3.2,>=1.2.1 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client>=4.11.0->weaviate-agents) (1.3.1)
+    Requirement already satisfied: pydantic&lt;3.0.0,>=2.8.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client>=4.11.0->weaviate-agents) (2.10.5)
+    Requirement already satisfied: grpcio&lt;2.0.0,>=1.66.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client>=4.11.0->weaviate-agents) (1.69.0)
+    Requirement already satisfied: grpcio-tools&lt;2.0.0,>=1.66.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client>=4.11.0->weaviate-agents) (1.69.0)
+    Requirement already satisfied: grpcio-health-checking&lt;2.0.0,>=1.66.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from weaviate-client>=4.11.0->weaviate-agents) (1.69.0)
+    Requirement already satisfied: cryptography in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from authlib&lt;1.3.2,>=1.2.1->weaviate-client>=4.11.0->weaviate-agents) (44.0.0)
+    Requirement already satisfied: protobuf&lt;6.0dev,>=5.26.1 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from grpcio-health-checking&lt;2.0.0,>=1.66.2->weaviate-client>=4.11.0->weaviate-agents) (5.29.3)
+    Requirement already satisfied: setuptools in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from grpcio-tools&lt;2.0.0,>=1.66.2->weaviate-client>=4.11.0->weaviate-agents) (75.1.0)
+    Requirement already satisfied: anyio in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx&lt;0.29.0,>=0.26.0->weaviate-client>=4.11.0->weaviate-agents) (4.8.0)
+    Requirement already satisfied: certifi in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx&lt;0.29.0,>=0.26.0->weaviate-client>=4.11.0->weaviate-agents) (2024.12.14)
+    Requirement already satisfied: httpcore==1.* in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx&lt;0.29.0,>=0.26.0->weaviate-client>=4.11.0->weaviate-agents) (1.0.7)
+    Requirement already satisfied: idna in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx&lt;0.29.0,>=0.26.0->weaviate-client>=4.11.0->weaviate-agents) (3.10)
+    Requirement already satisfied: sniffio in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpx&lt;0.29.0,>=0.26.0->weaviate-client>=4.11.0->weaviate-agents) (1.3.1)
+    Requirement already satisfied: h11&lt;0.15,>=0.13 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from httpcore==1.*->httpx&lt;0.29.0,>=0.26.0->weaviate-client>=4.11.0->weaviate-agents) (0.14.0)
     Requirement already satisfied: mdurl~=0.1 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from markdown-it-py>=2.2.0->rich>=13.9.4->weaviate-agents) (0.1.2)
-    Requirement already satisfied: annotated-types>=0.6.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from pydantic<3.0.0,>=2.8.0->weaviate-client>=4.11.0->weaviate-agents) (0.7.0)
-    Requirement already satisfied: pydantic-core==2.27.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from pydantic<3.0.0,>=2.8.0->weaviate-client>=4.11.0->weaviate-agents) (2.27.2)
-    Requirement already satisfied: typing-extensions>=4.12.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from pydantic<3.0.0,>=2.8.0->weaviate-client>=4.11.0->weaviate-agents) (4.12.2)
-    Requirement already satisfied: cffi>=1.12 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from cryptography->authlib<1.3.2,>=1.2.1->weaviate-client>=4.11.0->weaviate-agents) (1.17.1)
-    Requirement already satisfied: pycparser in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from cffi>=1.12->cryptography->authlib<1.3.2,>=1.2.1->weaviate-client>=4.11.0->weaviate-agents) (2.22)
+    Requirement already satisfied: annotated-types>=0.6.0 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from pydantic&lt;3.0.0,>=2.8.0->weaviate-client>=4.11.0->weaviate-agents) (0.7.0)
+    Requirement already satisfied: pydantic-core==2.27.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from pydantic&lt;3.0.0,>=2.8.0->weaviate-client>=4.11.0->weaviate-agents) (2.27.2)
+    Requirement already satisfied: typing-extensions>=4.12.2 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from pydantic&lt;3.0.0,>=2.8.0->weaviate-client>=4.11.0->weaviate-agents) (4.12.2)
+    Requirement already satisfied: cffi>=1.12 in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from cryptography->authlib&lt;1.3.2,>=1.2.1->weaviate-client>=4.11.0->weaviate-agents) (1.17.1)
+    Requirement already satisfied: pycparser in /Users/tuanacelik/miniconda3/envs/agent/lib/python3.13/site-packages (from cffi>=1.12->cryptography->authlib&lt;1.3.2,>=1.2.1->weaviate-client>=4.11.0->weaviate-agents) (2.22)
 
 
 
@@ -216,7 +216,7 @@ client.collections.create(
 
 
 
-    <weaviate.collections.collection.sync.Collection at 0x128ae3680>
+    &lt;weaviate.collections.collection.sync.Collection at 0x128ae3680>
 
 
 
@@ -230,7 +230,7 @@ papers_collection = client.collections.get("ArxivPapers")
 
 with papers_collection.batch.dynamic() as batch:
     for i, item in enumerate(dataset):
-      if i < 200:
+      if i &lt; 200:
         batch.add_object(properties=item["properties"])
 ```
 
@@ -385,8 +385,8 @@ agent.get_status(workflow_id=response[0].workflow_id)
 
 
 
-    {'workflow_id': 'TransformationWorkflow-1766a450c35039c2a44e1fa33dc49dd4',
-     'status': {'batch_count': 1,
+    \{'workflow_id': 'TransformationWorkflow-1766a450c35039c2a44e1fa33dc49dd4',
+     'status': \{'batch_count': 1,
       'end_time': '2025-03-11 14:58:57',
       'start_time': '2025-03-11 14:57:55',
       'state': 'completed',

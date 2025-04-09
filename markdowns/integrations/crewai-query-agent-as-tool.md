@@ -1,6 +1,6 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main//integrations/llm-agent-frameworks/crewai/crewai-query-agent-as-tool.ipynb
+colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/integrations/llm-agent-frameworks/crewai/crewai-query-agent-as-tool.ipynb
 toc: True
 title: "Weaviate Query Agent with Crew AI"
 featured: False
@@ -9,7 +9,7 @@ agent: False
 tags: ['Query Agent, Integration']
 ---
     
-
+## Weaviate Query Agent with Crew AI
 
 This notebook will show you how to define the Weaviate Query Agent as a tool through the Crew AI.
 
@@ -150,7 +150,7 @@ print(result)
     [95m## Thought:[00m [92mI need to find relevant blog posts about packaging software applications with Docker. I will formulate a query to search for this topic in the Weaviate database.[00m
     [95m## Using tool:[00m [92mWeaviate Query Agent[00m
     [95m## Tool Input:[00m [92m
-    "{\"query\": \"packaging software applications with Docker\"}"[00m
+    "\{\"query\": \"packaging software applications with Docker\"}"[00m
     [95m## Tool Output:[00m [92m
     Docker is a platform that uses OS-level virtualization to package software applications in units called containers. These containers are similar to lightweight virtual machines, possessing their own file systems and operating system libraries, yet sharing the host system's kernel. Containers are beneficial for software application packaging as they provide considerable isolation with reduced overhead compared to traditional virtual machines. 
     

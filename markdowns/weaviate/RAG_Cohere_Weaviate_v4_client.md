@@ -1,6 +1,6 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main//integrations/cloud-hyperscalers/aws/RAG_Cohere_Weaviate_v4_client.ipynb
+colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/integrations/cloud-hyperscalers/aws/RAG_Cohere_Weaviate_v4_client.ipynb
 toc: True
 title: "RAG with Cohere on Amazon Bedrock and Weaviate on AWS Market place"
 featured: False
@@ -9,7 +9,7 @@ agent: False
 tags: ['RAG', 'Cohere', 'AWS', 'Amazon Bedrock']
 ---
     
-
+# Retrieval-Augmented Generation with Cohere language models on Amazon Bedrock and Weaviate vector database on AWS Market place
 
 The example use case generates targeted advertisements for vacation stay listings based on a target audience. The goal is to use the user query for the target audience (e.g., “family with small children”) to retrieve the most relevant vacation stay listing (e.g., a listing with playgrounds close by) and then to generate an advertisement for the retrieved listing tailored to the target audience.
 

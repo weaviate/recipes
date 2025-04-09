@@ -1,6 +1,6 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main//integrations/llm-agent-frameworks/llamaindex/agents/agent-workflow-with-weaviate-query-agent-.ipynb
+colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/integrations/llm-agent-frameworks/llamaindex/agents/agent-workflow-with-weaviate-query-agent-.ipynb
 toc: True
 title: "Weaviate Query Agent with LlamaIndex"
 featured: False
@@ -9,7 +9,7 @@ agent: False
 tags: ['Query Agent, Integration']
 ---
     
-
+## Weaviate Query Agent with LlamaIndex
 
 This notebook will show you how to define the Weaviate Query Agent as a tool through LlamaIndex.
 

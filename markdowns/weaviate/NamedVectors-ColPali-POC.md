@@ -1,6 +1,6 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main//weaviate-features/multi-vector/NamedVectors-ColPali-POC.ipynb
+colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-features/multi-vector/NamedVectors-ColPali-POC.ipynb
 toc: True
 title: "How to use ColPali with Weaviate's Named Vectors"
 featured: False
@@ -9,7 +9,7 @@ agent: False
 tags: ['ColPali', 'Named Vectors']
 ---
     
-
+# How to use ColPali with Weaviate's Named Vectors!
 
 **Please note: The multi-vector feature was added to Weaviate `1.29`. Test out the feature in [this notebook](weaviate-features/multi-vector/multi-vector-colipali-rag.ipynb).**
 
@@ -40,7 +40,7 @@ We will test this with 3 PDFs:
 
     W: Skipping acquire of configured file 'main/source/Sources' as repository 'https://r2u.stat.illinois.edu/ubuntu jammy InRelease' does not seem to provide it (sources.list entry misspelt?)
     debconf: unable to initialize frontend: Dialog
-    debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 78, <> line 1.)
+    debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 78, &lt;> line 1.)
     debconf: falling back to frontend: Readline
     debconf: unable to initialize frontend: Readline
     debconf: (This frontend requires a controlling tty.)
@@ -275,27 +275,27 @@ model.to(device);
 
 
 
-    config.json:   0%|          | 0.00/1.05k [00:00<?, ?B/s]
+    config.json:   0%|          | 0.00/1.05k [00:00&lt;?, ?B/s]
 
 
 
-    model.safetensors.index.json:   0%|          | 0.00/62.6k [00:00<?, ?B/s]
+    model.safetensors.index.json:   0%|          | 0.00/62.6k [00:00&lt;?, ?B/s]
 
 
 
-    Downloading shards:   0%|          | 0/3 [00:00<?, ?it/s]
+    Downloading shards:   0%|          | 0/3 [00:00&lt;?, ?it/s]
 
 
 
-    model-00001-of-00003.safetensors:   0%|          | 0.00/4.96G [00:00<?, ?B/s]
+    model-00001-of-00003.safetensors:   0%|          | 0.00/4.96G [00:00&lt;?, ?B/s]
 
 
 
-    model-00002-of-00003.safetensors:   0%|          | 0.00/5.00G [00:00<?, ?B/s]
+    model-00002-of-00003.safetensors:   0%|          | 0.00/5.00G [00:00&lt;?, ?B/s]
 
 
 
-    model-00003-of-00003.safetensors:   0%|          | 0.00/1.74G [00:00<?, ?B/s]
+    model-00003-of-00003.safetensors:   0%|          | 0.00/1.74G [00:00&lt;?, ?B/s]
 
 
     `config.hidden_act` is ignored, you should use `config.hidden_activation` instead.
@@ -305,7 +305,7 @@ model.to(device);
 
 
 
-    Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+    Loading checkpoint shards:   0%|          | 0/3 [00:00&lt;?, ?it/s]
 
 
     Some weights of ColPali were not initialized from the model checkpoint at google/paligemma-3b-mix-448 and are newly initialized: ['custom_text_proj.bias', 'custom_text_proj.weight', 'language_model.lm_head.weight']
@@ -313,11 +313,11 @@ model.to(device);
 
 
 
-    adapter_config.json:   0%|          | 0.00/746 [00:00<?, ?B/s]
+    adapter_config.json:   0%|          | 0.00/746 [00:00&lt;?, ?B/s]
 
 
 
-    adapter_model.safetensors:   0%|          | 0.00/78.6M [00:00<?, ?B/s]
+    adapter_model.safetensors:   0%|          | 0.00/78.6M [00:00&lt;?, ?B/s]
 
 
 
@@ -340,27 +340,27 @@ for result in results:
 ```
 
 
-    preprocessor_config.json:   0%|          | 0.00/700 [00:00<?, ?B/s]
+    preprocessor_config.json:   0%|          | 0.00/700 [00:00&lt;?, ?B/s]
 
 
 
-    tokenizer_config.json:   0%|          | 0.00/40.0k [00:00<?, ?B/s]
+    tokenizer_config.json:   0%|          | 0.00/40.0k [00:00&lt;?, ?B/s]
 
 
 
-    tokenizer.model:   0%|          | 0.00/4.26M [00:00<?, ?B/s]
+    tokenizer.model:   0%|          | 0.00/4.26M [00:00&lt;?, ?B/s]
 
 
 
-    tokenizer.json:   0%|          | 0.00/17.5M [00:00<?, ?B/s]
+    tokenizer.json:   0%|          | 0.00/17.5M [00:00&lt;?, ?B/s]
 
 
 
-    added_tokens.json:   0%|          | 0.00/24.0 [00:00<?, ?B/s]
+    added_tokens.json:   0%|          | 0.00/24.0 [00:00&lt;?, ?B/s]
 
 
 
-    special_tokens_map.json:   0%|          | 0.00/607 [00:00<?, ?B/s]
+    special_tokens_map.json:   0%|          | 0.00/607 [00:00&lt;?, ?B/s]
 
 
     Score: 0.32659846544265747, PDF: Boston-Restaurants.pdf, Page: 8
@@ -429,14 +429,14 @@ print(f"Number of patches per image: {num_patches}")
 ```
 
     [31mERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
-    cudf-cu12 24.4.1 requires protobuf<5,>=3.20, but you have protobuf 5.27.2 which is incompatible.
-    google-ai-generativelanguage 0.6.6 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
-    google-cloud-aiplatform 1.59.0 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
-    google-cloud-bigquery-storage 2.25.0 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
-    google-cloud-datastore 2.19.0 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
-    google-cloud-firestore 2.16.1 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
-    tensorflow 2.15.0 requires protobuf!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.20.3, but you have protobuf 5.27.2 which is incompatible.
-    tensorflow-metadata 1.15.0 requires protobuf<4.21,>=3.20.3; python_version < "3.11", but you have protobuf 5.27.2 which is incompatible.[0m[31m
+    cudf-cu12 24.4.1 requires protobuf&lt;5,>=3.20, but you have protobuf 5.27.2 which is incompatible.
+    google-ai-generativelanguage 0.6.6 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,&lt;5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
+    google-cloud-aiplatform 1.59.0 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,&lt;5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
+    google-cloud-bigquery-storage 2.25.0 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,&lt;5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
+    google-cloud-datastore 2.19.0 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,&lt;5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
+    google-cloud-firestore 2.16.1 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,&lt;5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
+    tensorflow 2.15.0 requires protobuf!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,&lt;5.0.0dev,>=3.20.3, but you have protobuf 5.27.2 which is incompatible.
+    tensorflow-metadata 1.15.0 requires protobuf&lt;4.21,>=3.20.3; python_version &lt; "3.11", but you have protobuf 5.27.2 which is incompatible.[0m[31m
     [0m
 
 
@@ -537,7 +537,7 @@ def embed_query_with_colpali(query, model, processor):
     query_vectors = {}
     num_tokens = query_embedding.shape[1]
     for idx in range(num_patches):
-        # Use modulo to cycle through token embeddings if num_tokens < num_patches
+        # Use modulo to cycle through token embeddings if num_tokens &lt; num_patches
         token_idx = idx % num_tokens
         query_vectors[f"patch_{idx}"] = query_embedding[0, token_idx].cpu().numpy().tolist()
 

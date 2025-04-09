@@ -1,6 +1,6 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main//weaviate-services/agents/query-agent-get-started.ipynb
+colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/query-agent-get-started.ipynb
 toc: True
 title: "Build A Weaviate Query Agent - The E-Commerce Assistant"
 featured: True
@@ -9,7 +9,7 @@ agent: True
 tags: ['Query Agent']
 ---
     
-
+# Build A Weaviate Query Agent - The E-Commerce Assistant
 
 In this recipe, we will be building a simple e-commerce assistant agent with the [Weaviate Query Agent](https://weaviate.io/developers/agents). This agent will have access to a number of Weaviate collections, and will be capable of answering complex queries about brands and clothing items, accessing information from each collection.
 
@@ -206,7 +206,7 @@ When we run the agent, it will first make a few decisions, depending on the quer
 3. It will then provide a reponse within **`QueryAgentResponse`**. We will use the `print_query_agent_response` function for a nice display of various information provided in the response object.
 
 ### Ask a Question
-**Let's start with a simple question: "I like the vintage clothes, can you list me some options that are less than $200?"**
+**Let's start with a simple question: "I like the vintage clothes, can you list me some options that are less than &#36;200?"**
 
 We can then also inspect how the agent responded, what kind of searches it performed on which collections, whether it has identified if the final answer is missing information or not, as well as the final answer 👇
 
@@ -219,100 +219,99 @@ print_query_agent_response(response)
 ```
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">╭─────────────────────────────────────────────── 🔍 Original Query ───────────────────────────────────────────────╮
+
+```text
+╭─────────────────────────────────────────────── 🔍 Original Query ───────────────────────────────────────────────╮
 │                                                                                                                 │
 │ I like the vintage clothes, can you list me some options that are less than $200?                               │
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-</pre>
+```
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080">╭────────────────────────────────────────────────</span> 📝 Final Answer <span style="color: #008080; text-decoration-color: #008080">────────────────────────────────────────────────╮</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ If you are looking for vintage clothing options under $200, here are some great choices:                        │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ 1. **Vintage Philosopher Midi Dress** - Priced at $125, this dress from Echo &amp; Stitch embraces a classic        │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ scholarly look with its deep green velvet fabric and antique gold detailing. It's tailored for elegance and is  │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ ideal for sophisticated occasions.                                                                              │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ 2. **Vintage Gale Pleated Dress** - This $120 dress from Solemn Chic features deep burgundy pleats and          │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ vintage-inspired sleeve details, perfect for a timeless scholarly appearance.                                   │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ 3. **Retro Groove Flared Pants** - For $59, these electric blue flared pants from Vivid Verse bring back the    │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ playful spirit of the early 2000s with a modern touch.                                                          │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ 4. **Vintage Scholar Tote** - At $90, this tote from Echo &amp; Stitch combines functionality and elegance, ideal   │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ for everyday use, especially if you enjoy a scholarly aesthetic.                                                │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ 5. **Electric Velvet Trousers** - Priced at $60, these neon green velvet trousers from Vivid Verse offer a fun, │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ throwback vibe to early Y2K fashion.                                                                            │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ 6. **Victorian Velvet Jumpsuit** - For $120, this jumpsuit from Solemn Chic offers an elegant blend of romance  │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ and scholarly charm, suited for library visits or cultured gatherings.                                          │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ 7. **Vintage Scholar Turtleneck** - This $55 turtleneck from Echo &amp; Stitch suits the Dark Academia vibe,        │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ perfect for layering or wearing alone.                                                                          │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ 8. **Vintage Ivy Loafers** - These $120 loafers from Solemn Chic offer timeless sophistication, with a deep     │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ burgundy finish that complements any vintage wardrobe.                                                          │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ These options cater to various preferences, from dresses and jumpsuits to pants and accessories, all capturing  │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ the vintage essence at an affordable price.                                                                     │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span>
-</pre>
+
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭──────────────────────────────────────────────── 📝 Final Answer ────────────────────────────────────────────────╮
+│                                                                                                                 │
+│ If you are looking for vintage clothing options under &#36;200, here are some great choices:                        │
+│                                                                                                                 │
+│ 1. **Vintage Philosopher Midi Dress** - Priced at &#36;125, this dress from Echo &amp; Stitch embraces a classic        │
+│ scholarly look with its deep green velvet fabric and antique gold detailing. It's tailored for elegance and is  │
+│ ideal for sophisticated occasions.                                                                              │
+│                                                                                                                 │
+│ 2. **Vintage Gale Pleated Dress** - This &#36;120 dress from Solemn Chic features deep burgundy pleats and          │
+│ vintage-inspired sleeve details, perfect for a timeless scholarly appearance.                                   │
+│                                                                                                                 │
+│ 3. **Retro Groove Flared Pants** - For &#36;59, these electric blue flared pants from Vivid Verse bring back the    │
+│ playful spirit of the early 2000s with a modern touch.                                                          │
+│                                                                                                                 │
+│ 4. **Vintage Scholar Tote** - At &#36;90, this tote from Echo &amp; Stitch combines functionality and elegance, ideal   │
+│ for everyday use, especially if you enjoy a scholarly aesthetic.                                                │
+│                                                                                                                 │
+│ 5. **Electric Velvet Trousers** - Priced at &#36;60, these neon green velvet trousers from Vivid Verse offer a fun, │
+│ throwback vibe to early Y2K fashion.                                                                            │
+│                                                                                                                 │
+│ 6. **Victorian Velvet Jumpsuit** - For &#36;120, this jumpsuit from Solemn Chic offers an elegant blend of romance  │
+│ and scholarly charm, suited for library visits or cultured gatherings.                                          │
+│                                                                                                                 │
+│ 7. **Vintage Scholar Turtleneck** - This &#36;55 turtleneck from Echo &amp; Stitch suits the Dark Academia vibe,        │
+│ perfect for layering or wearing alone.                                                                          │
+│                                                                                                                 │
+│ 8. **Vintage Ivy Loafers** - These &#36;120 loafers from Solemn Chic offer timeless sophistication, with a deep     │
+│ burgundy finish that complements any vintage wardrobe.                                                          │
+│                                                                                                                 │
+│ These options cater to various preferences, from dresses and jumpsuits to pants and accessories, all capturing  │
+│ the vintage essence at an affordable price.                                                                     │
+│                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╭───────────────────────────────────────────</span> 🔭 Searches Executed 1/1 <span style="color: #c0c0c0; text-decoration-color: #c0c0c0">────────────────────────────────────────────╮</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│ </span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">QueryResultWithCollection</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">(</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">queries</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">[</span><span style="color: #008000; text-decoration-color: #008000">'vintage clothes'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">]</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">filters</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">[</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                   │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│         </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">[</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                       │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│             </span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">IntegerPropertyFilter</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">(</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                              │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                 </span><span style="color: #808000; text-decoration-color: #808000">property_name</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'price'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                          │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                 </span><span style="color: #808000; text-decoration-color: #808000">operator</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">&lt;</span><span style="color: #ff00ff; text-decoration-color: #ff00ff; font-weight: bold">ComparisonOperator.LESS_THAN:</span><span style="color: #000000; text-decoration-color: #000000"> </span><span style="color: #008000; text-decoration-color: #008000">'&lt;'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">&gt;</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                   │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                 </span><span style="color: #808000; text-decoration-color: #808000">value</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">200.0</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                     │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│             </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">)</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                   │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│         </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">]</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                       │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">]</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                                          │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">filter_operators</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'AND'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                     │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">collection</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'Ecommerce'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│ </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">)</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                               │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span>
-</pre>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────── 🔭 Searches Executed 1/1 ────────────────────────────────────────────╮
+│                                                                                                                 │
+│ QueryResultWithCollection(                                                                                      │
+│     queries=['vintage clothes'],                                                                                │
+│     filters=[                                                                                                   │
+│         [                                                                                                       │
+│             IntegerPropertyFilter(                                                                              │
+│                 property_name='price',                                                                          │
+│                 operator=&lt;ComparisonOperator.LESS_THAN: '&lt;'&gt;,                                                   │
+│                 value=200.0                                                                                     │
+│             )                                                                                                   │
+│         ]                                                                                                       │
+│     ],                                                                                                          │
+│     filter_operators='AND',                                                                                     │
+│     collection='Ecommerce'                                                                                      │
+│ )                                                                                                               │
+│                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #d75f5f; text-decoration-color: #d75f5f">╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮</span>
-<span style="color: #d75f5f; text-decoration-color: #d75f5f">│                                                                                                                 │</span>
-<span style="color: #d75f5f; text-decoration-color: #d75f5f">│ 📊 No Aggregations Run                                                                                          │</span>
-<span style="color: #d75f5f; text-decoration-color: #d75f5f">│                                                                                                                 │</span>
-<span style="color: #d75f5f; text-decoration-color: #d75f5f">╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span>
-</pre>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                 │
+│ 📊 No Aggregations Run                                                                                          │
+│                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╭──────────────────────────────────────────────────</span> 📚 Sources <span style="color: #c0c0c0; text-decoration-color: #c0c0c0">───────────────────────────────────────────────────╮</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='5e9c5298-5b3a-4d80-b226-64b2ff6689b7' collection='Ecommerce'                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='48896222-d098-42e6-80df-ad4b03723c19' collection='Ecommerce'                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='00b383ca-262f-4251-b513-dafd4862c021' collection='Ecommerce'                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='cbe8f8be-304b-409d-a2a1-bafa0bbf249c' collection='Ecommerce'                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='c18d3c5b-8fbe-4816-bc60-174f336a982f' collection='Ecommerce'                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='1811da1b-6930-4bd1-832e-f8fa2119d4df' collection='Ecommerce'                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='2edd1bc5-777e-4376-95cd-42a141ffb71e' collection='Ecommerce'                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='9819907c-1015-4b4c-ac75-3b3848e7c247' collection='Ecommerce'                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span>
-</pre>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭────────────────────────────────────────────────── 📚 Sources ───────────────────────────────────────────────────╮
+│                                                                                                                 │
+│  - object_id='5e9c5298-5b3a-4d80-b226-64b2ff6689b7' collection='Ecommerce'                                      │
+│  - object_id='48896222-d098-42e6-80df-ad4b03723c19' collection='Ecommerce'                                      │
+│  - object_id='00b383ca-262f-4251-b513-dafd4862c021' collection='Ecommerce'                                      │
+│  - object_id='cbe8f8be-304b-409d-a2a1-bafa0bbf249c' collection='Ecommerce'                                      │
+│  - object_id='c18d3c5b-8fbe-4816-bc60-174f336a982f' collection='Ecommerce'                                      │
+│  - object_id='1811da1b-6930-4bd1-832e-f8fa2119d4df' collection='Ecommerce'                                      │
+│  - object_id='2edd1bc5-777e-4376-95cd-42a141ffb71e' collection='Ecommerce'                                      │
+│  - object_id='9819907c-1015-4b4c-ac75-3b3848e7c247' collection='Ecommerce'                                      │
+│                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 
 
@@ -321,21 +320,18 @@ print_query_agent_response(response)
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-style: italic">   📊 Usage Statistics   </span>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>   📊 Usage Statistics   
 ┌────────────────┬──────┐
 │ LLM Requests:  │ 3    │
 │ Input Tokens:  │ 7774 │
 │ Output Tokens: │ 512  │
 │ Total Tokens:  │ 8286 │
-└────────────────┴──────┘
-</pre>
+└────────────────┴──────┘</pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">Total Time Taken:</span><span style="color: #008080; text-decoration-color: #008080"> </span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">16.</span><span style="color: #008080; text-decoration-color: #008080">93s</span>
-</pre>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>Total Time Taken: 16.93s</pre>
 
 
 
@@ -350,89 +346,88 @@ print_query_agent_response(new_response)
 ```
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">╭─────────────────────────────────────────────── 🔍 Original Query ───────────────────────────────────────────────╮
+
+```text
+╭─────────────────────────────────────────────── 🔍 Original Query ───────────────────────────────────────────────╮
 │                                                                                                                 │
 │ What about some nice shoes, same budget as before?                                                              │
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-</pre>
+```
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080">╭────────────────────────────────────────────────</span> 📝 Final Answer <span style="color: #008080; text-decoration-color: #008080">────────────────────────────────────────────────╮</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ Here are some great shoe options under $200 that you might like:                                                │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ 1. **Vintage Noir Loafers** - Priced at $125, these loafers are part of the Dark Academia collection by Solemn  │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ Chic. They come in black and grey, featuring a classic design with a modern twist. Reviews highlight their      │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ comfort and stylish appearance, making them suitable for both casual and formal settings.                       │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ 2. **Parchment Boots** - At $145, these boots from Nova Nest's Light Academia collection are noted for their    │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ elegant ivory leather and classical detail stitching. They are praised for their comfort and versatile style.   │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ 3. **Bramble Berry Loafers** - These loafers, priced at $75, come in pink and green and are marked by their     │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ eco-friendly material and countryside aesthetic. Produced by Eko &amp; Stitch, they are loved for their comfort and │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ sustainability.                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ 4. **Glide Platforms** - Available for $90 from the Y2K collection by Vivid Verse, these platform sneakers are  │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ both comfortable and stylish with a high-shine pink finish.                                                     │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ 5. **Sky Shimmer Sneaks** - Costing $69, these sneakers are from the Y2K collection by Nova Nest and offer a    │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ comfortable fit with a touch of sparkle for style.                                                              │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ These selections offer a mix of formal and casual styles, ensuring you can find a perfect pair under your       │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ budget of $200.                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span>
-</pre>
+
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭──────────────────────────────────────────────── 📝 Final Answer ────────────────────────────────────────────────╮
+│                                                                                                                 │
+│ Here are some great shoe options under &#36;200 that you might like:                                                │
+│                                                                                                                 │
+│ 1. **Vintage Noir Loafers** - Priced at &#36;125, these loafers are part of the Dark Academia collection by Solemn  │
+│ Chic. They come in black and grey, featuring a classic design with a modern twist. Reviews highlight their      │
+│ comfort and stylish appearance, making them suitable for both casual and formal settings.                       │
+│                                                                                                                 │
+│ 2. **Parchment Boots** - At &#36;145, these boots from Nova Nest's Light Academia collection are noted for their    │
+│ elegant ivory leather and classical detail stitching. They are praised for their comfort and versatile style.   │
+│                                                                                                                 │
+│ 3. **Bramble Berry Loafers** - These loafers, priced at &#36;75, come in pink and green and are marked by their     │
+│ eco-friendly material and countryside aesthetic. Produced by Eko &amp; Stitch, they are loved for their comfort and │
+│ sustainability.                                                                                                 │
+│                                                                                                                 │
+│ 4. **Glide Platforms** - Available for &#36;90 from the Y2K collection by Vivid Verse, these platform sneakers are  │
+│ both comfortable and stylish with a high-shine pink finish.                                                     │
+│                                                                                                                 │
+│ 5. **Sky Shimmer Sneaks** - Costing &#36;69, these sneakers are from the Y2K collection by Nova Nest and offer a    │
+│ comfortable fit with a touch of sparkle for style.                                                              │
+│                                                                                                                 │
+│ These selections offer a mix of formal and casual styles, ensuring you can find a perfect pair under your       │
+│ budget of &#36;200.                                                                                                 │
+│                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╭───────────────────────────────────────────</span> 🔭 Searches Executed 1/1 <span style="color: #c0c0c0; text-decoration-color: #c0c0c0">────────────────────────────────────────────╮</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│ </span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">QueryResultWithCollection</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">(</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">queries</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">[</span><span style="color: #008000; text-decoration-color: #008000">'nice shoes'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">]</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                     │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">filters</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">[</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                   │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│         </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">[</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                       │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│             </span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">IntegerPropertyFilter</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">(</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                              │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                 </span><span style="color: #808000; text-decoration-color: #808000">property_name</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'price'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                          │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                 </span><span style="color: #808000; text-decoration-color: #808000">operator</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">&lt;</span><span style="color: #ff00ff; text-decoration-color: #ff00ff; font-weight: bold">ComparisonOperator.LESS_THAN:</span><span style="color: #000000; text-decoration-color: #000000"> </span><span style="color: #008000; text-decoration-color: #008000">'&lt;'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">&gt;</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                   │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                 </span><span style="color: #808000; text-decoration-color: #808000">value</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">200.0</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                     │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│             </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">)</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                   │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│         </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">]</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                       │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">]</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                                          │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">filter_operators</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'AND'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                     │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">collection</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'Ecommerce'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│ </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">)</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                               │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span>
-</pre>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────── 🔭 Searches Executed 1/1 ────────────────────────────────────────────╮
+│                                                                                                                 │
+│ QueryResultWithCollection(                                                                                      │
+│     queries=['nice shoes'],                                                                                     │
+│     filters=[                                                                                                   │
+│         [                                                                                                       │
+│             IntegerPropertyFilter(                                                                              │
+│                 property_name='price',                                                                          │
+│                 operator=&lt;ComparisonOperator.LESS_THAN: '&lt;'&gt;,                                                   │
+│                 value=200.0                                                                                     │
+│             )                                                                                                   │
+│         ]                                                                                                       │
+│     ],                                                                                                          │
+│     filter_operators='AND',                                                                                     │
+│     collection='Ecommerce'                                                                                      │
+│ )                                                                                                               │
+│                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #d75f5f; text-decoration-color: #d75f5f">╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮</span>
-<span style="color: #d75f5f; text-decoration-color: #d75f5f">│                                                                                                                 │</span>
-<span style="color: #d75f5f; text-decoration-color: #d75f5f">│ 📊 No Aggregations Run                                                                                          │</span>
-<span style="color: #d75f5f; text-decoration-color: #d75f5f">│                                                                                                                 │</span>
-<span style="color: #d75f5f; text-decoration-color: #d75f5f">╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span>
-</pre>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                 │
+│ 📊 No Aggregations Run                                                                                          │
+│                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╭──────────────────────────────────────────────────</span> 📚 Sources <span style="color: #c0c0c0; text-decoration-color: #c0c0c0">───────────────────────────────────────────────────╮</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='96b30047-8ce1-4096-9bcf-009733cf8613' collection='Ecommerce'                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='61e4fcd7-d2bc-4861-beb6-4c16948d9921' collection='Ecommerce'                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='6e533f7d-eba1-4e74-953c-9d43008278e7' collection='Ecommerce'                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='f873ac48-1311-462a-86b2-a28b15fdda7a' collection='Ecommerce'                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='93b8b13e-a417-4be2-9cce-fda8c767f35e' collection='Ecommerce'                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span>
-</pre>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭────────────────────────────────────────────────── 📚 Sources ───────────────────────────────────────────────────╮
+│                                                                                                                 │
+│  - object_id='96b30047-8ce1-4096-9bcf-009733cf8613' collection='Ecommerce'                                      │
+│  - object_id='61e4fcd7-d2bc-4861-beb6-4c16948d9921' collection='Ecommerce'                                      │
+│  - object_id='6e533f7d-eba1-4e74-953c-9d43008278e7' collection='Ecommerce'                                      │
+│  - object_id='f873ac48-1311-462a-86b2-a28b15fdda7a' collection='Ecommerce'                                      │
+│  - object_id='93b8b13e-a417-4be2-9cce-fda8c767f35e' collection='Ecommerce'                                      │
+│                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 
 
@@ -441,21 +436,18 @@ print_query_agent_response(new_response)
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-style: italic">   📊 Usage Statistics    </span>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>   📊 Usage Statistics    
 ┌────────────────┬───────┐
 │ LLM Requests:  │ 4     │
 │ Input Tokens:  │ 9783  │
 │ Output Tokens: │ 574   │
 │ Total Tokens:  │ 10357 │
-└────────────────┴───────┘
-</pre>
+└────────────────┴───────┘</pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">Total Time Taken:</span><span style="color: #008080; text-decoration-color: #008080"> </span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">18.</span><span style="color: #008080; text-decoration-color: #008080">02s</span>
-</pre>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>Total Time Taken: 18.02s</pre>
 
 
 
@@ -468,50 +460,50 @@ print_query_agent_response(response)
 ```
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">╭─────────────────────────────────────────────── 🔍 Original Query ───────────────────────────────────────────────╮
+
+```text
+╭─────────────────────────────────────────────── 🔍 Original Query ───────────────────────────────────────────────╮
 │                                                                                                                 │
 │ What is the the name of the brand that lists the most shoes?                                                    │
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-</pre>
+```
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080">╭────────────────────────────────────────────────</span> 📝 Final Answer <span style="color: #008080; text-decoration-color: #008080">────────────────────────────────────────────────╮</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ The brand that lists the most shoes is Loom &amp; Aura with a total of 118 shoe listings.                           │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span>
-</pre>
+
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭──────────────────────────────────────────────── 📝 Final Answer ────────────────────────────────────────────────╮
+│                                                                                                                 │
+│ The brand that lists the most shoes is Loom &amp; Aura with a total of 118 shoe listings.                           │
+│                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #d75f5f; text-decoration-color: #d75f5f">╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮</span>
-<span style="color: #d75f5f; text-decoration-color: #d75f5f">│                                                                                                                 │</span>
-<span style="color: #d75f5f; text-decoration-color: #d75f5f">│ 🔭 No Searches Run                                                                                              │</span>
-<span style="color: #d75f5f; text-decoration-color: #d75f5f">│                                                                                                                 │</span>
-<span style="color: #d75f5f; text-decoration-color: #d75f5f">╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span>
-</pre>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                 │
+│ 🔭 No Searches Run                                                                                              │
+│                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╭────────────────────────────────────────────</span> 📊 Aggregations Run 1/1 <span style="color: #c0c0c0; text-decoration-color: #c0c0c0">────────────────────────────────────────────╮</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│ </span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">AggregationResultWithCollection</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">(</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">search_query</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                          │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">groupby_property</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'brand'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                   │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">aggregations</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">[</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                              │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│         </span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">IntegerPropertyAggregation</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">property_name</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'collection'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">, </span><span style="color: #808000; text-decoration-color: #808000">metrics</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">&lt;</span><span style="color: #ff00ff; text-decoration-color: #ff00ff; font-weight: bold">NumericMetrics.COUNT:</span><span style="color: #000000; text-decoration-color: #000000"> </span><span style="color: #008000; text-decoration-color: #008000">'COUNT'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">&gt;)</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">         │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">]</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                                          │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">filters</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">[]</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">collection</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'Ecommerce'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│ </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">)</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                               │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span>
-</pre>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭──────────────────────────────────────────── 📊 Aggregations Run 1/1 ────────────────────────────────────────────╮
+│                                                                                                                 │
+│ AggregationResultWithCollection(                                                                                │
+│     search_query=None,                                                                                          │
+│     groupby_property='brand',                                                                                   │
+│     aggregations=[                                                                                              │
+│         IntegerPropertyAggregation(property_name='collection', metrics=&lt;NumericMetrics.COUNT: 'COUNT'&gt;)         │
+│     ],                                                                                                          │
+│     filters=[],                                                                                                 │
+│     collection='Ecommerce'                                                                                      │
+│ )                                                                                                               │
+│                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 
 
@@ -520,21 +512,18 @@ print_query_agent_response(response)
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-style: italic">   📊 Usage Statistics   </span>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>   📊 Usage Statistics   
 ┌────────────────┬──────┐
 │ LLM Requests:  │ 3    │
 │ Input Tokens:  │ 3976 │
 │ Output Tokens: │ 159  │
 │ Total Tokens:  │ 4135 │
-└────────────────┴──────┘
-</pre>
+└────────────────┴──────┘</pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">Total Time Taken:</span><span style="color: #008080; text-decoration-color: #008080"> </span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">5.</span><span style="color: #008080; text-decoration-color: #008080">33s</span>
-</pre>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>Total Time Taken: 5.33s</pre>
 
 
 
@@ -553,105 +542,103 @@ print_query_agent_response(response)
 ```
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">╭─────────────────────────────────────────────── 🔍 Original Query ───────────────────────────────────────────────╮
+
+```text
+╭─────────────────────────────────────────────── 🔍 Original Query ───────────────────────────────────────────────╮
 │                                                                                                                 │
 │ Does the brand 'Loom &amp; Aura' have a parent brand or child brands and what countries do they operate from? Also, │
 │ what's the average price of a item from 'Loom &amp; Aura'?                                                          │
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-</pre>
+```
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080">╭────────────────────────────────────────────────</span> 📝 Final Answer <span style="color: #008080; text-decoration-color: #008080">────────────────────────────────────────────────╮</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ Loom &amp; Aura is itself a well-established brand based in Italy and operates as the parent brand to several child │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ brands. These child brands include 'Loom &amp; Aura Active', 'Loom &amp; Aura Kids', 'Nova Nest', 'Vivid Verse', 'Loom  │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ Luxe', 'Saffron Sage', 'Stellar Stitch', 'Nova Nectar', 'Canvas Core', and 'Loom Lure'. The countries           │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ associated with the operations or origins of these child brands include Italy, USA, UK, Spain, South Korea,     │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ Japan, and some extend beyond Italy as suggested by the presence of these brands in different countries.        │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ The average price of an item from Loom &amp; Aura is approximately $87.11. This reflects the brand's positioning as │</span>
-<span style="color: #008080; text-decoration-color: #008080">│ offering items of timeless elegance and quality craftsmanship.                                                  │</span>
-<span style="color: #008080; text-decoration-color: #008080">│                                                                                                                 │</span>
-<span style="color: #008080; text-decoration-color: #008080">╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span>
-</pre>
+
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭──────────────────────────────────────────────── 📝 Final Answer ────────────────────────────────────────────────╮
+│                                                                                                                 │
+│ Loom &amp; Aura is itself a well-established brand based in Italy and operates as the parent brand to several child │
+│ brands. These child brands include 'Loom &amp; Aura Active', 'Loom &amp; Aura Kids', 'Nova Nest', 'Vivid Verse', 'Loom  │
+│ Luxe', 'Saffron Sage', 'Stellar Stitch', 'Nova Nectar', 'Canvas Core', and 'Loom Lure'. The countries           │
+│ associated with the operations or origins of these child brands include Italy, USA, UK, Spain, South Korea,     │
+│ Japan, and some extend beyond Italy as suggested by the presence of these brands in different countries.        │
+│                                                                                                                 │
+│ The average price of an item from Loom &amp; Aura is approximately &#36;87.11. This reflects the brand's positioning as │
+│ offering items of timeless elegance and quality craftsmanship.                                                  │
+│                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╭───────────────────────────────────────────</span> 🔭 Searches Executed 1/2 <span style="color: #c0c0c0; text-decoration-color: #c0c0c0">────────────────────────────────────────────╮</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│ </span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">QueryResultWithCollection</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">(</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">queries</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">[</span><span style="color: #008000; text-decoration-color: #008000">'parent brand of Loom &amp; Aura'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">, </span><span style="color: #008000; text-decoration-color: #008000">'child brands of Loom &amp; Aura'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">]</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                     │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">filters</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">[[]</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">, </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">[]]</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                           │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">filter_operators</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'AND'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                     │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">collection</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'Brands'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                         │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│ </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">)</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                               │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span>
-</pre>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────── 🔭 Searches Executed 1/2 ────────────────────────────────────────────╮
+│                                                                                                                 │
+│ QueryResultWithCollection(                                                                                      │
+│     queries=['parent brand of Loom &amp; Aura', 'child brands of Loom &amp; Aura'],                                     │
+│     filters=[[], []],                                                                                           │
+│     filter_operators='AND',                                                                                     │
+│     collection='Brands'                                                                                         │
+│ )                                                                                                               │
+│                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╭───────────────────────────────────────────</span> 🔭 Searches Executed 2/2 <span style="color: #c0c0c0; text-decoration-color: #c0c0c0">────────────────────────────────────────────╮</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│ </span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">QueryResultWithCollection</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">(</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">queries</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">[</span><span style="color: #008000; text-decoration-color: #008000">'Loom &amp; Aura'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">]</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                    │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">filters</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">[</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                   │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│         </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">[</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                       │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│             </span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">TextPropertyFilter</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">(</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                 </span><span style="color: #808000; text-decoration-color: #808000">property_name</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'name'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                           │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                 </span><span style="color: #808000; text-decoration-color: #808000">operator</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">&lt;</span><span style="color: #ff00ff; text-decoration-color: #ff00ff; font-weight: bold">ComparisonOperator.LIKE:</span><span style="color: #000000; text-decoration-color: #000000"> </span><span style="color: #008000; text-decoration-color: #008000">'LIKE'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">&gt;</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                     │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                 </span><span style="color: #808000; text-decoration-color: #808000">value</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'Loom &amp; Aura'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                             │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│             </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">)</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                   │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│         </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">]</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                       │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">]</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                                          │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">filter_operators</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'AND'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                     │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">collection</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'Brands'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                         │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│ </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">)</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                               │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span>
-</pre>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────── 🔭 Searches Executed 2/2 ────────────────────────────────────────────╮
+│                                                                                                                 │
+│ QueryResultWithCollection(                                                                                      │
+│     queries=['Loom &amp; Aura'],                                                                                    │
+│     filters=[                                                                                                   │
+│         [                                                                                                       │
+│             TextPropertyFilter(                                                                                 │
+│                 property_name='name',                                                                           │
+│                 operator=&lt;ComparisonOperator.LIKE: 'LIKE'&gt;,                                                     │
+│                 value='Loom &amp; Aura'                                                                             │
+│             )                                                                                                   │
+│         ]                                                                                                       │
+│     ],                                                                                                          │
+│     filter_operators='AND',                                                                                     │
+│     collection='Brands'                                                                                         │
+│ )                                                                                                               │
+│                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╭────────────────────────────────────────────</span> 📊 Aggregations Run 1/1 <span style="color: #c0c0c0; text-decoration-color: #c0c0c0">────────────────────────────────────────────╮</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│ </span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">AggregationResultWithCollection</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">(</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">search_query</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                          │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">groupby_property</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">aggregations</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">[</span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">IntegerPropertyAggregation</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">property_name</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'price'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">, </span><span style="color: #808000; text-decoration-color: #808000">metrics</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">&lt;</span><span style="color: #ff00ff; text-decoration-color: #ff00ff; font-weight: bold">NumericMetrics.MEAN:</span><span style="color: #000000; text-decoration-color: #000000"> </span><span style="color: #008000; text-decoration-color: #008000">'MEAN'</span><span style="color: #000000; text-decoration-color: #000000">&gt;</span><span style="color: #000000; text-decoration-color: #000000; font-weight: bold">)]</span><span style="color: #000000; text-decoration-color: #000000">,</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">    │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│ </span><span style="color: #000000; text-decoration-color: #000000">    </span><span style="color: #808000; text-decoration-color: #808000">filters</span><span style="color: #000000; text-decoration-color: #000000">=</span><span style="color: #000000; text-decoration-color: #000000; font-weight: bold">[</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                   │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│ </span><span style="color: #000000; text-decoration-color: #000000">        </span><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">TextPropertyFilter</span><span style="color: #000000; text-decoration-color: #000000; font-weight: bold">(</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                     │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│ </span><span style="color: #000000; text-decoration-color: #000000">            </span><span style="color: #808000; text-decoration-color: #808000">property_name</span><span style="color: #000000; text-decoration-color: #000000">=</span><span style="color: #008000; text-decoration-color: #008000">'brand'</span><span style="color: #000000; text-decoration-color: #000000">,</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                              │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│ </span><span style="color: #000000; text-decoration-color: #000000">            </span><span style="color: #808000; text-decoration-color: #808000">operator</span><span style="color: #000000; text-decoration-color: #000000">=&lt;ComparisonOperator.EQUALS: </span><span style="color: #008000; text-decoration-color: #008000">'='</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">&gt;</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                          │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│             </span><span style="color: #808000; text-decoration-color: #808000">value</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'Loom &amp; Aura'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│         </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">)</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                       │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">]</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">,                                                                                                          │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│     </span><span style="color: #808000; text-decoration-color: #808000">collection</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">=</span><span style="color: #008000; text-decoration-color: #008000">'Ecommerce'</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                      │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│ </span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0; font-weight: bold">)</span><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">                                                                                                               │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span>
-</pre>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭──────────────────────────────────────────── 📊 Aggregations Run 1/1 ────────────────────────────────────────────╮
+│                                                                                                                 │
+│ AggregationResultWithCollection(                                                                                │
+│     search_query=None,                                                                                          │
+│     groupby_property=None,                                                                                      │
+│     aggregations=[IntegerPropertyAggregation(property_name='price', metrics=&lt;NumericMetrics.MEAN: 'MEAN'&gt;)],    │
+│     filters=[                                                                                                   │
+│         TextPropertyFilter(                                                                                     │
+│             property_name='brand',                                                                              │
+│             operator=&lt;ComparisonOperator.EQUALS: '='&gt;,                                                          │
+│             value='Loom &amp; Aura'                                                                                 │
+│         )                                                                                                       │
+│     ],                                                                                                          │
+│     collection='Ecommerce'                                                                                      │
+│ )                                                                                                               │
+│                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╭──────────────────────────────────────────────────</span> 📚 Sources <span style="color: #c0c0c0; text-decoration-color: #c0c0c0">───────────────────────────────────────────────────╮</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='88433e18-216d-489a-8719-81a29b0ae915' collection='Brands'                                         │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='99f42d07-51e9-4388-9c4b-63eb8f79f5fd' collection='Brands'                                         │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='0852c2a4-0c5a-4c69-9762-1be10bc44f2b' collection='Brands'                                         │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='d172a342-da41-45c3-876e-d08db843b8b3' collection='Brands'                                         │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='a7ad0ed7-812e-4106-a29f-40442c3a106e' collection='Brands'                                         │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│  - object_id='b6abfa02-18e5-44cf-a002-ba140e3623ad' collection='Brands'                                         │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">│                                                                                                                 │</span>
-<span style="color: #c0c0c0; text-decoration-color: #c0c0c0">╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</span>
-</pre>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭────────────────────────────────────────────────── 📚 Sources ───────────────────────────────────────────────────╮
+│                                                                                                                 │
+│  - object_id='88433e18-216d-489a-8719-81a29b0ae915' collection='Brands'                                         │
+│  - object_id='99f42d07-51e9-4388-9c4b-63eb8f79f5fd' collection='Brands'                                         │
+│  - object_id='0852c2a4-0c5a-4c69-9762-1be10bc44f2b' collection='Brands'                                         │
+│  - object_id='d172a342-da41-45c3-876e-d08db843b8b3' collection='Brands'                                         │
+│  - object_id='a7ad0ed7-812e-4106-a29f-40442c3a106e' collection='Brands'                                         │
+│  - object_id='b6abfa02-18e5-44cf-a002-ba140e3623ad' collection='Brands'                                         │
+│                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 
 
@@ -660,21 +647,18 @@ print_query_agent_response(response)
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-style: italic">   📊 Usage Statistics    </span>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>   📊 Usage Statistics    
 ┌────────────────┬───────┐
 │ LLM Requests:  │ 5     │
 │ Input Tokens:  │ 9728  │
 │ Output Tokens: │ 479   │
 │ Total Tokens:  │ 10207 │
-└────────────────┴───────┘
-</pre>
+└────────────────┴───────┘</pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">Total Time Taken:</span><span style="color: #008080; text-decoration-color: #008080"> </span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11.</span><span style="color: #008080; text-decoration-color: #008080">38s</span>
-</pre>
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>Total Time Taken: 11.38s</pre>
 
 
 
