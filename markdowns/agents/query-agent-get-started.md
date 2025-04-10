@@ -8,8 +8,6 @@ integration: False
 agent: True
 tags: ['Query Agent']
 ---
-# Build A Weaviate Query Agent - The E-Commerce Assistant
-
 In this recipe, we will be building a simple e-commerce assistant agent with the [Weaviate Query Agent](https://weaviate.io/developers/agents). This agent will have access to a number of Weaviate collections, and will be capable of answering complex queries about brands and clothing items, accessing information from each collection.
 
 > 📚 You can read and learn more about this service in our ["Introducing the Weaviate Query Agent"](https://weaviate.io/blog/query-agent) blog.

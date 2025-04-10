@@ -447,6 +447,62 @@ def _remove_whatnext_component(markdown_body):
     return body
 
 
+def _remove_redundant_title_heading(markdown_body, notebook_info):
+    """
+    Removes the first H1 or H2 heading from the markdown body if it
+    exactly matches the 'title' specified in the notebook_info frontmatter.
+    """
+    print("  Checking for redundant title heading...")
+    title_text = notebook_info.get("title", "").strip()
+    if not title_text:
+        print("    No title found in frontmatter to compare against.")
+        return markdown_body  # Nothing to compare
+
+    # Strip leading whitespace/newlines from the body to find the first content line
+    stripped_body = markdown_body.lstrip()
+    if not stripped_body:
+        return markdown_body  # Body is empty
+
+    # Split into the first line and the rest of the content
+    lines = stripped_body.split("\n", 1)
+    first_line = lines[0].strip()  # Check the first line of actual content
+    rest_of_body = lines[1] if len(lines) > 1 else ""
+
+    heading_text = None
+    is_matching_heading = False
+
+    # Check if the first line is an H1 or H2
+    match_h1 = re.match(r"#\s+(.*)", first_line)
+    match_h2 = re.match(r"##\s+(.*)", first_line)
+
+    if match_h1:
+        heading_text = match_h1.group(1).strip()
+        heading_level = "H1"
+    elif match_h2:
+        heading_text = match_h2.group(1).strip()
+        heading_level = "H2"
+
+    # Compare heading text with frontmatter title (case-insensitive)
+    if heading_text and heading_text.lower() == title_text.lower():
+        is_matching_heading = True
+
+    if is_matching_heading:
+        print(
+            f"    Removing redundant {heading_level} title matching frontmatter: '{first_line}'"
+        )
+        # Return the rest of the body, stripping any leading newline left from the split
+        return rest_of_body.lstrip()
+    else:
+        if heading_text:
+            print(
+                f"    First heading '{heading_text}' does not match title '{title_text}'. Keeping."
+            )
+        else:
+            print("    First line is not an H1 or H2 heading.")
+        # No redundant title found, return the original body
+        return markdown_body
+
+
 def _determine_output_path(notebook_info, output_path_base):  # (Keep as is)
     notebook_path = Path(notebook_info["file"])
     filename_stem = notebook_path.stem
@@ -528,12 +584,15 @@ def convert_notebook_to_markdown(notebook_info, output_path_base):
     # Step 8: Fix Image Paths
     md_body_step8 = _fix_image_paths(md_body_step7, notebook_info)
 
-    # *** Step 9: Remove WhatNext Component (NEW STEP) ***
+    # Step 9: Remove WhatNext Component
     md_body_step9 = _remove_whatnext_component(md_body_step8)
+
+    # Step 10: Remove Redundant Title Heading
+    md_body_step10 = _remove_redundant_title_heading(md_body_step9, notebook_info)
 
     # Step 10: Determine Output Path (Renumbered)
     output_file_path = _determine_output_path(notebook_info, output_path_base)
 
     # Step 11: Write Output File (Renumbered)
     # Pass the result from the WhatNext removal step
-    _write_output_file(output_file_path, frontmatter, md_body_step9)
+    _write_output_file(output_file_path, frontmatter, md_body_step10)

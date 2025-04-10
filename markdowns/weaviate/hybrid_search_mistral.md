@@ -8,8 +8,6 @@ integration: False
 agent: False
 tags: ['Hybrid Search', 'Mistral']
 ---
-# Hybrid Search with Mistral
-
 This recipe will show you how to run hybrid search with embeddings from Mistral.
 
 ## Requirements

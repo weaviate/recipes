@@ -8,8 +8,6 @@ integration: False
 agent: True
 tags: ['Transformation Agent']
 ---
-# Build a Weaviate Transformation Agent
-
 In this recipe, we will use a Weaviate [`TransformationAgent`](https://weaviate.io/developers/agents/transformation) to enhance our data in Weaviate. We will build an agent that has access to a collection containing a bunch or research papers, their abstracts and titles. We will then use the agent to create additional properties for eaach of our objects in the collection.
 
 > ⚠️ The Weaviate Transformation Agent is designed to modify data in Weaviate in place. **While the Agent is in technical preview, do not use it in a production environment.** The Agent may not work as expected, and the data in your Weaviate instance may be affected in unexpected ways.

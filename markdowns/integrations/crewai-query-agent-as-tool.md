@@ -6,10 +6,8 @@ title: "Weaviate Query Agent with Crew AI"
 featured: False
 integration: True
 agent: False
-tags: ['Query Agent, Integration']
+tags: ['Query Agent', 'Integration']
 ---
-## Weaviate Query Agent with Crew AI
-
 This notebook will show you how to define the Weaviate Query Agent as a tool through the Crew AI.
 
 ### Requirements

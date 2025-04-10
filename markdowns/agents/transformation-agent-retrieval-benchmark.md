@@ -8,8 +8,6 @@ integration: False
 agent: True
 tags: ['Transformation Agent']
 ---
-# Benchmarking Arctic 2.0 vs. Arctic 1.5 with Synthetic RAG Evals
-
 Traditionally, AI system evaluation has relied heavily on human-written evaluation sets. Most notably, this process demands substantial time and resource investment, preventing most developers from creating and properly evaluating their AI systems.
 
 The Weaviate Transformation Agent offers a breakthrough in AI evaluation by enabling the rapid generation of synthetic evaluation datasets!
