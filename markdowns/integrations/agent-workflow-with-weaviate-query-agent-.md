@@ -8,7 +8,6 @@ integration: True
 agent: False
 tags: ['Query Agent, Integration']
 ---
-    
 ## Weaviate Query Agent with LlamaIndex
 
 This notebook will show you how to define the Weaviate Query Agent as a tool through LlamaIndex.
@@ -26,7 +25,6 @@ This notebook will show you how to define the Weaviate Query Agent as a tool thr
 
 ### Import libraries and keys
 
-
 ```python
 import weaviate
 from weaviate_agents.query import QueryAgent
@@ -37,7 +35,6 @@ from llama_index.llms.openai import OpenAI
 from llama_index.core.agent.workflow import AgentWorkflow
 ```
 
-
 ```python
 os.environ["WEAVIATE_URL"] = ""
 os.environ["WEAVIATE_API_KEY"] = ""
@@ -45,7 +42,6 @@ os.environ["OPENAI_API_KEY"] = ""
 ```
 
 ### Define Query Agent function
-
 
 ```python
 def query_agent_request(query: str) -> str:
@@ -77,13 +73,11 @@ def query_agent_request(query: str) -> str:
 
 ### Define model
 
-
 ```python
 llm = OpenAI(model="gpt-4o-mini")
 ```
 
 ### Create Agent Workflow
-
 
 ```python
 workflow = AgentWorkflow.from_tools_or_functions(
@@ -95,53 +89,53 @@ workflow = AgentWorkflow.from_tools_or_functions(
 
 ### Query Time
 
-
 ```python
 response = await workflow.run(user_msg="How do I run Weaviate with Docker?")
 print(response)
 ```
 
-    /Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/weaviate/warnings.py:314: ResourceWarning: Con004: The connection to Weaviate was not closed properly. This can lead to memory leaks.
-                Please make sure to close the connection using `client.close()`.
-      warnings.warn(
+Python output:
+```text
+/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/weaviate/warnings.py:314: ResourceWarning: Con004: The connection to Weaviate was not closed properly. This can lead to memory leaks.
+            Please make sure to close the connection using `client.close()`.
+  warnings.warn(
 
+To run Weaviate with Docker, follow these steps:
 
-    To run Weaviate with Docker, follow these steps:
-    
-    1. **Install Docker and Docker Compose**: Ensure that you have Docker (version 17.09.0 or higher) and Docker Compose installed. You can find installation guides for various operating systems on the Docker documentation site.
-    
-    2. **Download a Weaviate Docker Image**: Use the command to pull the latest version of Weaviate:
-       ```bash
-       docker pull cr.weaviate.io/semitechnologies/weaviate:latest
-       ```
-    
-    3. **Run Weaviate**: Start a Weaviate instance using the following command:
-       ```bash
-       docker run -p 8080:8080 -p 50051:50051 cr.weaviate.io/semitechnologies/weaviate:latest
-       ```
-       This command will map the ports and start the Weaviate instance.
-    
-    4. **Using Docker Compose**: For a more manageable configuration, it's recommended to use Docker Compose. Create a `docker-compose.yml` file with the required setup. Here’s a simple example:
-       ```yaml
-       version: '3.8'
-       services:
-         weaviate:
-           image: cr.weaviate.io/semitechnologies/weaviate:latest
-           ports:
-             - "8080:8080"
-             - "50051:50051"
-           environment:
-             AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: "true"
-             PERSISTENCE_DATA_PATH: "/var/lib/weaviate"
-       ```
-       Place this file in a directory and run:
-       ```bash
-       docker-compose up -d
-       ```
-    
-    5. **Check the Status**: After starting, you can check if Weaviate is running by sending a request to its readiness endpoint:
-       ```bash
-       curl --fail -s localhost:8080/v1/.well-known/ready
-       ```
-       This command will confirm if Weaviate is up and ready for use.
+1. **Install Docker and Docker Compose**: Ensure that you have Docker (version 17.09.0 or higher) and Docker Compose installed. You can find installation guides for various operating systems on the Docker documentation site.
 
+2. **Download a Weaviate Docker Image**: Use the command to pull the latest version of Weaviate:
+   ```bash
+   docker pull cr.weaviate.io/semitechnologies/weaviate:latest
+   ```
+
+3. **Run Weaviate**: Start a Weaviate instance using the following command:
+   ```bash
+   docker run -p 8080:8080 -p 50051:50051 cr.weaviate.io/semitechnologies/weaviate:latest
+   ```
+   This command will map the ports and start the Weaviate instance.
+
+4. **Using Docker Compose**: For a more manageable configuration, it's recommended to use Docker Compose. Create a `docker-compose.yml` file with the required setup. Here’s a simple example:
+   ```yaml
+   version: '3.8'
+   services:
+     weaviate:
+       image: cr.weaviate.io/semitechnologies/weaviate:latest
+       ports:
+         - "8080:8080"
+         - "50051:50051"
+       environment:
+         AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: "true"
+         PERSISTENCE_DATA_PATH: "/var/lib/weaviate"
+   ```
+   Place this file in a directory and run:
+   ```bash
+   docker-compose up -d
+   ```
+
+5. **Check the Status**: After starting, you can check if Weaviate is running by sending a request to its readiness endpoint:
+   ```bash
+   curl --fail -s localhost:8080/v1/.well-known/ready
+   ```
+   This command will confirm if Weaviate is up and ready for use.
+```

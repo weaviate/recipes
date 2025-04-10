@@ -8,7 +8,6 @@ integration: False
 agent: True
 tags: ['Transformation Agent']
 ---
-    
 # Benchmarking Arctic 2.0 vs. Arctic 1.5 with Synthetic RAG Evals
 
 Traditionally, AI system evaluation has relied heavily on human-written evaluation sets. Most notably, this process demands substantial time and resource investment, preventing most developers from creating and properly evaluating their AI systems.
@@ -30,7 +29,6 @@ The Arctic 2.0 model demonstrates superior performance, with particularly notabl
 
 ![Embedding Benchmark with the Transformation Agent](https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/images/synthetic-query-overview-new.png "Embedding Benchmark with the Transformation Agent")
 
-
 ```python
 import weaviate
 import os
@@ -40,7 +38,6 @@ import re
 from weaviate.util import get_valid_uuid
 from uuid import uuid4
 ```
-
 
 ```python
 # Connect to Weaviate Client
@@ -56,9 +53,10 @@ weaviate_client = weaviate.connect_to_weaviate_cloud(
 print(weaviate_client.is_ready())
 ```
 
-    True
-
-
+Python output:
+```text
+True
+```
 ## Weaviate Named Vectors
 
 Create 2 HSNW indexes from the *same* property in Weaviate!!
@@ -66,7 +64,6 @@ Create 2 HSNW indexes from the *same* property in Weaviate!!
 On top of that, you can set different embedding models for each!
 
 You can learn more about Weaviate Named Vectors [here](https://weaviate.io/developers/weaviate/config-refs/schema/multi-vector) and the Weaviate Embedding Service [here](https://weaviate.io/developers/wcs/embeddings)!
-
 
 ```python
 blogs_collection = weaviate_client.collections.create(
@@ -90,7 +87,6 @@ blogs_collection = weaviate_client.collections.create(
 ```
 
 ## Simple Directory Parser to Load Weaviate's Blogs stored in Markdown Files into Memory
-
 
 ```python
 def chunk_list(lst, chunk_size):
@@ -125,43 +121,38 @@ blog_chunks = read_and_chunk_index_files(main_folder_path)
 
 ## We have 2,160 blog chunks from Weaviate's Blog Posts!
 
-
 ```python
 len(blog_chunks)
 ```
 
-
-
-
-    2160
-
-
-
+Python output:
+```text
+2160
+```
 ### Here is an example of one of these blog chunks:
-
 
 ```python
 print(blog_chunks[0])
 ```
 
-    ---
-    title: 'Accelerating Vector Search up to +40% with Intel’s latest Xeon CPU - Emerald Rapids'
-    slug: intel
-    authors: [zain, asdine, john]
-    date: 2024-03-26
-    image: ./img/hero.png
-    tags: ['engineering', 'research']
-    description: 'Boosting Weaviate using SIMD-AVX512, Loop Unrolling and Compiler Optimizations'
-    ---
-    
-    ![HERO image](https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/img/hero.png)
-    
-    **Overview of Key Sections:**
-    - [**Vector Distance Calculations**](#vector-distance-calculations) Different vector distance metrics popularly used in Weaviate. - [**Implementations of Distance Calculations in Weaviate**](#vector-distance-implementations) Improvements under the hood for implementation of Dot product and L2 distance metrics. - [**Intel’s 5th Gen Intel Xeon Processor, Emerald Rapids**](#enter-intel-emerald-rapids)  More on Intel's new 5th Gen Xeon processor. - [**Benchmarking Performance**](#lets-talk-numbers) Performance numbers on microbenchmarks along with simulated real-world usage scenarios. What’s the most important calculation a vector database needs to do over and over again?
+Python output:
+```text
+---
+title: 'Accelerating Vector Search up to +40% with Intel’s latest Xeon CPU - Emerald Rapids'
+slug: intel
+authors: [zain, asdine, john]
+date: 2024-03-26
+image: ./img/hero.png
+tags: ['engineering', 'research']
+description: 'Boosting Weaviate using SIMD-AVX512, Loop Unrolling and Compiler Optimizations'
+---
 
+![HERO image](https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/img/hero.png)
 
+**Overview of Key Sections:**
+- [**Vector Distance Calculations**](#vector-distance-calculations) Different vector distance metrics popularly used in Weaviate. - [**Implementations of Distance Calculations in Weaviate**](#vector-distance-implementations) Improvements under the hood for implementation of Dot product and L2 distance metrics. - [**Intel’s 5th Gen Intel Xeon Processor, Emerald Rapids**](#enter-intel-emerald-rapids)  More on Intel's new 5th Gen Xeon processor. - [**Benchmarking Performance**](#lets-talk-numbers) Performance numbers on microbenchmarks along with simulated real-world usage scenarios. What’s the most important calculation a vector database needs to do over and over again?
+```
 ## Batch Import Blogs into Weaviate
-
 
 ```python
 blogs_collection = weaviate_client.collections.get("WeaviateBlogChunks")
@@ -187,13 +178,13 @@ if failed_objects:
     print(f"First failed object: {failed_objects[0]}")
 ```
 
-    Inserted 500 blog chunks... (Time elapsed: 2.26 seconds)
-    Inserted 1000 blog chunks... (Time elapsed: 4.21 seconds)
-    Inserted 1500 blog chunks... (Time elapsed: 4.64 seconds)
-    Inserted 2000 blog chunks... (Time elapsed: 6.49 seconds)
-
-
-
+Python output:
+```text
+Inserted 500 blog chunks... (Time elapsed: 2.26 seconds)
+Inserted 1000 blog chunks... (Time elapsed: 4.21 seconds)
+Inserted 1500 blog chunks... (Time elapsed: 4.64 seconds)
+Inserted 2000 blog chunks... (Time elapsed: 6.49 seconds)
+```
 ```python
 # Retry uploading failed objects with proper error handling
 print("Attempting to retry failed objects...")
@@ -227,10 +218,11 @@ for object in failed_objects:
 print(f"Retry complete. Successfully uploaded {success_count} previously failed objects. {error_count} objects still failed.")
 ```
 
-    Attempting to retry failed objects...
-    Retry complete. Successfully uploaded 0 previously failed objects. 0 objects still failed.
-
-
+Python output:
+```text
+Attempting to retry failed objects...
+Retry complete. Successfully uploaded 0 previously failed objects. 0 objects still failed.
+```
 ## Create Simluated User Queries with the Transformation Agent
 
 Weaviate Users may be interested in knowing what embedding model they should use for their documents.
@@ -238,7 +230,6 @@ Weaviate Users may be interested in knowing what embedding model they should use
 In order to know this, you will need some dataset of questions that you might expect your knowledge base to receive.
 
 This can now be achieved at scale super quickly (2.1K questions in **63 seconds**) with the Transformation Agent!
-
 
 ```python
 from weaviate.agents.transformation import TransformationAgent
@@ -264,46 +255,37 @@ for operation in response:  # The response is a list of TransformationResponse o
     print(agent.get_status(workflow_id=operation.workflow_id))  # Use the workflow_id to check the status of each operation
 ```
 
-    \{'workflow_id': 'TransformationWorkflow-e979d5f69b91575e7289ab61d559cafa', 'status': \{'batch_count': 0, 'end_time': None, 'start_time': '2025-03-12 01:21:58', 'state': 'running', 'total_duration': None, 'total_items': 0}}
-
-
-
+Python output:
+```text
+{'workflow_id': 'TransformationWorkflow-e979d5f69b91575e7289ab61d559cafa', 'status': {'batch_count': 0, 'end_time': None, 'start_time': '2025-03-12 01:21:58', 'state': 'running', 'total_duration': None, 'total_items': 0}}
+```
 ```python
 agent.get_status(workflow_id=response[0].workflow_id)
 ```
 
-
-
-
-    \{'workflow_id': 'TransformationWorkflow-e979d5f69b91575e7289ab61d559cafa',
-     'status': \{'batch_count': 9,
-      'end_time': '2025-03-12 01:23:01',
-      'start_time': '2025-03-12 01:21:58',
-      'state': 'completed',
-      'total_duration': 63.097952,
-      'total_items': 2160}}
-
-
-
-
+Python output:
+```text
+{'workflow_id': 'TransformationWorkflow-e979d5f69b91575e7289ab61d559cafa',
+ 'status': {'batch_count': 9,
+  'end_time': '2025-03-12 01:23:01',
+  'start_time': '2025-03-12 01:21:58',
+  'state': 'completed',
+  'total_duration': 63.097952,
+  'total_items': 2160}}
+```
 ```python
 response
 ```
 
-
-
-
-    [TransformationResponse(operation_name='predicted_user_query', workflow_id='TransformationWorkflow-e979d5f69b91575e7289ab61d559cafa')]
-
-
-
+Python output:
+```text
+[TransformationResponse(operation_name='predicted_user_query', workflow_id='TransformationWorkflow-e979d5f69b91575e7289ab61d559cafa')]
+```
 ### Inspect Synthetic Queries produced from the Blog Content
-
 
 ```python
 blogs_collection = weaviate_client.collections.get("WeaviateBlogChunks")
 ```
-
 
 ```python
 results = blogs_collection.query.hybrid(
@@ -322,99 +304,95 @@ for i, result in enumerate(results, 1):
     print()
 ```
 
-    [37mExample #1[0m
-    [36mBlog Content:[0m
-    
-    [36m---
-    title: 'Introducing the Weaviate Query Agent'
-    slug: query-agent
-    authors: [charles-pierse, tuana, alvin]
-    date: 2025-03-05
-    tags: ['concepts', 'agents', 'release']
-    image: ./img/hero.png
-    description: "Learn about the Query Agent, our new agentic search service that redefines how you interact with Weaviate’s database!"
-    ---
-    ![Introducing the Weaviate Query Agent](https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/img/hero.png)
-    
-    
-    We’re incredibly excited to announce that we’ve released a brand new service for our [Serverless Weaviate Cloud](https://weaviate.io/deployment/serverless) users (including free Sandbox users) to preview, currently in Alpha: the _**Weaviate Query Agent!**_ Ready to use now, this new feature provides a simple interface for users to ask complex multi-stage questions about your data in Weaviate, using powerful foundation LLMs. In this blog, learn more about what the Weaviate Query Agent is, and discover how you can build your own!
-    
-    Let’s get started. :::note 
-    This blog comes with an accompanying [recipe](https://github.com/weaviate/recipes/tree/main/weaviate-services/agents/query-agent-get-started.ipynb) for those of you who’d like to get started. :::
-    
-    ## What is the Weaviate Query Agent
-    
-    AI Agents are semi- or fully- autonomous systems that make use of LLMs as the brain of the operation. This allows you to build applications that are able to handle complex user queries that may need to access multiple data sources. And, over the past few years we’ve started to build such applications thanks to more and more powerful LLMs capable of function calling, frameworks that simplify the development process and more.[0m
-    [32mPredicted User Query:[0m
-    
-    [32mHow can I integrate the Weaviate Query Agent with my existing application to access multiple data sources using LLMs?[0m
-    
-    [37mExample #2[0m
-    [36mBlog Content:[0m
-    
-    [36m:::note 
-    To learn more about what AI Agents are, read our blog [”Agents Simplified: What we mean in the context of AI”](https://weaviate.io/blog/ai-agents). :::
-    
-    **With the Query Agent, we aim to provide an agent that is inherently capable of handling complex queries over multiple Weaviate collections.** The agent understands the structure of all of your collections, so knows when to run searches, aggregations or even both at the same time for you. Often, AI agents are described as LLMs that have access to various tools (adding more to its capabilities), which are also able to make a plan, and reason about the response. Our Query Agent is an AI agent that is provided access to multiple Weaviate collections within a cluster. Depending on the user’s query, it will be able to decide which collection or collections to perform searches on.[0m
-    [32mPredicted User Query:[0m
-    
-    [32mHow does the Query Agent decide which Weaviate collections to perform searches on based on a user's query?[0m
-    
-    [37mExample #3[0m
-    [36mBlog Content:[0m
-    
-    [36mSo, you can think of the Weaviate Query Agent as an AI agent that has tools in the form of Weaviate Collections. In addition to access to multiple collections, the Weaviate Query Agent also has access to two internal agentic search workflows:
-    
-    -   Regular [semantic search](/blog/vector-search-explained) with optional filters
-    -   Aggregations
-    
-    In essence, we’ve released a multi-agent system that can route queries to one or the other and synthesise a final answer for the user. ![Query Agent](https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/img/query-agent.png)
-    
-    ### Routing to Search vs Aggregations
-    
-    Not all queries are the same. While some may require us to do semantic search using embeddings over a dataset, other queries may require us to make [aggregations](https://weaviate.io/developers/weaviate/api/graphql/aggregate) (such as counting objects, calculating the average value of a property and so on). We can demonstrate the difference with a simple example.[0m
-    [32mPredicted User Query:[0m
-    
-    [32mHow do I decide when to use semantic search versus aggregations in the Weaviate Query Agent?[0m
-    
-    [37mExample #4[0m
-    [36mBlog Content:[0m
-    
-    [36mThis allows you to provide the agent with instructions on how it should behave. For example, below we provide a system prompt which instructs the agent to always respond in the users language:
-    
-    ```python
-    multi_lingual_agent = QueryAgent(
-        client=client, collections=["Ecommerce", "Brands"],
-        system_prompt="You are a helpful assistant that always generated the final response in the users language."
-        " You may have to translate the user query to perform searches. But you must always respond to the user in their own language."
-    )
-    ```
-    
-    ## Summary
-    
-    The Weaviate Query Agent represents a significant step forward in making vector databases more accessible and powerful. By combining the capabilities of LLMs with Weaviate's own search and aggregation features, we've created a tool that can handle complex queries across multiple collections while maintaining context and supporting multiple languages. The resulting agent can be used on its own, as well as within a larger agentic or multi-agent application.[0m
-    [32mPredicted User Query:[0m
-    
-    [32mHow do I integrate the Weaviate Query Agent with a larger agentic or multi-agent application?[0m
-    
-    [37mExample #5[0m
-    [36mBlog Content:[0m
-    
-    [36mWhether you're building applications that require semantic search, complex aggregations, or both, the Query Agent simplifies the development process while providing the flexibility to customize its behavior through system prompts. As we continue to develop and enhance this feature, we look forward to seeing how our community will leverage it to build even more powerful AI-driven applications. Ready to get started? Check out our [recipe](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/query-agent-get-started.ipynb), join the discussion in our forum, and start building with the Weaviate Query Agent today!
-    
-    import WhatsNext from '/_includes/what-next.mdx'
-    
-    <WhatsNext />[0m
-    [32mPredicted User Query:[0m
-    
-    [32mHow can I customize the behavior of the Query Agent through system prompts?[0m
-    
+Python output:
+```text
+[37mExample #1[0m
+[36mBlog Content:[0m
 
+[36m---
+title: 'Introducing the Weaviate Query Agent'
+slug: query-agent
+authors: [charles-pierse, tuana, alvin]
+date: 2025-03-05
+tags: ['concepts', 'agents', 'release']
+image: ./img/hero.png
+description: "Learn about the Query Agent, our new agentic search service that redefines how you interact with Weaviate’s database!"
+---
+![Introducing the Weaviate Query Agent](https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/img/hero.png)
 
+We’re incredibly excited to announce that we’ve released a brand new service for our [Serverless Weaviate Cloud](https://weaviate.io/deployment/serverless) users (including free Sandbox users) to preview, currently in Alpha: the _**Weaviate Query Agent!**_ Ready to use now, this new feature provides a simple interface for users to ask complex multi-stage questions about your data in Weaviate, using powerful foundation LLMs. In this blog, learn more about what the Weaviate Query Agent is, and discover how you can build your own!
+
+Let’s get started. :::note 
+This blog comes with an accompanying [recipe](https://github.com/weaviate/recipes/tree/main/weaviate-services/agents/query-agent-get-started.ipynb) for those of you who’d like to get started. :::
+
+## What is the Weaviate Query Agent
+
+AI Agents are semi- or fully- autonomous systems that make use of LLMs as the brain of the operation. This allows you to build applications that are able to handle complex user queries that may need to access multiple data sources. And, over the past few years we’ve started to build such applications thanks to more and more powerful LLMs capable of function calling, frameworks that simplify the development process and more.[0m
+[32mPredicted User Query:[0m
+
+[32mHow can I integrate the Weaviate Query Agent with my existing application to access multiple data sources using LLMs?[0m
+
+[37mExample #2[0m
+[36mBlog Content:[0m
+
+[36m:::note 
+To learn more about what AI Agents are, read our blog [”Agents Simplified: What we mean in the context of AI”](https://weaviate.io/blog/ai-agents). :::
+
+**With the Query Agent, we aim to provide an agent that is inherently capable of handling complex queries over multiple Weaviate collections.** The agent understands the structure of all of your collections, so knows when to run searches, aggregations or even both at the same time for you. Often, AI agents are described as LLMs that have access to various tools (adding more to its capabilities), which are also able to make a plan, and reason about the response. Our Query Agent is an AI agent that is provided access to multiple Weaviate collections within a cluster. Depending on the user’s query, it will be able to decide which collection or collections to perform searches on.[0m
+[32mPredicted User Query:[0m
+
+[32mHow does the Query Agent decide which Weaviate collections to perform searches on based on a user's query?[0m
+
+[37mExample #3[0m
+[36mBlog Content:[0m
+
+[36mSo, you can think of the Weaviate Query Agent as an AI agent that has tools in the form of Weaviate Collections. In addition to access to multiple collections, the Weaviate Query Agent also has access to two internal agentic search workflows:
+
+-   Regular [semantic search](/blog/vector-search-explained) with optional filters
+-   Aggregations
+
+In essence, we’ve released a multi-agent system that can route queries to one or the other and synthesise a final answer for the user. ![Query Agent](https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-services/agents/img/query-agent.png)
+
+### Routing to Search vs Aggregations
+
+Not all queries are the same. While some may require us to do semantic search using embeddings over a dataset, other queries may require us to make [aggregations](https://weaviate.io/developers/weaviate/api/graphql/aggregate) (such as counting objects, calculating the average value of a property and so on). We can demonstrate the difference with a simple example.[0m
+[32mPredicted User Query:[0m
+
+[32mHow do I decide when to use semantic search versus aggregations in the Weaviate Query Agent?[0m
+
+[37mExample #4[0m
+[36mBlog Content:[0m
+
+[36mThis allows you to provide the agent with instructions on how it should behave. For example, below we provide a system prompt which instructs the agent to always respond in the users language:
+
+```python
+multi_lingual_agent = QueryAgent(
+    client=client, collections=["Ecommerce", "Brands"],
+    system_prompt="You are a helpful assistant that always generated the final response in the users language."
+    " You may have to translate the user query to perform searches. But you must always respond to the user in their own language."
+)
+```
+
+## Summary
+
+The Weaviate Query Agent represents a significant step forward in making vector databases more accessible and powerful. By combining the capabilities of LLMs with Weaviate's own search and aggregation features, we've created a tool that can handle complex queries across multiple collections while maintaining context and supporting multiple languages. The resulting agent can be used on its own, as well as within a larger agentic or multi-agent application.[0m
+[32mPredicted User Query:[0m
+
+[32mHow do I integrate the Weaviate Query Agent with a larger agentic or multi-agent application?[0m
+
+[37mExample #5[0m
+[36mBlog Content:[0m
+
+[36mWhether you're building applications that require semantic search, complex aggregations, or both, the Query Agent simplifies the development process while providing the flexibility to customize its behavior through system prompts. As we continue to develop and enhance this feature, we look forward to seeing how our community will leverage it to build even more powerful AI-driven applications. Ready to get started? Check out our [recipe](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/query-agent-get-started.ipynb), join the discussion in our forum, and start building with the Weaviate Query Agent today!
+
+<WhatsNext />[0m
+[32mPredicted User Query:[0m
+
+[32mHow can I customize the behavior of the Query Agent through system prompts?[0m
+```
 ### The Generated Dataset can be found on HuggingFace [here](https://huggingface.co/datasets/weaviate/weaviate-blogs-with-synthetic-questions)!
 
 ## Benchmark Recall at 1, 5, and 100 (Arctic 1.5 vs. Arctic 2.0)
-
 
 ```python
 recall_at_1_arctic_1_5, recall_at_1_arctic_2_0 = [], []
@@ -495,28 +473,28 @@ print(f"Arctic 2.0 - Recall@1: {avg_recall_at_1_arctic_2_0:.4f}, Recall@5: {avg_
 
 ```
 
-    Starting evaluation...
-    Processed 500 items...
-      Current Arctic 1.5 - Recall@1: 0.8140, Recall@5: 0.9380
-      Current Arctic 2.0 - Recall@1: 0.8780, Recall@5: 0.9760
-    Processed 1000 items...
-      Current Arctic 1.5 - Recall@1: 0.8040, Recall@5: 0.9290
-      Current Arctic 2.0 - Recall@1: 0.8630, Recall@5: 0.9660
-    Processed 1500 items...
-      Current Arctic 1.5 - Recall@1: 0.8027, Recall@5: 0.9287
-      Current Arctic 2.0 - Recall@1: 0.8493, Recall@5: 0.9567
-    Processed 2000 items...
-      Current Arctic 1.5 - Recall@1: 0.7980, Recall@5: 0.9235
-      Current Arctic 2.0 - Recall@1: 0.8390, Recall@5: 0.9540
-    Evaluation complete! Processed 2160 total items.
-    FINAL RESULTS:
-    Arctic 1.5 - Recall@1: 0.7995, Recall@5: 0.9245, Recall@100: 0.9995
-    Arctic 2.0 - Recall@1: 0.8412, Recall@5: 0.9546, Recall@100: 0.9995
-
-
+Python output:
+```text
+Starting evaluation...
+Processed 500 items...
+  Current Arctic 1.5 - Recall@1: 0.8140, Recall@5: 0.9380
+  Current Arctic 2.0 - Recall@1: 0.8780, Recall@5: 0.9760
+Processed 1000 items...
+  Current Arctic 1.5 - Recall@1: 0.8040, Recall@5: 0.9290
+  Current Arctic 2.0 - Recall@1: 0.8630, Recall@5: 0.9660
+Processed 1500 items...
+  Current Arctic 1.5 - Recall@1: 0.8027, Recall@5: 0.9287
+  Current Arctic 2.0 - Recall@1: 0.8493, Recall@5: 0.9567
+Processed 2000 items...
+  Current Arctic 1.5 - Recall@1: 0.7980, Recall@5: 0.9235
+  Current Arctic 2.0 - Recall@1: 0.8390, Recall@5: 0.9540
+Evaluation complete! Processed 2160 total items.
+FINAL RESULTS:
+Arctic 1.5 - Recall@1: 0.7995, Recall@5: 0.9245, Recall@100: 0.9995
+Arctic 2.0 - Recall@1: 0.8412, Recall@5: 0.9546, Recall@100: 0.9995
+```
 ## Arctic Embed
 Here are some more resources to learn about the Snowflake Arctic Embedding models!
-
 
 • [Arctic Embed on GitHub](https://github.com/Snowflake-Labs/arctic-embed) <br />
 • [Arctic Embed 2.0 Research Report](https://arxiv.org/abs/2412.04506) <br />

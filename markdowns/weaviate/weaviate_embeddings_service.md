@@ -8,7 +8,6 @@ integration: False
 agent: False
 tags: ['Weaviate Embeddings', 'Weaviate Cloud']
 ---
-    
 # Weaviate Embedding Service
 
 [Weaviate Embeddings](https://weaviate.io/developers/wcs/embeddings) enables you to generate embeddings directly from a [Weaviate Cloud](https://console.weaviate.cloud/) database instance. 
@@ -28,19 +27,15 @@ This notebook will show you how to:
 1. Create a cluster on WCD: A sandbox or serverless cluster is fine. You will need to grab the cluster URL and admin API key
 1. OpenAI key to access `GPT-4o mini`
 
-
-
 ```python
 !pip install --q weaviate-client
 ```
-
 
 ```python
 !pip show weaviate-client # you need to have the Python client version 4.9.5 or higher
 ```
 
 ## Import Libraries and Keys
-
 
 ```python
 import weaviate
@@ -54,7 +49,6 @@ import pandas as pd
 from io import StringIO
 ```
 
-
 ```python
 WCD_CLUSTER_URL = os.getenv("WCD_CLUSTER_URL")
 WCD_CLUSTER_KEY = os.getenv("WCD_CLUSTER_KEY")
@@ -62,7 +56,6 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 ```
 
 ## Connect to Weaviate
-
 
 ```python
 client = weaviate.connect_to_weaviate_cloud(
@@ -77,11 +70,11 @@ client = weaviate.connect_to_weaviate_cloud(
 print(client.is_ready())
 ```
 
-    True
-
-
+Python output:
+```text
+True
+```
 ## Define Collection
-
 
 ```python
 # Note: This will delete your data stored in "JeopardyQuestion".and
@@ -113,13 +106,13 @@ client.collections.create(
 print("Successfully created collection: JeopardyQuestion.")
 ```
 
-    Successfully created collection: JeopardyQuestion.
-
-
+Python output:
+```text
+Successfully created collection: JeopardyQuestion.
+```
 ## Import Data
 
 We will use the small jeopardy dataset as an example. It has 1,000 objects.
-
 
 ```python
 url = 'https://raw.githubusercontent.com/weaviate/weaviate-examples/main/jeopardy_small_dataset/jeopardy_small.csv'
@@ -127,7 +120,6 @@ resp = requests.get(url)
 
 df = pd.read_csv(StringIO(resp.text))
 ```
-
 
 ```python
 # Get a collection object for "JeopardyQuestion"
@@ -151,10 +143,10 @@ else:
     print("Insert complete.")
 ```
 
-    Insert complete.
-
-
-
+Python output:
+```text
+Insert complete.
+```
 ```python
 # count the number of objects
 
@@ -164,13 +156,13 @@ response = collection.aggregate.over_all(total_count=True)
 print(response.total_count)
 ```
 
-    1000
-
-
+Python output:
+```text
+1000
+```
 ## Query Time
 
 ### Vector Search
-
 
 ```python
 collection = client.collections.get("JeopardyQuestion")
@@ -184,22 +176,22 @@ for item in response.objects:
     print("Data:", json.dumps(item.properties, indent=2), "\n")
 ```
 
-    Data: \{
-      "value": "NaN",
-      "answer": "the narwhal",
-      "question": "A part of this marine mammal was prized by medieval folk, who thought it belonged to a unicorn",
-      "category": "THE ANIMAL KINGDOM"
-    } 
-    
-    Data: \{
-      "value": "&#36;400",
-      "answer": "the walrus",
-      "question": "You could say this Arctic mammal, Odobenus rosmarus, has a Wilford Brimley mustache",
-      "category": "MAMMALS"
-    } 
-    
+Python output:
+```text
+Data: {
+  "value": "NaN",
+  "answer": "the narwhal",
+  "question": "A part of this marine mammal was prized by medieval folk, who thought it belonged to a unicorn",
+  "category": "THE ANIMAL KINGDOM"
+} 
 
-
+Data: {
+  "value": "$400",
+  "answer": "the walrus",
+  "question": "You could say this Arctic mammal, Odobenus rosmarus, has a Wilford Brimley mustache",
+  "category": "MAMMALS"
+} 
+```
 ### Hybrid Search
 
 The goal of this notebook is to show you how to use the embedding service. For more information on hybrid search, check out [this folder](/weaviate-features/hybrid-search/) and/or the [documentation](https://weaviate.io/developers/weaviate/search/hybrid).
@@ -207,7 +199,6 @@ The goal of this notebook is to show you how to use the embedding service. For m
 The `alpha` parameter determines the weight given to the sparse and dense search methods. `alpha = 0` is pure sparse (bm25) search, whereas `alpha = 1` is pure dense (vector) search. 
 
 Alpha is an optional parameter. The default is set to `0.75`.
-
 
 ```python
 collection = client.collections.get("JeopardyQuestion")
@@ -222,26 +213,25 @@ for item in response.objects:
     print("Data:", json.dumps(item.properties, indent=2), "\n")
 ```
 
-    Data: \{
-      "value": "NaN",
-      "answer": "the narwhal",
-      "question": "A part of this marine mammal was prized by medieval folk, who thought it belonged to a unicorn",
-      "category": "THE ANIMAL KINGDOM"
-    } 
-    
-    Data: \{
-      "value": "&#36;400",
-      "answer": "the walrus",
-      "question": "You could say this Arctic mammal, Odobenus rosmarus, has a Wilford Brimley mustache",
-      "category": "MAMMALS"
-    } 
-    
+Python output:
+```text
+Data: {
+  "value": "NaN",
+  "answer": "the narwhal",
+  "question": "A part of this marine mammal was prized by medieval folk, who thought it belonged to a unicorn",
+  "category": "THE ANIMAL KINGDOM"
+} 
 
-
+Data: {
+  "value": "$400",
+  "answer": "the walrus",
+  "question": "You could say this Arctic mammal, Odobenus rosmarus, has a Wilford Brimley mustache",
+  "category": "MAMMALS"
+} 
+```
 ### Fetch Objects with Metadata Filters
 
 Learn more about the different filter operators [here](https://weaviate.io/developers/weaviate/search/filters).
-
 
 ```python
 collection = client.collections.get("JeopardyQuestion")
@@ -255,24 +245,23 @@ for item in response.objects:
     print("Data:", json.dumps(item.properties, indent=2), "\n")
 ```
 
-    Data: \{
-      "value": "&#36;200",
-      "answer": "Disney",
-      "question": "This company operates the 4 most popular theme parks in North America",
-      "category": "BUSINESS & INDUSTRY"
-    } 
-    
-    Data: \{
-      "value": "&#36;400",
-      "answer": "Yamaha",
-      "question": "This firm began in 1897 as Nippon Gakki Company, an organ manufacturer; electronic organs came along in 1959",
-      "category": "BUSINESS & INDUSTRY"
-    } 
-    
+Python output:
+```text
+Data: {
+  "value": "$200",
+  "answer": "Disney",
+  "question": "This company operates the 4 most popular theme parks in North America",
+  "category": "BUSINESS & INDUSTRY"
+} 
 
-
+Data: {
+  "value": "$400",
+  "answer": "Yamaha",
+  "question": "This firm began in 1897 as Nippon Gakki Company, an organ manufacturer; electronic organs came along in 1959",
+  "category": "BUSINESS & INDUSTRY"
+} 
+```
 ### Generative Search (RAG)
-
 
 ```python
 collection = client.collections.get("JeopardyQuestion")
@@ -287,11 +276,13 @@ response = collection.generate.hybrid(
 print(f"Generated output: {response.generated}") 
 ```
 
-    Generated output: People thought these animals were unicorn-like for a few reasons:
-    
-    1. **Narwhal**: The narwhal is a marine mammal known for its long, spiral tusk, which can reach lengths of up to 10 feet. In medieval times, this tusk was often sold as a "unicorn horn" and was believed to possess magical properties. The resemblance of the narwhal's tusk to the mythical unicorn's horn led to the association between the two, as people were fascinated by the idea of unicorns and sought to find evidence of their existence in the natural world.
-    
-    2. **Walrus**: While the walrus does not have a direct connection to unicorns like the narwhal, its large tusks and unique appearance may have contributed to some fantastical interpretations. The walrus's tusks, which can be quite prominent, might have sparked the imagination of those who were already inclined to believe in mythical creatures. Additionally, the walrus's size and distinctive features could have led to comparisons with other legendary animals, including unicorns, in folklore and storytelling.
-    
-    Overall, the combination of physical characteristics and the cultural context of the time contributed to the perception of these animals as unicorn-like.
+Python output:
+```text
+Generated output: People thought these animals were unicorn-like for a few reasons:
 
+1. **Narwhal**: The narwhal is a marine mammal known for its long, spiral tusk, which can reach lengths of up to 10 feet. In medieval times, this tusk was often sold as a "unicorn horn" and was believed to possess magical properties. The resemblance of the narwhal's tusk to the mythical unicorn's horn led to the association between the two, as people were fascinated by the idea of unicorns and sought to find evidence of their existence in the natural world.
+
+2. **Walrus**: While the walrus does not have a direct connection to unicorns like the narwhal, its large tusks and unique appearance may have contributed to some fantastical interpretations. The walrus's tusks, which can be quite prominent, might have sparked the imagination of those who were already inclined to believe in mythical creatures. Additionally, the walrus's size and distinctive features could have led to comparisons with other legendary animals, including unicorns, in folklore and storytelling.
+
+Overall, the combination of physical characteristics and the cultural context of the time contributed to the perception of these animals as unicorn-like.
+```

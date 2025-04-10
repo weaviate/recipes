@@ -8,7 +8,6 @@ integration: False
 agent: True
 tags: ['Query Agent']
 ---
-    
 # Build A Weaviate Query Agent - The E-Commerce Assistant
 
 In this recipe, we will be building a simple e-commerce assistant agent with the [Weaviate Query Agent](https://weaviate.io/developers/agents). This agent will have access to a number of Weaviate collections, and will be capable of answering complex queries about brands and clothing items, accessing information from each collection.
@@ -24,7 +23,6 @@ Additionally, we also have access to some other unrelated datasets which you can
 
 - [**Financial Contracts**:](https://huggingface.co/datasets/weaviate/agents/viewer/query-agent-financial-contracts) A dataset of financial contracts between indivicuals and/or companies, as well as information on the type of contract and who has authored them.
 - [**Weather**:](https://huggingface.co/datasets/weaviate/agents/viewer/query-agent-weather) Daily weather information including temperature, wind speed, percipitation, pressure etc.
-
 
 >[Build A Weaviate Query Agent - The E-Commerce Assistant](#scrollTo=iGfss7TuSM_n)
 
@@ -46,8 +44,6 @@ Additionally, we also have access to some other unrelated datasets which you can
 
 >>>[Try More Questions](#scrollTo=70lwuxf1F38d)
 
-
-
 ## 1. Setting Up Weaviate & Importing Data
 
 To use the Weaviate Query Agent, first, create a [Weaviate Cloud](https://weaviate.io/deployment/serverless) account👇
@@ -57,11 +53,9 @@ To use the Weaviate Query Agent, first, create a [Weaviate Cloud](https://weavia
 
 > Info: We recommend using [Weaviate Embeddings](https://weaviate.io/developers/weaviate/model-providers/weaviate) so you do not have to provide any extra keys for external embedding providers.
 
-
 ```python
 !pip install weaviate-client[agents] datasets
 ```
-
 
 ```python
 import os
@@ -72,7 +66,6 @@ if "WEAVIATE_API_KEY" not in os.environ:
 if "WEAVIATE_URL" not in os.environ:
   os.environ["WEAVIATE_URL"] = getpass("Weaviate URL")
 ```
-
 
 ```python
 import weaviate
@@ -89,7 +82,6 @@ client = weaviate.connect_to_weaviate_cloud(
 In the following code blocks, we are pulling our demo datasets from Hugging Face and writing them to new collections in our Weaviate Serverless cluster.
 
 > ❗️ The `QueryAgent` uses the descriptions of collections and properties to decide which ones to use when solving queries, and to access more information about properties. You can experiment with changing these descriptions, providing more detail, and more. It's good practice to provide property descriptions too. For example, below we make sure that the `QueryAgent` knows that prices are all in USD, which is information that would otherwise be unavailable.
-
 
 ```python
 from weaviate.classes.config import Configure, Property, DataType
@@ -147,7 +139,6 @@ client.collections.create(
 )
 ```
 
-
 ```python
 from datasets import load_dataset
 
@@ -188,7 +179,6 @@ When setting up the query agent, we have to provide it a few things:
 
 Let's start with a simple agent. Here, we're creating an `agent` that has access to our `Brands` & `Ecommerce` datasets.
 
-
 ```python
 from weaviate.agents.query import QueryAgent
 
@@ -210,7 +200,6 @@ When we run the agent, it will first make a few decisions, depending on the quer
 
 We can then also inspect how the agent responded, what kind of searches it performed on which collections, whether it has identified if the final answer is missing information or not, as well as the final answer 👇
 
-
 ```python
 from weaviate.agents.utils import print_query_agent_response
 
@@ -218,19 +207,11 @@ response = agent.run("I like the vintage clothes, can you list me some options t
 print_query_agent_response(response)
 ```
 
-
-
-```text
-╭─────────────────────────────────────────────── 🔍 Original Query ───────────────────────────────────────────────╮
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────────── 🔍 Original Query ───────────────────────────────────────────────╮
 │                                                                                                                 │
-│ I like the vintage clothes, can you list me some options that are less than $200?                               │
+│ I like the vintage clothes, can you list me some options that are less than &#36;200?                               │
 │                                                                                                                 │
-╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-```
-
-
-
-
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭──────────────────────────────────────────────── 📝 Final Answer ────────────────────────────────────────────────╮
 │                                                                                                                 │
@@ -266,9 +247,6 @@ print_query_agent_response(response)
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
-
-
-
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────── 🔭 Searches Executed 1/1 ────────────────────────────────────────────╮
 │                                                                                                                 │
 │ QueryResultWithCollection(                                                                                      │
@@ -288,17 +266,11 @@ print_query_agent_response(response)
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
-
-
-
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │                                                                                                                 │
 │ 📊 No Aggregations Run                                                                                          │
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
-
-
-
 
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭────────────────────────────────────────────────── 📚 Sources ───────────────────────────────────────────────────╮
 │                                                                                                                 │
@@ -313,12 +285,8 @@ print_query_agent_response(response)
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
-
-
     
     
-
-
 
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>   📊 Usage Statistics   
 ┌────────────────┬──────┐
@@ -328,36 +296,22 @@ print_query_agent_response(response)
 │ Total Tokens:  │ 8286 │
 └────────────────┴──────┘</pre>
 
-
-
-
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>Total Time Taken: 16.93s</pre>
-
-
 
 ### Ask a follow up question
 
 The agent can also be provided with additional context. For example, we can provide the previous response as context and get a `new_response`
-
 
 ```python
 new_response = agent.run("What about some nice shoes, same budget as before?", context=response)
 print_query_agent_response(new_response)
 ```
 
-
-
-```text
-╭─────────────────────────────────────────────── 🔍 Original Query ───────────────────────────────────────────────╮
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────────── 🔍 Original Query ───────────────────────────────────────────────╮
 │                                                                                                                 │
 │ What about some nice shoes, same budget as before?                                                              │
 │                                                                                                                 │
-╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-```
-
-
-
-
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭──────────────────────────────────────────────── 📝 Final Answer ────────────────────────────────────────────────╮
 │                                                                                                                 │
@@ -385,9 +339,6 @@ print_query_agent_response(new_response)
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
-
-
-
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────── 🔭 Searches Executed 1/1 ────────────────────────────────────────────╮
 │                                                                                                                 │
 │ QueryResultWithCollection(                                                                                      │
@@ -407,17 +358,11 @@ print_query_agent_response(new_response)
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
-
-
-
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │                                                                                                                 │
 │ 📊 No Aggregations Run                                                                                          │
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
-
-
-
 
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭────────────────────────────────────────────────── 📚 Sources ───────────────────────────────────────────────────╮
 │                                                                                                                 │
@@ -429,12 +374,8 @@ print_query_agent_response(new_response)
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
-
-
     
     
-
-
 
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>   📊 Usage Statistics    
 ┌────────────────┬───────┐
@@ -444,34 +385,20 @@ print_query_agent_response(new_response)
 │ Total Tokens:  │ 10357 │
 └────────────────┴───────┘</pre>
 
-
-
-
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>Total Time Taken: 18.02s</pre>
 
-
-
 Now let's try a question that sholud require an aggregation. Let's see which brand lists the most shoes.
-
 
 ```python
 response = agent.run("What is the the name of the brand that lists the most shoes?")
 print_query_agent_response(response)
 ```
 
-
-
-```text
-╭─────────────────────────────────────────────── 🔍 Original Query ───────────────────────────────────────────────╮
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────────── 🔍 Original Query ───────────────────────────────────────────────╮
 │                                                                                                                 │
 │ What is the the name of the brand that lists the most shoes?                                                    │
 │                                                                                                                 │
-╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-```
-
-
-
-
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭──────────────────────────────────────────────── 📝 Final Answer ────────────────────────────────────────────────╮
 │                                                                                                                 │
@@ -479,17 +406,11 @@ print_query_agent_response(response)
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
-
-
-
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │                                                                                                                 │
 │ 🔭 No Searches Run                                                                                              │
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
-
-
-
 
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭──────────────────────────────────────────── 📊 Aggregations Run 1/1 ────────────────────────────────────────────╮
 │                                                                                                                 │
@@ -505,12 +426,8 @@ print_query_agent_response(response)
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
-
-
     
     
-
-
 
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>   📊 Usage Statistics   
 ┌────────────────┬──────┐
@@ -520,19 +437,13 @@ print_query_agent_response(response)
 │ Total Tokens:  │ 4135 │
 └────────────────┴──────┘</pre>
 
-
-
-
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>Total Time Taken: 5.33s</pre>
-
-
 
 ### Search over multiple collections
 
 In some cases, we need to combine the results of searches across multiple collections. From the result above, we can see that "Loom & Aura" lists the most shoes.
 
 Let's imagine a scenario where the user would now want to find out more about this company, _as well_ as the items that they sell.
-
 
 ```python
 response = agent.run("Does the brand 'Loom & Aura' have a parent brand or child brands and what countries do they operate from? "
@@ -541,20 +452,12 @@ response = agent.run("Does the brand 'Loom & Aura' have a parent brand or child 
 print_query_agent_response(response)
 ```
 
-
-
-```text
-╭─────────────────────────────────────────────── 🔍 Original Query ───────────────────────────────────────────────╮
+<pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────────── 🔍 Original Query ───────────────────────────────────────────────╮
 │                                                                                                                 │
 │ Does the brand 'Loom &amp; Aura' have a parent brand or child brands and what countries do they operate from? Also, │
 │ what's the average price of a item from 'Loom &amp; Aura'?                                                          │
 │                                                                                                                 │
-╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-```
-
-
-
-
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭──────────────────────────────────────────────── 📝 Final Answer ────────────────────────────────────────────────╮
 │                                                                                                                 │
@@ -569,9 +472,6 @@ print_query_agent_response(response)
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
-
-
-
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────── 🔭 Searches Executed 1/2 ────────────────────────────────────────────╮
 │                                                                                                                 │
 │ QueryResultWithCollection(                                                                                      │
@@ -582,9 +482,6 @@ print_query_agent_response(response)
 │ )                                                                                                               │
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
-
-
-
 
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭─────────────────────────────────────────── 🔭 Searches Executed 2/2 ────────────────────────────────────────────╮
 │                                                                                                                 │
@@ -605,9 +502,6 @@ print_query_agent_response(response)
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
-
-
-
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭──────────────────────────────────────────── 📊 Aggregations Run 1/1 ────────────────────────────────────────────╮
 │                                                                                                                 │
 │ AggregationResultWithCollection(                                                                                │
@@ -626,9 +520,6 @@ print_query_agent_response(response)
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
-
-
-
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>╭────────────────────────────────────────────────── 📚 Sources ───────────────────────────────────────────────────╮
 │                                                                                                                 │
 │  - object_id='88433e18-216d-489a-8719-81a29b0ae915' collection='Brands'                                         │
@@ -640,12 +531,8 @@ print_query_agent_response(response)
 │                                                                                                                 │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯</pre>
 
-
-
     
     
-
-
 
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>   📊 Usage Statistics    
 ┌────────────────┬───────┐
@@ -655,19 +542,13 @@ print_query_agent_response(response)
 │ Total Tokens:  │ 10207 │
 └────────────────┴───────┘</pre>
 
-
-
-
 <pre style={{whiteSpace: 'pre', overflowX: 'auto', lineHeight: 'normal', fontFamily: 'Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace'}}>Total Time Taken: 11.38s</pre>
-
-
 
 ### Changing the System Prompt
 
 In some cases, you may want to define a custom `system_prompt` for your agent. This can help you provide the agent with some default instructions as to how to behave. For example, let's create an agent that will always answer the query in the users language.
 
 Let's also create a `QueryAgent` that has access to two more collections, `Financial_contracts` and `Weather`. Next, you can try out more queries yourself!
-
 
 ```python
 multi_lingual_agent = QueryAgent(
@@ -679,19 +560,18 @@ multi_lingual_agent = QueryAgent(
 
 For example, this time lets ask something that is about weather!
 
-
 ```python
 response = multi_lingual_agent.run("Quelles sont les vitesses minimales, maximales et moyennes du vent?")
 print(response.final_answer)
 ```
 
-    Les vitesses de vent minimales, maximales et moyennes sont respectivement de 8,40 km/h, 94,88 km/h et 49,37 km/h. Ces données offrent une vue d'ensemble des conditions de vent typiques mesurées dans une période ou un lieu donné.
-
-
+Python output:
+```text
+Les vitesses de vent minimales, maximales et moyennes sont respectivement de 8,40 km/h, 94,88 km/h et 49,37 km/h. Ces données offrent une vue d'ensemble des conditions de vent typiques mesurées dans une période ou un lieu donné.
+```
 ### Try More Questions
 
 - For example Let's try to find out more about the brans "Eko & Stitch"
-
 
 ```python
 response = multi_lingual_agent.run("Does Eko & Stitch have a branch in the UK? Or if not, does it have parent or child company in the UK?")
@@ -699,11 +579,11 @@ response = multi_lingual_agent.run("Does Eko & Stitch have a branch in the UK? O
 print(response.final_answer)
 ```
 
-    Yes, Eko & Stitch has a branch in the UK. The brand is part of the broader company Nova Nest, which serves as Eko & Stitch's parent brand. Eko & Stitch itself operates in the UK and has its child brands, Eko & Stitch Active and Eko & Stitch Kids, also within the UK.
-
-
+Python output:
+```text
+Yes, Eko & Stitch has a branch in the UK. The brand is part of the broader company Nova Nest, which serves as Eko & Stitch's parent brand. Eko & Stitch itself operates in the UK and has its child brands, Eko & Stitch Active and Eko & Stitch Kids, also within the UK.
+```
 - Our `multi_lingual_agent` also has access to a collection called "Financial_contracts". Let's try to find out some more information about this dataser.
-
 
 ```python
 response = multi_lingual_agent.run("What kinds of contracts are listed? What's the most common type of contract?")
@@ -711,5 +591,7 @@ response = multi_lingual_agent.run("What kinds of contracts are listed? What's t
 print(response.final_answer)
 ```
 
-    The query seeks to identify the types of contracts listed and determine the most common type. Among the types of contracts provided in the results, the following were identified: employment contracts, sales agreements, invoice contracts, service agreements, and lease agreements. The most common type of contract found in the search results is the employment contract. However, when considering data from both search and aggregation results, the aggregation reveals that the invoice contract is the most common, followed by service agreements and lease agreements. While employment contracts appear frequently in the search results, they rank fourth in the aggregation data in terms of overall occurrences.
-
+Python output:
+```text
+The query seeks to identify the types of contracts listed and determine the most common type. Among the types of contracts provided in the results, the following were identified: employment contracts, sales agreements, invoice contracts, service agreements, and lease agreements. The most common type of contract found in the search results is the employment contract. However, when considering data from both search and aggregation results, the aggregation reveals that the invoice contract is the most common, followed by service agreements and lease agreements. While employment contracts appear frequently in the search results, they rank fourth in the aggregation data in terms of overall occurrences.
+```

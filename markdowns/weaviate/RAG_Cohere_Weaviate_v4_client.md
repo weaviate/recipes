@@ -8,7 +8,6 @@ integration: False
 agent: False
 tags: ['RAG', 'Cohere', 'AWS', 'Amazon Bedrock']
 ---
-    
 # Retrieval-Augmented Generation with Cohere language models on Amazon Bedrock and Weaviate vector database on AWS Market place
 
 The example use case generates targeted advertisements for vacation stay listings based on a target audience. The goal is to use the user query for the target audience (e.g., “family with small children”) to retrieve the most relevant vacation stay listing (e.g., a listing with playgrounds close by) and then to generate an advertisement for the retrieved listing tailored to the target audience.
@@ -22,18 +21,15 @@ The dataset is available from [Inside AirBnB](http://data.insideairbnb.com/the-n
 
 Download the data and save it in a folder called `data`.
 
-
 ```python
 !wget http://data.insideairbnb.com/the-netherlands/north-holland/amsterdam/2023-09-03/data/listings.csv.gz
 ```
-
 
 ```python
 !gzip -d listings.csv.gz
 !mkdir data
 !mv listings.csv ./data
 ```
-
 
 ```python
 import pandas as pd
@@ -71,7 +67,6 @@ On the SageMaker console, navigate to Notebook instances and create a new notebo
 
 Then, install the Weaviate client package with the required dependencies:
 
-
 ```python
 ! pip install --pre "weaviate-client==4.*"
 ! pip install grpcio
@@ -81,7 +76,6 @@ Now, you can connect to your Weaviate instance with the following code. You can 
 * Weaviate URL: Access Weaviate via the load balancer URL. Go to the Services section of AWS, under EC2 > Load Balancers find the load balancer, and look for the DNS name column.
 * Weaviate API Key: This is the key you set earlier in the CloudFormation template (helmauthenticationapikey).
 * AWS Access Key: You can retrieve the access keys for your user in the AWS Identity and Access Management (IAM) Console.
-
 
 ```python
 import weaviate
@@ -110,7 +104,6 @@ Next, you will define a data collection (i.e., `class`) called `Listings` to sto
 In this step, you will also define the structure of the data collection by configuring its properties. Aside from the property’s name and data type, you can also configure if only the data object shall be stored or if it shall be stored together with its vector embeddings. In this example, `host_name` and `property_type` are not vectorized.
 
 Run the following code to create the collection in your Weaviate instance.
-
 
 ```python
 import weaviate.classes.config as wc
@@ -167,7 +160,6 @@ print(listings.config)
 
 You can now add objects to Weaviate. You will be using a batch import process for maximum efficiency. Run the code below to import data. During the import, Weaviate will use the defined vectorizer to create a vector embedding for each object. The following code loads objects initializes a batch process, and adds objects to the target collection one by one.
 
-
 ```python
 listings_to_add = [
     {
@@ -187,7 +179,6 @@ print(response)
 Finally, you can build a RAG pipeline by implementing a generative search query on your Weaviate instance. For this, you will first define a prompt template in the form of an f-string that can take in the user query (`{target_audience}`) directly and the additional context (`{{host_name}}`, `{{property_type}}`, `{{description}}`, `{{neighborhood_overview}}`) from the vector database at runtime.
 
 Next, you will run a generative search query. This prompts the defined generative model with a prompt that is comprised of the user query as well as the retrieved data. The following query retrieves one listing object (`.with_limit(1)`) from the `Listings` collection that is most similar to the user query (`.with_near_text({"concepts": target_audience})`). Then the user query (`target_audience`) and the retrieved listings properties (`["description", "neighborhood", "host_name", "property_type"]`) are fed into the prompt template.
-
 
 ```python
 def generate_targeted_ad(target_audience):
@@ -211,14 +202,12 @@ def generate_targeted_ad(target_audience):
 
 Below, you can see that the results for the `target_audience = “Family with small children”`.
 
-
 ```python
 result = generate_targeted_ad("Families with young children")
 print(result.objects[0].generated)
 ```
 
 Here is another example for an elderly couple.
-
 
 ```python
 result = generate_targeted_ad("Elderly couple")
