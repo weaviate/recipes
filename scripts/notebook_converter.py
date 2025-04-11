@@ -63,7 +63,7 @@ what_next_import_pattern = re.compile(
     r"^\s*import\s+WhatsNext\s+from\s+['\"]/_includes/what-next\.mdx['\"]\s*$",
     flags=re.MULTILINE,
 )
-what_next_component_pattern = re.compile(r"^\s*<WhatsNext\s*/>\s*$", flags=re.MULTILINE)
+what_next_component_pattern = re.compile(r"^\s*<WhatsNext\s*/>.*$", flags=re.MULTILINE)
 
 
 # --- Helper Functions: Style Conversion --- (Keep as is)

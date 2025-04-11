@@ -383,7 +383,6 @@ The Weaviate Query Agent represents a significant step forward in making vector 
 
 [36mWhether you're building applications that require semantic search, complex aggregations, or both, the Query Agent simplifies the development process while providing the flexibility to customize its behavior through system prompts. As we continue to develop and enhance this feature, we look forward to seeing how our community will leverage it to build even more powerful AI-driven applications. Ready to get started? Check out our [recipe](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/query-agent-get-started.ipynb), join the discussion in our forum, and start building with the Weaviate Query Agent today!
 
-<WhatsNext />[0m
 [32mPredicted User Query:[0m
 
 [32mHow can I customize the behavior of the Query Agent through system prompts?[0m
