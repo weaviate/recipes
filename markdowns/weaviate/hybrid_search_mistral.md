@@ -1,6 +1,6 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main//weaviate-features/hybrid-search/hybrid_search_mistral.ipynb
+colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-features/hybrid-search/hybrid_search_mistral.ipynb
 toc: True
 title: "Hybrid Search with Mistral"
 featured: False
@@ -8,9 +8,6 @@ integration: False
 agent: False
 tags: ['Hybrid Search', 'Mistral']
 ---
-    
-
-
 This recipe will show you how to run hybrid search with embeddings from Mistral.
 
 ## Requirements
@@ -22,7 +19,6 @@ This recipe will show you how to run hybrid search with embeddings from Mistral.
     4. [Other options](https://weaviate.io/developers/weaviate/installation)
 
 2. Mistral API key. Grab one [here](https://docs.mistral.ai/api/).
-
 
 ```python
 import weaviate, os
@@ -38,7 +34,6 @@ import weaviate.classes.query as wq
 Only choose one option from the below.
 
 **Weaviate Cloud Deployment**
-
 
 ```python
 WCD_URL = os.environ["WEAVIATE_URL"] # Replace with your Weaviate cluster URL
@@ -56,7 +51,6 @@ print(client.is_ready())
 ```
 
 **Embedded Weaviate**
-
 
 ```python
 # MISTRAL_KEY = os.environ["MISTRAL_API_KEY"] # Replace with your Mistral key
@@ -77,7 +71,6 @@ print(client.is_ready())
 
 **Local Deployment**
 
-
 ```python
 # MISTRAL_KEY = os.environ["MISTRAL_API_KEY"] # Replace with your Mistral key
 
@@ -91,7 +84,6 @@ print(client.is_ready())
 
 ## Create a collection
 > Collection stores your data and vector embeddings.
-
 
 ```python
 # Note: in practice, you shouldn't rerun this cell, as it deletes your data
@@ -119,7 +111,6 @@ print("Successfully created collection: JeopardyQuestion.")
 ```
 
 ## Import Data
-
 
 ```python
 url = 'https://raw.githubusercontent.com/weaviate/weaviate-examples/main/jeopardy_small_dataset/jeopardy_tiny.json'
@@ -151,7 +142,6 @@ Alpha is an optional parameter. The default is set to `0.75`.
 
 The below query is finding Jeopardy questions about animals and is limiting the output to only two results. Notice `alpha` is set to `0.80`, which means it is weighing the vector search results more than bm25. If you were to set `alpha = 0.25`, you would get different results. 
 
-
 ```python
 response = jeopardy.query.hybrid(
     query="northern beast",
@@ -168,7 +158,6 @@ for item in response.objects:
 ### Hybrid Search with a `where` filter
 
 Find Jeopardy questions about elephants, where the category is set to Animals.
-
 
 ```python
 response = jeopardy.query.hybrid(

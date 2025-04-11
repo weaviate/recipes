@@ -7,22 +7,26 @@ colab = "https://colab.research.google.com/github/weaviate/recipes/blob/main/"
 title = "Hybrid Search with Mistral"
 notebook = "weaviate-features/hybrid-search/hybrid_search_mistral.ipynb"
 tags = ["Hybrid Search", "Mistral"]
+description = "Learn how to perform hybrid search in Weaviate using Mistral models for enhanced retrieval."
 
 [[recipe]]
 title = "RAG with Cohere on Amazon Bedrock and Weaviate on AWS Market place"
 notebook = "integrations/cloud-hyperscalers/aws/RAG_Cohere_Weaviate_v4_client.ipynb"
 tags = ["RAG", "Cohere", "AWS", "Amazon Bedrock"]
+description = "Demonstrates building a Retrieval-Augmented Generation (RAG) pipeline using Cohere on Amazon Bedrock with Weaviate deployed via the AWS Marketplace."
 
 [[recipe]]
 title = "How to use ColPali with Weaviate's Named Vectors"
 notebook = "weaviate-features/multi-vector/NamedVectors-ColPali-POC.ipynb"
 tags = ["ColPali", "Named Vectors"]
+description = "Shows how to leverage ColPali image embeddings alongside Weaviate's named vectors feature for multi-modal search."
 
 [[recipe]]
 title = "How to Use Weaviate Embedding Service"
 notebook = "weaviate-services/embedding-service/weaviate_embeddings_service.ipynb"
 tags = ["Weaviate Embeddings", "Weaviate Cloud"]
 featured = true
+description = "Learn how to utilize the Weaviate Embedding Service available on Weaviate Cloud for generating vector embeddings."
 
 [[recipe]]
 title = "Build A Weaviate Query Agent - The E-Commerce Assistant"
@@ -30,6 +34,7 @@ notebook = "weaviate-services/agents/query-agent-get-started.ipynb"
 tags = ["Query Agent"]
 agent = true
 featured = true
+description = "A getting-started guide to building a Weaviate Query Agent, demonstrated with an e-commerce assistant example."
 
 [[recipe]]
 title = "Build A Weaviate Transformation Agent"
@@ -37,6 +42,7 @@ notebook = "weaviate-services/agents/transformation-agent-get-started.ipynb"
 tags = ["Transformation Agent"]
 agent = true
 featured = true
+description = "Learn the basics of creating and using a Weaviate Transformation Agent for data processing workflows."
 
 [[recipe]]
 title = "Benchmarking Arctic 2.0 vs. Arctic 1.5 with Synthetic RAG Evals"
@@ -44,21 +50,25 @@ notebook = "weaviate-services/agents/transformation-agent-retrieval-benchmark.ip
 tags = ["Transformation Agent"]
 agent = true
 featured = true
+description = "Benchmarks Arctic 2.0 against Arctic 1.5 using synthetic RAG evaluations within a Weaviate Agent context."
 
 [[recipe]]
 title = "Weaviate Query Agent with Crew AI"
 notebook = "integrations/llm-agent-frameworks/crewai/crewai-query-agent-as-tool.ipynb"
-tags = ["Query Agent, Integration"]
+tags = ["Query Agent", "Integration"]
 integration = true
+description = "Shows how to integrate the Weaviate Query Agent as a tool within the Crew AI agent framework."
 
 [[recipe]]
 title = "Weaviate Query Agent with Haystack"
 notebook = "integrations/llm-agent-frameworks/haystack/haystack-query-agent-tool.ipynb"
-tags = ["Query Agent, Integration"]
+tags = ["Query Agent", "Integration"]
 integration = true
+description = "Demonstrates integrating the Weaviate Query Agent as a custom tool in the Haystack framework."
 
 [[recipe]]
 title = "Weaviate Query Agent with LlamaIndex"
 notebook = "integrations/llm-agent-frameworks/llamaindex/agents/agent-workflow-with-weaviate-query-agent-.ipynb"
-tags = ["Query Agent, Integration"]
+tags = ["Query Agent", "Integration"]
 integration = true
+description = "Illustrates how to incorporate the Weaviate Query Agent into agentic workflows built with LlamaIndex."

@@ -1,6 +1,6 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main//weaviate-features/multi-vector/NamedVectors-ColPali-POC.ipynb
+colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-features/multi-vector/NamedVectors-ColPali-POC.ipynb
 toc: True
 title: "How to use ColPali with Weaviate's Named Vectors"
 featured: False
@@ -8,8 +8,7 @@ integration: False
 agent: False
 tags: ['ColPali', 'Named Vectors']
 ---
-    
-
+# How to use ColPali with Weaviate's Named Vectors!
 
 **Please note: The multi-vector feature was added to Weaviate `1.29`. Test out the feature in [this notebook](weaviate-features/multi-vector/multi-vector-colipali-rag.ipynb).**
 
@@ -26,57 +25,55 @@ We will test this with 3 PDFs:
 
 # ColPali Setup
 
-
 ```python
 !pip install pdf2image==1.17.0 > /dev/null
 !pip install peft==0.12.0 > /dev/null
 ```
-
 
 ```python
 !sudo apt-get update > /dev/null
 !sudo apt-get install poppler-utils > /dev/null
 ```
 
-    W: Skipping acquire of configured file 'main/source/Sources' as repository 'https://r2u.stat.illinois.edu/ubuntu jammy InRelease' does not seem to provide it (sources.list entry misspelt?)
-    debconf: unable to initialize frontend: Dialog
-    debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 78, <> line 1.)
-    debconf: falling back to frontend: Readline
-    debconf: unable to initialize frontend: Readline
-    debconf: (This frontend requires a controlling tty.)
-    debconf: falling back to frontend: Teletype
-    dpkg-preconfigure: unable to re-open stdin: 
-
-
-
+Python output:
+```text
+W: Skipping acquire of configured file 'main/source/Sources' as repository 'https://r2u.stat.illinois.edu/ubuntu jammy InRelease' does not seem to provide it (sources.list entry misspelt?)
+debconf: unable to initialize frontend: Dialog
+debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 78, &lt;> line 1.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (This frontend requires a controlling tty.)
+debconf: falling back to frontend: Teletype
+dpkg-preconfigure: unable to re-open stdin: 
+```
 ```python
 !huggingface-cli login
 ```
 
     
-        _|    _|  _|    _|    _|_|_|    _|_|_|  _|_|_|  _|      _|    _|_|_|      _|_|_|_|    _|_|      _|_|_|  _|_|_|_|
-        _|    _|  _|    _|  _|        _|          _|    _|_|    _|  _|            _|        _|    _|  _|        _|
-        _|_|_|_|  _|    _|  _|  _|_|  _|  _|_|    _|    _|  _|  _|  _|  _|_|      _|_|_|    _|_|_|_|  _|        _|_|_|
-        _|    _|  _|    _|  _|    _|  _|    _|    _|    _|    _|_|  _|    _|      _|        _|    _|  _|        _|
-        _|    _|    _|_|      _|_|_|    _|_|_|  _|_|_|  _|      _|    _|_|_|      _|        _|    _|    _|_|_|  _|_|_|_|
-    
-        To login, `huggingface_hub` requires a token generated from https://huggingface.co/settings/tokens .
-    Enter your token (input will not be visible): 
-    Add token as git credential? (Y/n) 
-    Token is valid (permission: read).
-    [1m[31mCannot authenticate through git-credential as no helper is defined on your machine.
-    You might have to re-authenticate when pushing to the Hugging Face Hub.
-    Run the following command in your terminal in case you want to set the 'store' credential helper as default.
-    
-    git config --global credential.helper store
-    
-    Read https://git-scm.com/book/en/v2/Git-Tools-Credential-Storage for more details.[0m
-    Token has not been saved to git credential helper.
-    Your token has been saved to /root/.cache/huggingface/token
-    Login successful
+Python output:
+```text
+    _|    _|  _|    _|    _|_|_|    _|_|_|  _|_|_|  _|      _|    _|_|_|      _|_|_|_|    _|_|      _|_|_|  _|_|_|_|
+    _|    _|  _|    _|  _|        _|          _|    _|_|    _|  _|            _|        _|    _|  _|        _|
+    _|_|_|_|  _|    _|  _|  _|_|  _|  _|_|    _|    _|  _|  _|  _|  _|_|      _|_|_|    _|_|_|_|  _|        _|_|_|
+    _|    _|  _|    _|  _|    _|  _|    _|    _|    _|    _|_|  _|    _|      _|        _|    _|  _|        _|
+    _|    _|    _|_|      _|_|_|    _|_|_|  _|_|_|  _|      _|    _|_|_|      _|        _|    _|    _|_|_|  _|_|_|_|
 
+    To login, `huggingface_hub` requires a token generated from https://huggingface.co/settings/tokens .
+Enter your token (input will not be visible): 
+Add token as git credential? (Y/n) 
+Token is valid (permission: read).
+[1m[31mCannot authenticate through git-credential as no helper is defined on your machine.
+You might have to re-authenticate when pushing to the Hugging Face Hub.
+Run the following command in your terminal in case you want to set the 'store' credential helper as default.
 
+git config --global credential.helper store
 
+Read https://git-scm.com/book/en/v2/Git-Tools-Credential-Storage for more details.[0m
+Token has not been saved to git credential helper.
+Your token has been saved to /root/.cache/huggingface/token
+Login successful
+```
 ```python
 import os
 import numpy as np
@@ -254,7 +251,6 @@ def answer_query_with_colpali(query, embeddings_array, page_info, model, process
     return top_results
 ```
 
-
 ```python
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
@@ -266,61 +262,41 @@ model.load_adapter(lora_path, adapter_name="colpali")
 model.to(device);
 ```
 
-    /usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_token.py:89: UserWarning: 
-    The secret `HF_TOKEN` does not exist in your Colab secrets.
-    To authenticate with the Hugging Face Hub, create a token in your settings tab (https://huggingface.co/settings/tokens), set it as secret in your Google Colab and restart your session.
-    You will be able to reuse this secret in all of your notebooks.
-    Please note that authentication is recommended but still optional to access public models or datasets.
-      warnings.warn(
+Python output:
+```text
+/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_token.py:89: UserWarning: 
+The secret `HF_TOKEN` does not exist in your Colab secrets.
+To authenticate with the Hugging Face Hub, create a token in your settings tab (https://huggingface.co/settings/tokens), set it as secret in your Google Colab and restart your session.
+You will be able to reuse this secret in all of your notebooks.
+Please note that authentication is recommended but still optional to access public models or datasets.
+  warnings.warn(
 
+config.json:   0%|          | 0.00/1.05k [00:00&lt;?, ?B/s]
 
+model.safetensors.index.json:   0%|          | 0.00/62.6k [00:00&lt;?, ?B/s]
 
-    config.json:   0%|          | 0.00/1.05k [00:00<?, ?B/s]
+Downloading shards:   0%|          | 0/3 [00:00&lt;?, ?it/s]
 
+model-00001-of-00003.safetensors:   0%|          | 0.00/4.96G [00:00&lt;?, ?B/s]
 
+model-00002-of-00003.safetensors:   0%|          | 0.00/5.00G [00:00&lt;?, ?B/s]
 
-    model.safetensors.index.json:   0%|          | 0.00/62.6k [00:00<?, ?B/s]
+model-00003-of-00003.safetensors:   0%|          | 0.00/1.74G [00:00&lt;?, ?B/s]
 
+`config.hidden_act` is ignored, you should use `config.hidden_activation` instead.
+Gemma's activation function will be set to `gelu_pytorch_tanh`. Please, use
+`config.hidden_activation` if you want to override this behaviour.
+See https://github.com/huggingface/transformers/pull/29402 for more details.
 
+Loading checkpoint shards:   0%|          | 0/3 [00:00&lt;?, ?it/s]
 
-    Downloading shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Some weights of ColPali were not initialized from the model checkpoint at google/paligemma-3b-mix-448 and are newly initialized: ['custom_text_proj.bias', 'custom_text_proj.weight', 'language_model.lm_head.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
 
+adapter_config.json:   0%|          | 0.00/746 [00:00&lt;?, ?B/s]
 
-
-    model-00001-of-00003.safetensors:   0%|          | 0.00/4.96G [00:00<?, ?B/s]
-
-
-
-    model-00002-of-00003.safetensors:   0%|          | 0.00/5.00G [00:00<?, ?B/s]
-
-
-
-    model-00003-of-00003.safetensors:   0%|          | 0.00/1.74G [00:00<?, ?B/s]
-
-
-    `config.hidden_act` is ignored, you should use `config.hidden_activation` instead.
-    Gemma's activation function will be set to `gelu_pytorch_tanh`. Please, use
-    `config.hidden_activation` if you want to override this behaviour.
-    See https://github.com/huggingface/transformers/pull/29402 for more details.
-
-
-
-    Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
-
-
-    Some weights of ColPali were not initialized from the model checkpoint at google/paligemma-3b-mix-448 and are newly initialized: ['custom_text_proj.bias', 'custom_text_proj.weight', 'language_model.lm_head.weight']
-    You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
-
-
-
-    adapter_config.json:   0%|          | 0.00/746 [00:00<?, ?B/s]
-
-
-
-    adapter_model.safetensors:   0%|          | 0.00/78.6M [00:00<?, ?B/s]
-
-
-
+adapter_model.safetensors:   0%|          | 0.00/78.6M [00:00&lt;?, ?B/s]
+```
 ```python
 processor = ColPaliProcessor.from_pretrained(model_path)
 
@@ -339,38 +315,26 @@ for result in results:
   print(f"Score: {result['score']}, PDF: {result['info']['pdf']}, Page: {result['info']['page']}")
 ```
 
+Python output:
+```text
+preprocessor_config.json:   0%|          | 0.00/700 [00:00&lt;?, ?B/s]
 
-    preprocessor_config.json:   0%|          | 0.00/700 [00:00<?, ?B/s]
+tokenizer_config.json:   0%|          | 0.00/40.0k [00:00&lt;?, ?B/s]
 
+tokenizer.model:   0%|          | 0.00/4.26M [00:00&lt;?, ?B/s]
 
+tokenizer.json:   0%|          | 0.00/17.5M [00:00&lt;?, ?B/s]
 
-    tokenizer_config.json:   0%|          | 0.00/40.0k [00:00<?, ?B/s]
+added_tokens.json:   0%|          | 0.00/24.0 [00:00&lt;?, ?B/s]
 
+special_tokens_map.json:   0%|          | 0.00/607 [00:00&lt;?, ?B/s]
 
-
-    tokenizer.model:   0%|          | 0.00/4.26M [00:00<?, ?B/s]
-
-
-
-    tokenizer.json:   0%|          | 0.00/17.5M [00:00<?, ?B/s]
-
-
-
-    added_tokens.json:   0%|          | 0.00/24.0 [00:00<?, ?B/s]
-
-
-
-    special_tokens_map.json:   0%|          | 0.00/607 [00:00<?, ?B/s]
-
-
-    Score: 0.32659846544265747, PDF: Boston-Restaurants.pdf, Page: 8
-    Score: 0.321824848651886, PDF: Boston-Restaurants.pdf, Page: 9
-    Score: 0.3206213414669037, PDF: Boston-Restaurants.pdf, Page: 7
-    Score: 0.3198925852775574, PDF: Boston-Restaurants.pdf, Page: 6
-    Score: 0.3106686770915985, PDF: Boston-Restaurants.pdf, Page: 1
-
-
-
+Score: 0.32659846544265747, PDF: Boston-Restaurants.pdf, Page: 8
+Score: 0.321824848651886, PDF: Boston-Restaurants.pdf, Page: 9
+Score: 0.3206213414669037, PDF: Boston-Restaurants.pdf, Page: 7
+Score: 0.3198925852775574, PDF: Boston-Restaurants.pdf, Page: 6
+Score: 0.3106686770915985, PDF: Boston-Restaurants.pdf, Page: 1
+```
 ```python
 query = "How many votes did Jayson Tatum get for MVP?" # The answer should be contained in NBA-mvp-voting.pdf
 results = answer_query_with_colpali(query, embeddings, page_info, model, processor)
@@ -380,14 +344,14 @@ for result in results:
   print(f"Score: {result['score']}, PDF: {result['info']['pdf']}, Page: {result['info']['page']}")
 ```
 
-    Score: 0.3444867730140686, PDF: NBA-mvp-voting.pdf, Page: 0
-    Score: 0.2413223832845688, PDF: DSPy.pdf, Page: 19
-    Score: 0.21714499592781067, PDF: DSPy.pdf, Page: 10
-    Score: 0.21266475319862366, PDF: Boston-Restaurants.pdf, Page: 7
-    Score: 0.20665661990642548, PDF: Boston-Restaurants.pdf, Page: 1
-
-
-
+Python output:
+```text
+Score: 0.3444867730140686, PDF: NBA-mvp-voting.pdf, Page: 0
+Score: 0.2413223832845688, PDF: DSPy.pdf, Page: 19
+Score: 0.21714499592781067, PDF: DSPy.pdf, Page: 10
+Score: 0.21266475319862366, PDF: Boston-Restaurants.pdf, Page: 7
+Score: 0.20665661990642548, PDF: Boston-Restaurants.pdf, Page: 1
+```
 ```python
 query = "What is an LLM programming language?" # The answer should be contained in DSPy.pdf
 results = answer_query_with_colpali(query, embeddings, page_info, model, processor)
@@ -397,14 +361,14 @@ for result in results:
   print(f"Score: {result['score']}, PDF: {result['info']['pdf']}, Page: {result['info']['page']}")
 ```
 
-    Score: 0.32342493534088135, PDF: DSPy.pdf, Page: 1
-    Score: 0.32004794478416443, PDF: DSPy.pdf, Page: 5
-    Score: 0.31236791610717773, PDF: DSPy.pdf, Page: 10
-    Score: 0.3096577525138855, PDF: DSPy.pdf, Page: 7
-    Score: 0.30225279927253723, PDF: DSPy.pdf, Page: 4
-
-
-
+Python output:
+```text
+Score: 0.32342493534088135, PDF: DSPy.pdf, Page: 1
+Score: 0.32004794478416443, PDF: DSPy.pdf, Page: 5
+Score: 0.31236791610717773, PDF: DSPy.pdf, Page: 10
+Score: 0.3096577525138855, PDF: DSPy.pdf, Page: 7
+Score: 0.30225279927253723, PDF: DSPy.pdf, Page: 4
+```
 ```python
 sample_image = Image.open("./colpali_output/pdf_images/page_1.jpg")  # Get the first page of the first PDF
 image_input = processor.process_image(sample_image).to(model.device)
@@ -418,28 +382,29 @@ print(f"Number of patches per image: {num_patches}")
 # 1030 ==> 1024 image patches + 5 special tokens (described in original ColBERT paper + 1[CLS] token)
 ```
 
-    Number of patches per image: 1030
-
-
+Python output:
+```text
+Number of patches per image: 1030
+```
 # Weaviate Setup
-
 
 ```python
 !pip install weaviate-client==4.7.1 > /dev/null
 ```
 
-    [31mERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
-    cudf-cu12 24.4.1 requires protobuf<5,>=3.20, but you have protobuf 5.27.2 which is incompatible.
-    google-ai-generativelanguage 0.6.6 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
-    google-cloud-aiplatform 1.59.0 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
-    google-cloud-bigquery-storage 2.25.0 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
-    google-cloud-datastore 2.19.0 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
-    google-cloud-firestore 2.16.1 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
-    tensorflow 2.15.0 requires protobuf!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.20.3, but you have protobuf 5.27.2 which is incompatible.
-    tensorflow-metadata 1.15.0 requires protobuf<4.21,>=3.20.3; python_version < "3.11", but you have protobuf 5.27.2 which is incompatible.[0m[31m
-    [0m
-
-
+Python output:
+```text
+[31mERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+cudf-cu12 24.4.1 requires protobuf&lt;5,>=3.20, but you have protobuf 5.27.2 which is incompatible.
+google-ai-generativelanguage 0.6.6 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,&lt;5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
+google-cloud-aiplatform 1.59.0 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,&lt;5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
+google-cloud-bigquery-storage 2.25.0 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,&lt;5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
+google-cloud-datastore 2.19.0 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,&lt;5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
+google-cloud-firestore 2.16.1 requires protobuf!=3.20.0,!=3.20.1,!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,&lt;5.0.0dev,>=3.19.5, but you have protobuf 5.27.2 which is incompatible.
+tensorflow 2.15.0 requires protobuf!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,&lt;5.0.0dev,>=3.20.3, but you have protobuf 5.27.2 which is incompatible.
+tensorflow-metadata 1.15.0 requires protobuf&lt;4.21,>=3.20.3; python_version &lt; "3.11", but you have protobuf 5.27.2 which is incompatible.[0m[31m
+[0m
+```
 ```python
 import weaviate
 import os
@@ -449,11 +414,11 @@ client = weaviate.connect_to_embedded(
 )
 ```
 
-    INFO:weaviate-client:Binary /root/.cache/weaviate-embedded did not exist. Downloading binary from https://github.com/weaviate/weaviate/releases/download/v1.26.1/weaviate-v1.26.1-Linux-amd64.tar.gz
-    INFO:weaviate-client:Started /root/.cache/weaviate-embedded: process ID 2880
-
-
-
+Python output:
+```text
+INFO:weaviate-client:Binary /root/.cache/weaviate-embedded did not exist. Downloading binary from https://github.com/weaviate/weaviate/releases/download/v1.26.1/weaviate-v1.26.1-Linux-amd64.tar.gz
+INFO:weaviate-client:Started /root/.cache/weaviate-embedded: process ID 2880
+```
 ```python
 import weaviate.classes as wvc
 
@@ -476,7 +441,6 @@ paper_pdfs = client.collections.create(
     properties=patch_vector_properties
 )
 ```
-
 
 ```python
 def import_pdfs_with_colpali_to_weaviate(weaviate_collection, pdf_files, model, processor):
@@ -516,15 +480,14 @@ def import_pdfs_with_colpali_to_weaviate(weaviate_collection, pdf_files, model, 
     print(f"Processed {len(pdf_files)} PDF files.")
 ```
 
-
 ```python
 import_pdfs_with_colpali_to_weaviate(paper_pdfs, pdf_files, model, processor)
 ```
 
-    Processed 3 PDF files.
-
-
-
+Python output:
+```text
+Processed 3 PDF files.
+```
 ```python
 def embed_query_with_colpali(query, model, processor):
     query_input = processor.process_text(query).to(model.device)
@@ -537,22 +500,21 @@ def embed_query_with_colpali(query, model, processor):
     query_vectors = {}
     num_tokens = query_embedding.shape[1]
     for idx in range(num_patches):
-        # Use modulo to cycle through token embeddings if num_tokens < num_patches
+        # Use modulo to cycle through token embeddings if num_tokens &lt; num_patches
         token_idx = idx % num_tokens
         query_vectors[f"patch_{idx}"] = query_embedding[0, token_idx].cpu().numpy().tolist()
 
     return query_vectors
 ```
 
-
 ```python
 query_vectors = embed_query_with_colpali("Where is Uni located?", model, processor)
 ```
 
-    Query embedding shape: torch.Size([1, 7, 128])
-
-
-
+Python output:
+```text
+Query embedding shape: torch.Size([1, 7, 128])
+```
 ```python
 response = paper_pdfs.query.near_vector(
     # Specify the query vectors for each target vector
@@ -566,6 +528,8 @@ for o in response.objects:
   print(f"Filename: {fileName} on page {pageNumber}.")
 ```
 
-    Filename: Boston-Restaurants.pdf on page 9.0.
-    Filename: Boston-Restaurants.pdf on page 6.0.
-
+Python output:
+```text
+Filename: Boston-Restaurants.pdf on page 9.0.
+Filename: Boston-Restaurants.pdf on page 6.0.
+```
