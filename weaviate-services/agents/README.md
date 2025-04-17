@@ -8,7 +8,7 @@ Weaviate Agents are pre-built agentic services designed for specific tasks.
 
 
 ## Query Agent as a Tool
-Learn how to use the Weaviate Query Agent as a tool with LLM SDKs and Agent Frameworks.
+Learn how to use the Weaviate Query Agent as a tool with LLM SDKs, Agent Frameworks, and Operations Tools.
 
 | Company name | Solution Type   | Notebook Link  |
 |--------------|-----------------|-----------|
@@ -29,6 +29,7 @@ Learn how to use the Weaviate Query Agent as a tool with LLM SDKs and Agent Fram
 | LangChain  | Agent Framework | [Notebook](https://github.com/weaviate/recipes/blob/main/integrations/llm-agent-frameworks/langchain/agents/langchain-weaviate-query-agent.ipynb)     |
 | LlamaIndex | Agent Framework | [Notebook](https://github.com/weaviate/recipes/blob/main/integrations/llm-agent-frameworks/llamaindex/agents/agent-workflow-with-weaviate-query-agent-.ipynb)     |
 | Pydantic | Agent Framework | [Notebook](https://github.com/weaviate/recipes/blob/main/integrations/llm-agent-frameworks/pydantic/pydantic-weaviate-query-tool.ipynb)     |
+| TruLens | Operations | [Notebook](https://github.com/weaviate/recipes/blob/main/integrations/operations/query-agent-evaluation-with-trulens.ipynb)     |
 
 ## Documentation
 - [Weaviate Agents Introduction](https://weaviate.io/developers/agents)
