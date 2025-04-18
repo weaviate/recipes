@@ -8,6 +8,10 @@ integration: False
 agent: True
 tags: ['Transformation Agent']
 ---
+<a href="https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/transformation-agent-retrieval-benchmark.ipynb" target="_blank">
+  <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
+</a>
+
 Traditionally, AI system evaluation has relied heavily on human-written evaluation sets. Most notably, this process demands substantial time and resource investment, preventing most developers from creating and properly evaluating their AI systems.
 
 The Weaviate Transformation Agent offers a breakthrough in AI evaluation by enabling the rapid generation of synthetic evaluation datasets!
@@ -165,7 +169,7 @@ with blogs_collection.batch.dynamic() as batch:
                 "content": blog_chunk
             },
         )
-        
+
         if (i + 1) % 500 == 0:
             elapsed_time = time.time() - start_time
             print(f"Inserted {i + 1} blog chunks... (Time elapsed: {elapsed_time:.2f} seconds)")
@@ -193,7 +197,7 @@ for object in failed_objects:
     try:
         # Extract the properties from the BatchObject
         properties = object.object_.properties
-        
+
         # Insert the object with proper error handling
         blogs_collection.data.insert(
             properties={
@@ -201,14 +205,14 @@ for object in failed_objects:
             }
         )
         success_count += 1
-        
+
         # Add a small delay to avoid overwhelming the server
         time.sleep(0.1)
-        
+
     except Exception as e:
         print(f"Error uploading object: {e}")
         error_count += 1
-        
+
     # Print progress every 50 objects
     if (success_count + error_count) % 50 == 0:
         print(f"Progress: {success_count + error_count}/{len(failed_objects)} objects processed")
@@ -249,8 +253,8 @@ agent = TransformationAgent(
 
 response = agent.update_all()
 
-for operation in response:  # The response is a list of TransformationResponse objects
-    print(agent.get_status(workflow_id=operation.workflow_id))  # Use the workflow_id to check the status of each operation
+# The response is a TransformationResponse object
+print(agent.get_status(workflow_id=response.workflow_id))  # Use the workflow_id to check the status of the workflow
 ```
 
 Python output:
@@ -258,7 +262,7 @@ Python output:
 {'workflow_id': 'TransformationWorkflow-e979d5f69b91575e7289ab61d559cafa', 'status': {'batch_count': 0, 'end_time': None, 'start_time': '2025-03-12 01:21:58', 'state': 'running', 'total_duration': None, 'total_items': 0}}
 ```
 ```python
-agent.get_status(workflow_id=response[0].workflow_id)
+agent.get_status(workflow_id=response.workflow_id)
 ```
 
 Python output:
@@ -363,13 +367,13 @@ Not all queries are the same. While some may require us to do semantic search us
 
 [36mThis allows you to provide the agent with instructions on how it should behave. For example, below we provide a system prompt which instructs the agent to always respond in the users language:
 
-```python
+\```python
 multi_lingual_agent = QueryAgent(
     client=client, collections=["Ecommerce", "Brands"],
     system_prompt="You are a helpful assistant that always generated the final response in the users language."
     " You may have to translate the user query to perform searches. But you must always respond to the user in their own language."
 )
-```
+\```
 
 ## Summary
 
@@ -404,49 +408,49 @@ print(f"Starting evaluation...")
 
 for item in blogs_collection.iterator():
     gold_id = item.uuid
-    
+
     # Query with Arctic 1.5 model
     arctic_1_5_results = blogs_collection.query.hybrid(
         query=item.properties["predicted_user_query"],
         target_vector=["content_arctic_1_5"],
         limit=100
     ).objects
-    
+
     # Query with Arctic 2.0 model
     arctic_2_0_results = blogs_collection.query.hybrid(
         query=item.properties["predicted_user_query"],
         target_vector=["content_arctic_2_0"],
         limit=100
     ).objects
-    
+
     # Extract IDs for easier comparison
     arctic_1_5_ids = [result.uuid for result in arctic_1_5_results]
     arctic_2_0_ids = [result.uuid for result in arctic_2_0_results]
-    
+
     # Calculate recall@1 (if the gold ID is the first result)
     recall_at_1_arctic_1_5.append(1 if arctic_1_5_ids and arctic_1_5_ids[0] == gold_id else 0)
     recall_at_1_arctic_2_0.append(1 if arctic_2_0_ids and arctic_2_0_ids[0] == gold_id else 0)
-    
+
     # Calculate recall@5 (if the gold ID is in the first 5 results)
     recall_at_5_arctic_1_5.append(1 if gold_id in arctic_1_5_ids[:5] else 0)
     recall_at_5_arctic_2_0.append(1 if gold_id in arctic_2_0_ids[:5] else 0)
-    
+
     # Calculate recall@100 (if the gold ID is in the results at all)
     recall_at_100_arctic_1_5.append(1 if gold_id in arctic_1_5_ids else 0)
     recall_at_100_arctic_2_0.append(1 if gold_id in arctic_2_0_ids else 0)
-    
+
     # Increment counter
     total_items += 1
-    
+
     # Log progress at specified intervals
     if total_items % log_interval == 0:
         # Calculate current metrics
         current_recall_at_1_arctic_1_5 = sum(recall_at_1_arctic_1_5) / len(recall_at_1_arctic_1_5)
         current_recall_at_1_arctic_2_0 = sum(recall_at_1_arctic_2_0) / len(recall_at_1_arctic_2_0)
-        
+
         current_recall_at_5_arctic_1_5 = sum(recall_at_5_arctic_1_5) / len(recall_at_5_arctic_1_5)
         current_recall_at_5_arctic_2_0 = sum(recall_at_5_arctic_2_0) / len(recall_at_5_arctic_2_0)
-        
+
         print(f"Processed {total_items} items...")
         print(f"  Current Arctic 1.5 - Recall@1: {current_recall_at_1_arctic_1_5:.4f}, Recall@5: {current_recall_at_5_arctic_1_5:.4f}")
         print(f"  Current Arctic 2.0 - Recall@1: {current_recall_at_1_arctic_2_0:.4f}, Recall@5: {current_recall_at_5_arctic_2_0:.4f}")

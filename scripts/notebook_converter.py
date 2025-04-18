@@ -213,7 +213,12 @@ def _export_to_initial_markdown(notebook_node):  # (Keep as is)
     return body
 
 
-def _format_indented_output_blocks(markdown_body):  # (Keep as is)
+def _format_indented_output_blocks(markdown_body):
+    """
+    Formats indented output blocks to be wrapped in ```text code blocks,
+    preserving any Python code or other content inside the indented blocks.
+    Escapes backticks within the indented blocks to prevent them from being interpreted as code blocks.
+    """
     lines = markdown_body.split("\n")
     result = []
 
@@ -274,7 +279,21 @@ def _format_indented_output_blocks(markdown_body):  # (Keep as is)
                 content_lines = []
                 for j in range(i, indented_block_end):
                     if lines[j].startswith("    "):
-                        content_lines.append(lines[j][4:])  # Remove indentation
+                        # Process line to escape backticks in code blocks
+                        line_content = lines[j][4:]  # Remove indentation
+
+                        # Escape backticks at the start of ```python or ``` lines
+                        if line_content.strip().startswith("```"):
+                            # Insert backslash before the first backtick
+                            backtick_index = line_content.find("`")
+                            if backtick_index != -1:
+                                line_content = (
+                                    line_content[:backtick_index]
+                                    + "\\"
+                                    + line_content[backtick_index:]
+                                )
+
+                        content_lines.append(line_content)
                     else:
                         content_lines.append(lines[j])  # Empty line
 
@@ -449,14 +468,10 @@ def _remove_whatnext_component(markdown_body):
 
 def _remove_redundant_title_heading(markdown_body, notebook_info):
     """
-    Removes the first H1 or H2 heading from the markdown body if it
-    exactly matches the 'title' specified in the notebook_info frontmatter.
+    Removes the first H1 heading (#) from the markdown body if it exists,
+    without checking if it matches anything.
     """
-    print("  Checking for redundant title heading...")
-    title_text = notebook_info.get("title", "").strip()
-    if not title_text:
-        print("    No title found in frontmatter to compare against.")
-        return markdown_body  # Nothing to compare
+    print("  Checking for first H1 heading to remove...")
 
     # Strip leading whitespace/newlines from the body to find the first content line
     stripped_body = markdown_body.lstrip()
@@ -468,39 +483,40 @@ def _remove_redundant_title_heading(markdown_body, notebook_info):
     first_line = lines[0].strip()  # Check the first line of actual content
     rest_of_body = lines[1] if len(lines) > 1 else ""
 
-    heading_text = None
-    is_matching_heading = False
-
-    # Check if the first line is an H1 or H2
-    match_h1 = re.match(r"#\s+(.*)", first_line)
-    match_h2 = re.match(r"##\s+(.*)", first_line)
-
-    if match_h1:
-        heading_text = match_h1.group(1).strip()
-        heading_level = "H1"
-    elif match_h2:
-        heading_text = match_h2.group(1).strip()
-        heading_level = "H2"
-
-    # Compare heading text with frontmatter title (case-insensitive)
-    if heading_text and heading_text.lower() == title_text.lower():
-        is_matching_heading = True
-
-    if is_matching_heading:
-        print(
-            f"    Removing redundant {heading_level} title matching frontmatter: '{first_line}'"
-        )
+    # Check if the first line is an H1 heading (single #)
+    if first_line.startswith("# "):
+        print(f"    Removing first H1 heading: '{first_line}'")
         # Return the rest of the body, stripping any leading newline left from the split
         return rest_of_body.lstrip()
     else:
-        if heading_text:
-            print(
-                f"    First heading '{heading_text}' does not match title '{title_text}'. Keeping."
-            )
-        else:
-            print("    First line is not an H1 or H2 heading.")
-        # No redundant title found, return the original body
-        return markdown_body
+        print(
+            "    No H1 heading found at the start of the document. Nothing to remove."
+        )
+
+    # No H1 heading found, return the original body
+    return markdown_body
+
+
+def _add_colab_badge(frontmatter, notebook_info):
+    """
+    Adds a Colab badge HTML right after the frontmatter.
+    Uses the colab URL from notebook_info.
+    """
+    print("  Adding Colab badge...")
+    colab_url = notebook_info.get("colab", "")
+    if not colab_url:
+        print("    Warning: No Colab URL found in notebook_info. Skipping badge.")
+        return frontmatter
+
+    # Create the badge HTML
+    badge_html = f"""<a href="{colab_url}" target="_blank">
+  <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
+</a>
+
+"""  # Note the trailing newlines
+
+    # Return the frontmatter with the badge HTML appended
+    return frontmatter + badge_html
 
 
 def _determine_output_path(notebook_info, output_path_base):  # (Keep as is)
@@ -555,6 +571,9 @@ def convert_notebook_to_markdown(notebook_info, output_path_base):
     # Step 1: Generate Frontmatter
     frontmatter = _generate_frontmatter(notebook_info)
 
+    # Step 1.5: Add Colab Badge (New Step)
+    frontmatter_with_badge = _add_colab_badge(frontmatter, notebook_info)
+
     # Step 2: Load and Clean Notebook Node
     try:
         cleaned_nb_node = _load_and_clean_notebook(notebook_path)
@@ -595,4 +614,4 @@ def convert_notebook_to_markdown(notebook_info, output_path_base):
 
     # Step 11: Write Output File (Renumbered)
     # Pass the result from the WhatNext removal step
-    _write_output_file(output_file_path, frontmatter, md_body_step10)
+    _write_output_file(output_file_path, frontmatter_with_badge, md_body_step10)

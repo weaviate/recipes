@@ -10,12 +10,6 @@ tags = ["Hybrid Search", "Mistral"]
 description = "Learn how to perform hybrid search in Weaviate using Mistral models for enhanced retrieval."
 
 [[recipe]]
-title = "RAG with Cohere on Amazon Bedrock and Weaviate on AWS Market place"
-notebook = "integrations/cloud-hyperscalers/aws/RAG_Cohere_Weaviate_v4_client.ipynb"
-tags = ["RAG", "Cohere", "AWS", "Amazon Bedrock"]
-description = "Demonstrates building a Retrieval-Augmented Generation (RAG) pipeline using Cohere on Amazon Bedrock with Weaviate deployed via the AWS Marketplace."
-
-[[recipe]]
 title = "How to use ColPali with Weaviate's Named Vectors"
 notebook = "weaviate-features/multi-vector/NamedVectors-ColPali-POC.ipynb"
 tags = ["ColPali", "Named Vectors"]
@@ -72,3 +66,36 @@ notebook = "integrations/llm-agent-frameworks/llamaindex/agents/agent-workflow-w
 tags = ["Query Agent", "Integration"]
 integration = true
 description = "Illustrates how to incorporate the Weaviate Query Agent into agentic workflows built with LlamaIndex."
+
+[[recipe]]
+title = "Build a Weaviate Personalization Agent - Movie Recommender"
+notebook = "weaviate-services/agents/personalization-agent-get-started-movies.ipynb"
+tags = ["Personalization Agent"]
+agent = true
+featured = true
+description = "Learn how to create a movie recommendation engine powered by an LLM and a vector database."
+
+[[recipe]]
+title = "Build a Weaviate Personalization Agent - Food Recommender"
+notebook = "weaviate-services/agents/personalization-agent-get-started-recipes.ipynb"
+tags = ["Personalization Agent"]
+agent = true
+description = "Learn how to use the Weaviate Personalization Agent to create tailored food recommendations."
+
+[[recipe]]
+title = "Generative search (RAG) with AWS Bedrock"
+notebook = "weaviate-features/generative-search/generative_search_aws_bedrock.ipynb"
+tags = ["Generative Search", "RAG", "AWS"]
+description = "Learn how to perform Retrieval-augmented generation (RAG) with AWS Bedrock."
+
+[[recipe]]
+title = "Generate new content with NVIDIA models and RAG"
+notebook = "weaviate-features/generative-search/generative_search_nvidia.ipynb"
+tags = ["Generative Search", "RAG", "NVIDIA"]
+description = "Use an NVIDIA generative model with Weaviate to create new blog posts."
+
+[[recipe]]
+title = "Similarity Search with Cohere"
+notebook = "weaviate-features/similarity-search/similarity_search_cohere.ipynb"
+tags = ["Similarity Search", "Cohere"]
+description = "Perform semantic (similarity) search with Weaviate and Cohere."

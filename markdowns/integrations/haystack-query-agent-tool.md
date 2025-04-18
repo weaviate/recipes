@@ -8,6 +8,12 @@ integration: True
 agent: False
 tags: ['Query Agent', 'Integration']
 ---
+<a href="https://colab.research.google.com/github/weaviate/recipes/blob/main/integrations/llm-agent-frameworks/haystack/haystack-query-agent-tool.ipynb" target="_blank">
+  <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
+</a>
+
+## Weaviate Query Agent with Haystack
+
 This notebook will show you how to define the Weaviate Query Agent as a tool through Haystack.
 
 ### Requirements

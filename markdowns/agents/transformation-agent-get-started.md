@@ -8,6 +8,10 @@ integration: False
 agent: True
 tags: ['Transformation Agent']
 ---
+<a href="https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/transformation-agent-get-started.ipynb" target="_blank">
+  <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
+</a>
+
 In this recipe, we will use a Weaviate [`TransformationAgent`](https://weaviate.io/developers/agents/transformation) to enhance our data in Weaviate. We will build an agent that has access to a collection containing a bunch or research papers, their abstracts and titles. We will then use the agent to create additional properties for eaach of our objects in the collection.
 
 > ⚠️ The Weaviate Transformation Agent is designed to modify data in Weaviate in place. **While the Agent is in technical preview, do not use it in a production environment.** The Agent may not work as expected, and the data in your Weaviate instance may be affected in unexpected ways.
@@ -21,32 +25,6 @@ To get started, we've prepared an open datasets, available on Hugging Face. The 
 - [**ArxivPapers:**](https://huggingface.co/datasets/weaviate/agents/viewer/query-agent-ecommerce) A dataset that lists titles and abstracts of research papers.
 
 If you'd like to try out building more agents with different datasets, check out the list of demo datasets we have available on [Hugging Face Weaviate agents dataset](https://huggingface.co/datasets/weaviate/agents)
-
->[Build a Weaivate Transformation Agent](#updateTitle=true&folderId=19vZXBl8HMn0gIKArBsKg-zUfiFDTCf9j&scrollTo=1iSbBy2zguFv)
-
->>[Setting Up Weaviate & Importing Data](#updateTitle=true&folderId=19vZXBl8HMn0gIKArBsKg-zUfiFDTCf9j&scrollTo=zWqspSa5DTm-)
-
->>>[Prepare the Collections](#updateTitle=true&folderId=19vZXBl8HMn0gIKArBsKg-zUfiFDTCf9j&scrollTo=m-JOSLFqsXY2)
-
->>>[Inspect the Collection in Explorer](#updateTitle=true&folderId=19vZXBl8HMn0gIKArBsKg-zUfiFDTCf9j&scrollTo=Rj1CMObcvFbw)
-
->>[Define Transformation Operations](#updateTitle=true&folderId=19vZXBl8HMn0gIKArBsKg-zUfiFDTCf9j&scrollTo=iftXR_eXDYvz)
-
->>>[Append New Properties](#updateTitle=true&folderId=19vZXBl8HMn0gIKArBsKg-zUfiFDTCf9j&scrollTo=iftXR_eXDYvz)
-
->>>>[Create a List of Topics](#updateTitle=true&folderId=19vZXBl8HMn0gIKArBsKg-zUfiFDTCf9j&scrollTo=iftXR_eXDYvz)
-
->>>>[Add a French Translation](#updateTitle=true&folderId=19vZXBl8HMn0gIKArBsKg-zUfiFDTCf9j&scrollTo=H31WPYAbzVQC)
-
->>>>[Update the Title](#scrollTo=KF3z9wSxziUL)
-
->>>>[Determine If It's a Survey Paper](#updateTitle=true&folderId=19vZXBl8HMn0gIKArBsKg-zUfiFDTCf9j&scrollTo=DPOhrC-WzyXQ)
-
->>[Create & Run the Transformation Agent](#updateTitle=true&folderId=19vZXBl8HMn0gIKArBsKg-zUfiFDTCf9j&scrollTo=7M0Hvf5J0K3Y)
-
->>>[Running the Transformations](#updateTitle=true&folderId=19vZXBl8HMn0gIKArBsKg-zUfiFDTCf9j&scrollTo=DdN-FKsI0ljm)
-
->>>[Inspect the Operation Workflows](#updateTitle=true&folderId=19vZXBl8HMn0gIKArBsKg-zUfiFDTCf9j&scrollTo=rKEU5Olm0zhz)
 
 ## Setting Up Weaviate & Importing Data
 
@@ -338,7 +316,7 @@ response = agent.update_all()
 
 ### Inspect the Operation Workflows
 
-To inspect the status of our operations, we can take a look at the `workflow_id` in each `TransformationResponse` returned, and get their status with `agent.get_status(workflow_id)`. These operations are asynchronous.
+To inspect the status of our operations, we can take a look at the `workflow_id` in the returned `TransformationResponse`, and get their status with `agent.get_status(workflow_id)`. These operations are asynchronous.
 
 ```python
 response
@@ -352,7 +330,7 @@ Python output:
  TransformationResponse(operation_name='title', workflow_id='TransformationWorkflow-bba64a5bf204b00c3572310de715d1e2')]
 ```
 ```python
-agent.get_status(workflow_id=response[0].workflow_id)
+agent.get_status(workflow_id=response.workflow_id)
 ```
 
 Python output:
