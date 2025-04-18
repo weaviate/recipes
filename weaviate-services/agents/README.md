@@ -29,7 +29,7 @@ Learn how to use the Weaviate Query Agent as a tool with LLM SDKs, Agent Framewo
 | LangChain  | Agent Framework | [Notebook](https://github.com/weaviate/recipes/blob/main/integrations/llm-agent-frameworks/langchain/agents/langchain-weaviate-query-agent.ipynb)     |
 | LlamaIndex | Agent Framework | [Notebook](https://github.com/weaviate/recipes/blob/main/integrations/llm-agent-frameworks/llamaindex/agents/agent-workflow-with-weaviate-query-agent-.ipynb)     |
 | Pydantic | Agent Framework | [Notebook](https://github.com/weaviate/recipes/blob/main/integrations/llm-agent-frameworks/pydantic/pydantic-weaviate-query-tool.ipynb)     |
-| TruLens | Operations | [Notebook](https://github.com/weaviate/recipes/blob/main/integrations/operations/query-agent-evaluation-with-trulens.ipynb)     |
+| TruLens | Operations | [Notebook](https://github.com/weaviate/recipes/blob/main/integrations/operations/trulens/query-agent-evaluation-with-trulens.ipynb)     |
 
 ## Documentation
 - [Weaviate Agents Introduction](https://weaviate.io/developers/agents)
