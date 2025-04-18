@@ -196,7 +196,7 @@ Data: {
 ```
 ### Hybrid Search
 
-The goal of this notebook is to show you how to use the embedding service. For more information on hybrid search, check out [this folder](/weaviate-features/hybrid-search/) and/or the [documentation](https://weaviate.io/developers/weaviate/search/hybrid).
+The goal of this notebook is to show you how to use the embedding service. For more information on hybrid search, check out [this folder](https://github.com/weaviate/recipes/tree/main/weaviate-features/hybrid-search) and/or the [documentation](https://weaviate.io/developers/weaviate/search/hybrid).
 
 The `alpha` parameter determines the weight given to the sparse and dense search methods. `alpha = 0` is pure sparse (bm25) search, whereas `alpha = 1` is pure dense (vector) search. 
 

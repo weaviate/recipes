@@ -213,6 +213,16 @@ def _export_to_initial_markdown(notebook_node):  # (Keep as is)
     return body
 
 
+def _strip_ansi_codes(text):
+    """
+    Removes ANSI color codes from text.
+    """
+    import re
+
+    ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
+    return ansi_escape.sub("", text)
+
+
 def _format_indented_output_blocks(markdown_body):
     """
     Formats indented output blocks to be wrapped in ```text code blocks,
@@ -279,8 +289,11 @@ def _format_indented_output_blocks(markdown_body):
                 content_lines = []
                 for j in range(i, indented_block_end):
                     if lines[j].startswith("    "):
-                        # Process line to escape backticks in code blocks
+                        # Process line to escape backticks in code blocks and strip ANSI color codes
                         line_content = lines[j][4:]  # Remove indentation
+
+                        # Strip ANSI color codes
+                        line_content = _strip_ansi_codes(line_content)
 
                         # Escape backticks at the start of ```python or ``` lines
                         if line_content.strip().startswith("```"):

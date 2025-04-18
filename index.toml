@@ -10,10 +10,10 @@ tags = ["Hybrid Search", "Mistral"]
 description = "Learn how to perform hybrid search in Weaviate using Mistral models for enhanced retrieval."
 
 [[recipe]]
-title = "How to use ColPali with Weaviate's Named Vectors"
-notebook = "weaviate-features/multi-vector/NamedVectors-ColPali-POC.ipynb"
+title = "Multi-vector RAG: Using Weaviate to search a collection of PDF documents "
+notebook = "weaviate-features/multi-vector/multi-vector-colipali-rag.ipynb"
 tags = ["ColPali", "Named Vectors"]
-description = "Shows how to leverage ColPali image embeddings alongside Weaviate's named vectors feature for multi-modal search."
+description = "How to use Weaviate's multi-vector feature for querying PDF documents."
 
 [[recipe]]
 title = "How to Use Weaviate Embedding Service"
@@ -62,7 +62,7 @@ description = "Demonstrates integrating the Weaviate Query Agent as a custom too
 
 [[recipe]]
 title = "Weaviate Query Agent with LlamaIndex"
-notebook = "integrations/llm-agent-frameworks/llamaindex/agents/agent-workflow-with-weaviate-query-agent-.ipynb"
+notebook = "integrations/llm-agent-frameworks/llamaindex/agents/agent-workflow-with-weaviate-query-agent.ipynb"
 tags = ["Query Agent", "Integration"]
 integration = true
 description = "Illustrates how to incorporate the Weaviate Query Agent into agentic workflows built with LlamaIndex."

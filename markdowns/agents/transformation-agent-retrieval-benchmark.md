@@ -308,10 +308,10 @@ for i, result in enumerate(results, 1):
 
 Python output:
 ```text
-[37mExample #1[0m
-[36mBlog Content:[0m
+Example #1
+Blog Content:
 
-[36m---
+---
 title: 'Introducing the Weaviate Query Agent'
 slug: query-agent
 authors: [charles-pierse, tuana, alvin]
@@ -329,26 +329,26 @@ This blog comes with an accompanying [recipe](https://github.com/weaviate/recipe
 
 ## What is the Weaviate Query Agent
 
-AI Agents are semi- or fully- autonomous systems that make use of LLMs as the brain of the operation. This allows you to build applications that are able to handle complex user queries that may need to access multiple data sources. And, over the past few years we’ve started to build such applications thanks to more and more powerful LLMs capable of function calling, frameworks that simplify the development process and more.[0m
-[32mPredicted User Query:[0m
+AI Agents are semi- or fully- autonomous systems that make use of LLMs as the brain of the operation. This allows you to build applications that are able to handle complex user queries that may need to access multiple data sources. And, over the past few years we’ve started to build such applications thanks to more and more powerful LLMs capable of function calling, frameworks that simplify the development process and more.
+Predicted User Query:
 
-[32mHow can I integrate the Weaviate Query Agent with my existing application to access multiple data sources using LLMs?[0m
+How can I integrate the Weaviate Query Agent with my existing application to access multiple data sources using LLMs?
 
-[37mExample #2[0m
-[36mBlog Content:[0m
+Example #2
+Blog Content:
 
-[36m:::note 
+:::note 
 To learn more about what AI Agents are, read our blog [”Agents Simplified: What we mean in the context of AI”](https://weaviate.io/blog/ai-agents). :::
 
-**With the Query Agent, we aim to provide an agent that is inherently capable of handling complex queries over multiple Weaviate collections.** The agent understands the structure of all of your collections, so knows when to run searches, aggregations or even both at the same time for you. Often, AI agents are described as LLMs that have access to various tools (adding more to its capabilities), which are also able to make a plan, and reason about the response. Our Query Agent is an AI agent that is provided access to multiple Weaviate collections within a cluster. Depending on the user’s query, it will be able to decide which collection or collections to perform searches on.[0m
-[32mPredicted User Query:[0m
+**With the Query Agent, we aim to provide an agent that is inherently capable of handling complex queries over multiple Weaviate collections.** The agent understands the structure of all of your collections, so knows when to run searches, aggregations or even both at the same time for you. Often, AI agents are described as LLMs that have access to various tools (adding more to its capabilities), which are also able to make a plan, and reason about the response. Our Query Agent is an AI agent that is provided access to multiple Weaviate collections within a cluster. Depending on the user’s query, it will be able to decide which collection or collections to perform searches on.
+Predicted User Query:
 
-[32mHow does the Query Agent decide which Weaviate collections to perform searches on based on a user's query?[0m
+How does the Query Agent decide which Weaviate collections to perform searches on based on a user's query?
 
-[37mExample #3[0m
-[36mBlog Content:[0m
+Example #3
+Blog Content:
 
-[36mSo, you can think of the Weaviate Query Agent as an AI agent that has tools in the form of Weaviate Collections. In addition to access to multiple collections, the Weaviate Query Agent also has access to two internal agentic search workflows:
+So, you can think of the Weaviate Query Agent as an AI agent that has tools in the form of Weaviate Collections. In addition to access to multiple collections, the Weaviate Query Agent also has access to two internal agentic search workflows:
 
 -   Regular [semantic search](/blog/vector-search-explained) with optional filters
 -   Aggregations
@@ -357,15 +357,15 @@ In essence, we’ve released a multi-agent system that can route queries to one 
 
 ### Routing to Search vs Aggregations
 
-Not all queries are the same. While some may require us to do semantic search using embeddings over a dataset, other queries may require us to make [aggregations](https://weaviate.io/developers/weaviate/api/graphql/aggregate) (such as counting objects, calculating the average value of a property and so on). We can demonstrate the difference with a simple example.[0m
-[32mPredicted User Query:[0m
+Not all queries are the same. While some may require us to do semantic search using embeddings over a dataset, other queries may require us to make [aggregations](https://weaviate.io/developers/weaviate/api/graphql/aggregate) (such as counting objects, calculating the average value of a property and so on). We can demonstrate the difference with a simple example.
+Predicted User Query:
 
-[32mHow do I decide when to use semantic search versus aggregations in the Weaviate Query Agent?[0m
+How do I decide when to use semantic search versus aggregations in the Weaviate Query Agent?
 
-[37mExample #4[0m
-[36mBlog Content:[0m
+Example #4
+Blog Content:
 
-[36mThis allows you to provide the agent with instructions on how it should behave. For example, below we provide a system prompt which instructs the agent to always respond in the users language:
+This allows you to provide the agent with instructions on how it should behave. For example, below we provide a system prompt which instructs the agent to always respond in the users language:
 
 \```python
 multi_lingual_agent = QueryAgent(
@@ -377,19 +377,19 @@ multi_lingual_agent = QueryAgent(
 
 ## Summary
 
-The Weaviate Query Agent represents a significant step forward in making vector databases more accessible and powerful. By combining the capabilities of LLMs with Weaviate's own search and aggregation features, we've created a tool that can handle complex queries across multiple collections while maintaining context and supporting multiple languages. The resulting agent can be used on its own, as well as within a larger agentic or multi-agent application.[0m
-[32mPredicted User Query:[0m
+The Weaviate Query Agent represents a significant step forward in making vector databases more accessible and powerful. By combining the capabilities of LLMs with Weaviate's own search and aggregation features, we've created a tool that can handle complex queries across multiple collections while maintaining context and supporting multiple languages. The resulting agent can be used on its own, as well as within a larger agentic or multi-agent application.
+Predicted User Query:
 
-[32mHow do I integrate the Weaviate Query Agent with a larger agentic or multi-agent application?[0m
+How do I integrate the Weaviate Query Agent with a larger agentic or multi-agent application?
 
-[37mExample #5[0m
-[36mBlog Content:[0m
+Example #5
+Blog Content:
 
-[36mWhether you're building applications that require semantic search, complex aggregations, or both, the Query Agent simplifies the development process while providing the flexibility to customize its behavior through system prompts. As we continue to develop and enhance this feature, we look forward to seeing how our community will leverage it to build even more powerful AI-driven applications. Ready to get started? Check out our [recipe](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/query-agent-get-started.ipynb), join the discussion in our forum, and start building with the Weaviate Query Agent today!
+Whether you're building applications that require semantic search, complex aggregations, or both, the Query Agent simplifies the development process while providing the flexibility to customize its behavior through system prompts. As we continue to develop and enhance this feature, we look forward to seeing how our community will leverage it to build even more powerful AI-driven applications. Ready to get started? Check out our [recipe](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/query-agent-get-started.ipynb), join the discussion in our forum, and start building with the Weaviate Query Agent today!
 
-[32mPredicted User Query:[0m
+Predicted User Query:
 
-[32mHow can I customize the behavior of the Query Agent through system prompts?[0m
+How can I customize the behavior of the Query Agent through system prompts?
 ```
 ### The Generated Dataset can be found on HuggingFace [here](https://huggingface.co/datasets/weaviate/weaviate-blogs-with-synthetic-questions)!
 

@@ -1,6 +1,6 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/integrations/llm-agent-frameworks/llamaindex/agents/agent-workflow-with-weaviate-query-agent-.ipynb
+colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/integrations/llm-agent-frameworks/llamaindex/agents/agent-workflow-with-weaviate-query-agent.ipynb
 toc: True
 title: "Weaviate Query Agent with LlamaIndex"
 featured: False
@@ -8,7 +8,7 @@ integration: True
 agent: False
 tags: ['Query Agent', 'Integration']
 ---
-<a href="https://colab.research.google.com/github/weaviate/recipes/blob/main/integrations/llm-agent-frameworks/llamaindex/agents/agent-workflow-with-weaviate-query-agent-.ipynb" target="_blank">
+<a href="https://colab.research.google.com/github/weaviate/recipes/blob/main/integrations/llm-agent-frameworks/llamaindex/agents/agent-workflow-with-weaviate-query-agent.ipynb" target="_blank">
   <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
 </a>
 
@@ -20,7 +20,7 @@ This notebook will show you how to define the Weaviate Query Agent as a tool thr
 1. Weaviate Cloud instance (WCD): The Weaviate Query Agent is only accessible through WCD at the moment. You can create a serverless cluster or a free 14-day sandbox [here](https://console.weaviate.cloud/).
 2. Install LlamaIndex with `pip install llama-index` (we used version `0.12.22` for this notebook)
 3. Install the Weaviate Agents package with `pip install weaviate-agents`
-4. You'll need a Weaviate cluster with data. If you don't have one, check out [this notebook](integrations/Weaviate-Import-Example.ipynb) to import the Weaviate Blogs.
+4. You'll need a Weaviate cluster with data. If you don't have one, check out [this notebook](https://github.com/weaviate/recipes/blob/main/integrations/Weaviate-Import-Example.ipynbb) to import the Weaviate Blogs.
 
 ### Resources on the LlamaIndex Agent Workflow
 1. [Getting Started Guide](https://docs.llamaindex.ai/en/latest/getting_started/starter_example/)
