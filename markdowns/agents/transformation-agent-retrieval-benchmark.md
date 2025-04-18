@@ -8,6 +8,10 @@ integration: False
 agent: True
 tags: ['Transformation Agent']
 ---
+<a href="https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/transformation-agent-retrieval-benchmark.ipynb" target="_blank">
+  <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
+</a>
+
 Traditionally, AI system evaluation has relied heavily on human-written evaluation sets. Most notably, this process demands substantial time and resource investment, preventing most developers from creating and properly evaluating their AI systems.
 
 The Weaviate Transformation Agent offers a breakthrough in AI evaluation by enabling the rapid generation of synthetic evaluation datasets!
@@ -165,7 +169,7 @@ with blogs_collection.batch.dynamic() as batch:
                 "content": blog_chunk
             },
         )
-        
+
         if (i + 1) % 500 == 0:
             elapsed_time = time.time() - start_time
             print(f"Inserted {i + 1} blog chunks... (Time elapsed: {elapsed_time:.2f} seconds)")
@@ -193,7 +197,7 @@ for object in failed_objects:
     try:
         # Extract the properties from the BatchObject
         properties = object.object_.properties
-        
+
         # Insert the object with proper error handling
         blogs_collection.data.insert(
             properties={
@@ -201,14 +205,14 @@ for object in failed_objects:
             }
         )
         success_count += 1
-        
+
         # Add a small delay to avoid overwhelming the server
         time.sleep(0.1)
-        
+
     except Exception as e:
         print(f"Error uploading object: {e}")
         error_count += 1
-        
+
     # Print progress every 50 objects
     if (success_count + error_count) % 50 == 0:
         print(f"Progress: {success_count + error_count}/{len(failed_objects)} objects processed")
@@ -249,8 +253,8 @@ agent = TransformationAgent(
 
 response = agent.update_all()
 
-for operation in response:  # The response is a list of TransformationResponse objects
-    print(agent.get_status(workflow_id=operation.workflow_id))  # Use the workflow_id to check the status of each operation
+# The response is a TransformationResponse object
+print(agent.get_status(workflow_id=response.workflow_id))  # Use the workflow_id to check the status of the workflow
 ```
 
 Python output:
@@ -258,7 +262,7 @@ Python output:
 {'workflow_id': 'TransformationWorkflow-e979d5f69b91575e7289ab61d559cafa', 'status': {'batch_count': 0, 'end_time': None, 'start_time': '2025-03-12 01:21:58', 'state': 'running', 'total_duration': None, 'total_items': 0}}
 ```
 ```python
-agent.get_status(workflow_id=response[0].workflow_id)
+agent.get_status(workflow_id=response.workflow_id)
 ```
 
 Python output:
@@ -304,10 +308,10 @@ for i, result in enumerate(results, 1):
 
 Python output:
 ```text
-[37mExample #1[0m
-[36mBlog Content:[0m
+Example #1
+Blog Content:
 
-[36m---
+---
 title: 'Introducing the Weaviate Query Agent'
 slug: query-agent
 authors: [charles-pierse, tuana, alvin]
@@ -325,26 +329,26 @@ This blog comes with an accompanying [recipe](https://github.com/weaviate/recipe
 
 ## What is the Weaviate Query Agent
 
-AI Agents are semi- or fully- autonomous systems that make use of LLMs as the brain of the operation. This allows you to build applications that are able to handle complex user queries that may need to access multiple data sources. And, over the past few years we’ve started to build such applications thanks to more and more powerful LLMs capable of function calling, frameworks that simplify the development process and more.[0m
-[32mPredicted User Query:[0m
+AI Agents are semi- or fully- autonomous systems that make use of LLMs as the brain of the operation. This allows you to build applications that are able to handle complex user queries that may need to access multiple data sources. And, over the past few years we’ve started to build such applications thanks to more and more powerful LLMs capable of function calling, frameworks that simplify the development process and more.
+Predicted User Query:
 
-[32mHow can I integrate the Weaviate Query Agent with my existing application to access multiple data sources using LLMs?[0m
+How can I integrate the Weaviate Query Agent with my existing application to access multiple data sources using LLMs?
 
-[37mExample #2[0m
-[36mBlog Content:[0m
+Example #2
+Blog Content:
 
-[36m:::note 
+:::note 
 To learn more about what AI Agents are, read our blog [”Agents Simplified: What we mean in the context of AI”](https://weaviate.io/blog/ai-agents). :::
 
-**With the Query Agent, we aim to provide an agent that is inherently capable of handling complex queries over multiple Weaviate collections.** The agent understands the structure of all of your collections, so knows when to run searches, aggregations or even both at the same time for you. Often, AI agents are described as LLMs that have access to various tools (adding more to its capabilities), which are also able to make a plan, and reason about the response. Our Query Agent is an AI agent that is provided access to multiple Weaviate collections within a cluster. Depending on the user’s query, it will be able to decide which collection or collections to perform searches on.[0m
-[32mPredicted User Query:[0m
+**With the Query Agent, we aim to provide an agent that is inherently capable of handling complex queries over multiple Weaviate collections.** The agent understands the structure of all of your collections, so knows when to run searches, aggregations or even both at the same time for you. Often, AI agents are described as LLMs that have access to various tools (adding more to its capabilities), which are also able to make a plan, and reason about the response. Our Query Agent is an AI agent that is provided access to multiple Weaviate collections within a cluster. Depending on the user’s query, it will be able to decide which collection or collections to perform searches on.
+Predicted User Query:
 
-[32mHow does the Query Agent decide which Weaviate collections to perform searches on based on a user's query?[0m
+How does the Query Agent decide which Weaviate collections to perform searches on based on a user's query?
 
-[37mExample #3[0m
-[36mBlog Content:[0m
+Example #3
+Blog Content:
 
-[36mSo, you can think of the Weaviate Query Agent as an AI agent that has tools in the form of Weaviate Collections. In addition to access to multiple collections, the Weaviate Query Agent also has access to two internal agentic search workflows:
+So, you can think of the Weaviate Query Agent as an AI agent that has tools in the form of Weaviate Collections. In addition to access to multiple collections, the Weaviate Query Agent also has access to two internal agentic search workflows:
 
 -   Regular [semantic search](/blog/vector-search-explained) with optional filters
 -   Aggregations
@@ -353,39 +357,39 @@ In essence, we’ve released a multi-agent system that can route queries to one 
 
 ### Routing to Search vs Aggregations
 
-Not all queries are the same. While some may require us to do semantic search using embeddings over a dataset, other queries may require us to make [aggregations](https://weaviate.io/developers/weaviate/api/graphql/aggregate) (such as counting objects, calculating the average value of a property and so on). We can demonstrate the difference with a simple example.[0m
-[32mPredicted User Query:[0m
+Not all queries are the same. While some may require us to do semantic search using embeddings over a dataset, other queries may require us to make [aggregations](https://weaviate.io/developers/weaviate/api/graphql/aggregate) (such as counting objects, calculating the average value of a property and so on). We can demonstrate the difference with a simple example.
+Predicted User Query:
 
-[32mHow do I decide when to use semantic search versus aggregations in the Weaviate Query Agent?[0m
+How do I decide when to use semantic search versus aggregations in the Weaviate Query Agent?
 
-[37mExample #4[0m
-[36mBlog Content:[0m
+Example #4
+Blog Content:
 
-[36mThis allows you to provide the agent with instructions on how it should behave. For example, below we provide a system prompt which instructs the agent to always respond in the users language:
+This allows you to provide the agent with instructions on how it should behave. For example, below we provide a system prompt which instructs the agent to always respond in the users language:
 
-```python
+\```python
 multi_lingual_agent = QueryAgent(
     client=client, collections=["Ecommerce", "Brands"],
     system_prompt="You are a helpful assistant that always generated the final response in the users language."
     " You may have to translate the user query to perform searches. But you must always respond to the user in their own language."
 )
-```
+\```
 
 ## Summary
 
-The Weaviate Query Agent represents a significant step forward in making vector databases more accessible and powerful. By combining the capabilities of LLMs with Weaviate's own search and aggregation features, we've created a tool that can handle complex queries across multiple collections while maintaining context and supporting multiple languages. The resulting agent can be used on its own, as well as within a larger agentic or multi-agent application.[0m
-[32mPredicted User Query:[0m
+The Weaviate Query Agent represents a significant step forward in making vector databases more accessible and powerful. By combining the capabilities of LLMs with Weaviate's own search and aggregation features, we've created a tool that can handle complex queries across multiple collections while maintaining context and supporting multiple languages. The resulting agent can be used on its own, as well as within a larger agentic or multi-agent application.
+Predicted User Query:
 
-[32mHow do I integrate the Weaviate Query Agent with a larger agentic or multi-agent application?[0m
+How do I integrate the Weaviate Query Agent with a larger agentic or multi-agent application?
 
-[37mExample #5[0m
-[36mBlog Content:[0m
+Example #5
+Blog Content:
 
-[36mWhether you're building applications that require semantic search, complex aggregations, or both, the Query Agent simplifies the development process while providing the flexibility to customize its behavior through system prompts. As we continue to develop and enhance this feature, we look forward to seeing how our community will leverage it to build even more powerful AI-driven applications. Ready to get started? Check out our [recipe](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/query-agent-get-started.ipynb), join the discussion in our forum, and start building with the Weaviate Query Agent today!
+Whether you're building applications that require semantic search, complex aggregations, or both, the Query Agent simplifies the development process while providing the flexibility to customize its behavior through system prompts. As we continue to develop and enhance this feature, we look forward to seeing how our community will leverage it to build even more powerful AI-driven applications. Ready to get started? Check out our [recipe](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/query-agent-get-started.ipynb), join the discussion in our forum, and start building with the Weaviate Query Agent today!
 
-[32mPredicted User Query:[0m
+Predicted User Query:
 
-[32mHow can I customize the behavior of the Query Agent through system prompts?[0m
+How can I customize the behavior of the Query Agent through system prompts?
 ```
 ### The Generated Dataset can be found on HuggingFace [here](https://huggingface.co/datasets/weaviate/weaviate-blogs-with-synthetic-questions)!
 
@@ -404,49 +408,49 @@ print(f"Starting evaluation...")
 
 for item in blogs_collection.iterator():
     gold_id = item.uuid
-    
+
     # Query with Arctic 1.5 model
     arctic_1_5_results = blogs_collection.query.hybrid(
         query=item.properties["predicted_user_query"],
         target_vector=["content_arctic_1_5"],
         limit=100
     ).objects
-    
+
     # Query with Arctic 2.0 model
     arctic_2_0_results = blogs_collection.query.hybrid(
         query=item.properties["predicted_user_query"],
         target_vector=["content_arctic_2_0"],
         limit=100
     ).objects
-    
+
     # Extract IDs for easier comparison
     arctic_1_5_ids = [result.uuid for result in arctic_1_5_results]
     arctic_2_0_ids = [result.uuid for result in arctic_2_0_results]
-    
+
     # Calculate recall@1 (if the gold ID is the first result)
     recall_at_1_arctic_1_5.append(1 if arctic_1_5_ids and arctic_1_5_ids[0] == gold_id else 0)
     recall_at_1_arctic_2_0.append(1 if arctic_2_0_ids and arctic_2_0_ids[0] == gold_id else 0)
-    
+
     # Calculate recall@5 (if the gold ID is in the first 5 results)
     recall_at_5_arctic_1_5.append(1 if gold_id in arctic_1_5_ids[:5] else 0)
     recall_at_5_arctic_2_0.append(1 if gold_id in arctic_2_0_ids[:5] else 0)
-    
+
     # Calculate recall@100 (if the gold ID is in the results at all)
     recall_at_100_arctic_1_5.append(1 if gold_id in arctic_1_5_ids else 0)
     recall_at_100_arctic_2_0.append(1 if gold_id in arctic_2_0_ids else 0)
-    
+
     # Increment counter
     total_items += 1
-    
+
     # Log progress at specified intervals
     if total_items % log_interval == 0:
         # Calculate current metrics
         current_recall_at_1_arctic_1_5 = sum(recall_at_1_arctic_1_5) / len(recall_at_1_arctic_1_5)
         current_recall_at_1_arctic_2_0 = sum(recall_at_1_arctic_2_0) / len(recall_at_1_arctic_2_0)
-        
+
         current_recall_at_5_arctic_1_5 = sum(recall_at_5_arctic_1_5) / len(recall_at_5_arctic_1_5)
         current_recall_at_5_arctic_2_0 = sum(recall_at_5_arctic_2_0) / len(recall_at_5_arctic_2_0)
-        
+
         print(f"Processed {total_items} items...")
         print(f"  Current Arctic 1.5 - Recall@1: {current_recall_at_1_arctic_1_5:.4f}, Recall@5: {current_recall_at_5_arctic_1_5:.4f}")
         print(f"  Current Arctic 2.0 - Recall@1: {current_recall_at_1_arctic_2_0:.4f}, Recall@5: {current_recall_at_5_arctic_2_0:.4f}")

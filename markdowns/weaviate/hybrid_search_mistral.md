@@ -8,6 +8,10 @@ integration: False
 agent: False
 tags: ['Hybrid Search', 'Mistral']
 ---
+<a href="https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-features/hybrid-search/hybrid_search_mistral.ipynb" target="_blank">
+  <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
+</a>
+
 This recipe will show you how to run hybrid search with embeddings from Mistral.
 
 ## Requirements

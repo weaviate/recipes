@@ -8,7 +8,9 @@ integration: False
 agent: False
 tags: ['Weaviate Embeddings', 'Weaviate Cloud']
 ---
-# Weaviate Embedding Service
+<a href="https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/embedding-service/weaviate_embeddings_service.ipynb" target="_blank">
+  <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
+</a>
 
 [Weaviate Embeddings](https://weaviate.io/developers/wcs/embeddings) enables you to generate embeddings directly from a [Weaviate Cloud](https://console.weaviate.cloud/) database instance. 
 
@@ -194,7 +196,7 @@ Data: {
 ```
 ### Hybrid Search
 
-The goal of this notebook is to show you how to use the embedding service. For more information on hybrid search, check out [this folder](/weaviate-features/hybrid-search/) and/or the [documentation](https://weaviate.io/developers/weaviate/search/hybrid).
+The goal of this notebook is to show you how to use the embedding service. For more information on hybrid search, check out [this folder](https://github.com/weaviate/recipes/tree/main/weaviate-features/hybrid-search) and/or the [documentation](https://weaviate.io/developers/weaviate/search/hybrid).
 
 The `alpha` parameter determines the weight given to the sparse and dense search methods. `alpha = 0` is pure sparse (bm25) search, whereas `alpha = 1` is pure dense (vector) search. 
 
