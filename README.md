@@ -6,9 +6,11 @@ This repository covers end-to-end examples of the various features and integrati
 
 | Category | Description |
 | -------------|---------|
+| [Datasets](/datasets/) | Ready to use datasets to ingest data into your Weaviate cluster |
 | [Integrations](/integrations)| Notebooks showing you how to use Weaviate plus another technology |
 | [Weaviate Features](/weaviate-features) | Notebooks covering vector, hybrid and generative search, reranking, multi-tenancy, and more |
 | [Weaviate Services](/weaviate-services/) | Notebooks showing you how to build with Weaviate Services |
+
 
 ## Integrations 🌐
 Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers/integrations)!
