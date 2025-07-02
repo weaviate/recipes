@@ -1,0 +1,63 @@
+---
+title: 'Welcome to the Next Era of Data and AI: Meet Weaviate Agents'
+slug: weaviate-agents
+authors: [alvin]
+date: 2025-03-04
+tags: ['release', 'agents']
+image: ./img/hero.png
+subtitle: "Simplify data pipelines, improve user experiences, and power intelligent applications with agentic workflows"
+description: "We’re excited to announce Weaviate Agents, a new suite of agentic services in Weaviate designed to simplify data orchestration and accelerate generative AI development."
+---
+![Welcome to the Next Era of Data and AI: Meet Weaviate Agents](./img/hero.png)
+
+For more time than I’d like to admit, I’ve been immersed in data; how people use it and get value from it—both as an engineer and as a product leader. During that time, I’ve come to realize that most organizations need to harness powerful machine intelligence to get to the next level of data insights. They are often held back by fragmented tooling, rigid data layers and schemas from hell. Even with the latest innovations in AI, teams can have the world’s greatest data sources but have to spend all their time bolting parts together to make it run before they can get to insights.
+
+I’m happy to share how Weaviate is simplifying the entire process of orchestrating generative AI applications. [Weaviate Agents](/developers/agents), our new suite of agentic services, embody a mindset shift in data management and AI development. For us this is not just another feature release, it’s a window into how we see AI-driven data experiences evolving in the near future.
+
+## The Evolution of Database Interaction
+
+SQL first set the standard for database queries and became its lingua franca. It was powerful if your data was perfectly structured, you knew the schema inside out and the data patterns within that schema. ORMs (Object-Relational Mappers) provided an abstraction away from writing SQL, which reduced some of the burden but did not solve the basic problem: what is the data, what are the inferred relationships and what are the semantic relationships. Next came RAG (Retrieval-Augmented Generation), opening up entirely new ways to search unstructured data using vectors. But that left a huge gap between structured, unstructured and even the multi-modal worlds of data.
+
+Weaviate Agents are domain experts of Weaviate APIs but also your schema and data stored in Weaviate. They can interpret natural language instructions, automatically figure out the underlying searches or transformations, and then chain tasks together. They’re pre-trained on Weaviate’s APIs, making them fluent in “how to do data work” within Weaviate—without special syntax or data engineering needed. 
+
+## Meet the First Three Weaviate Agents
+
+Weaviate Agents leverage Weaviate’s vector database and LLMs for data storage, retrieval, and transformations. This turnkey approach means you have less steps to manage in your data pipeline. By delegating tasks to Agents—whether you’re querying, transforming, or personalizing data—you drastically reduce operational overhead, minimize error-prone scripts, and get to insights (or user impact) faster.
+
+1. **Query Agent:** Think of the [Query Agent](https://weaviate.io/product/query-agent) like a concierge for your data. You submit a question in natural language—it decides which information is relevant, formulates a search or aggregation behind the scenes, retrieves the results, and even ranks them for you. By removing the need to piece together APIs and write elaborate prompts, you can focus on the business logic of your application instead of the minutiae.
+
+2. **Transformation Agent:** Many of us have spent countless hours writing or rewriting scripts to clean up, label, or augment data. With the [Transformation Agent](https://weaviate.io/product/transformation-agent), all of that complexity is reduced into a simple prompt. Need to translate product descriptions into five languages? Done. Want to re-categorize your entire user base with updated taxonomy? Also done. Create a new product description for a Gen-Z audience? Yes, even that.
+
+3. **Personalization Agent:** Personalization is no longer a “nice-to-have”, it’s core to user experience. The [Personalization Agent](https://weaviate.io/product/personalization-agent) can dynamically recommend or re-rank results based on user behavior and preferences, helping you transcend static recommendation engines, elaborate reranking rules and weights and deliver real-time, context-aware experiences.
+
+## GenAI 2.0: Why Agentic Architectures, Why Now?
+
+With the model ecosystem moving at a break-neck pace, the doors are opening to the reality of Agentic AI. Where semi and fully-automonous systems can reason and execute tasks. This new era will require a new level of data sophistication and orchestration. But the common frustration for engineering and data teams still surfaces: even the best AI models won’t deliver real-world impact if you’re stuck wrestling with fragmented systems. 
+
+Weaviate Agents simplify the complex data workflows required for the next generation of AI. They enhance Weaviate’s “batteries-included” stack that minimizes operational overhead for building and maintaining AI and agentic applications:
+
+* **AI-Native Vector Database:** Storage and retrieval of structured and unstructured data at scale, with powerful vector and hybrid search built-in.   
+* **Weaviate Embeddings:** Built-in embedding service that simplifies the process of creating high-quality vector embeddings.   
+* **Weaviate Agents:** Pre-trained agentic workflows for completing complex data tasks.
+
+## Weaviate Agents: A Practical Example
+
+Now let's look at how this all might look in practice.
+
+Imagine you work for an e-commerce marketplace where users search for products with queries like “Red summer dresses between $45 and $95.” While a vector search might retrieve red summer dresses, it won’t filter results by price because embedding models don’t inherently understand filtering constraints. To bridge this gap, companies typically build a query understanding pipeline that interprets user intent, extracts relevant filters, and constructs an appropriate database query. However, building this pipeline requires time and deep subject matter expertise. With the **Query Agent**, this functionality comes out of the box. It understands both Weaviate’s query architecture and your data model, allowing you to accurately translate user queries into precise, filterable searches combined with semantic search—without the overhead of custom pipeline development.
+
+Following on from the previous example, your company wants to utilize the social content that has been created about your products. We want to take all those reviews and summarize them to create a new top level description of your products. With the **Transformation Agent**, you can automatically use the data you have collected, and with a simple natural language prompt create the new description and insert the new value - instantly making it available for semantic search! 
+
+Now, at that same e-commerce marketplace, you want to improve user retention and enhance the shopping experience by delivering personalized search results. Instead of offering a one-size-fits-all ranking, the **Personalization Agent** leverages user context and past interactions to dynamically rerank results, ensuring customers see the most relevant products first.
+
+So this is an obvious e-commerce set of use cases, but Weaviate Agents are intended to operate on any data stored, making them applicable to any industry where you need to simplify your interactions with data \- either to find better insights, create and augment the data you have, or get better ranked results. Weaviate Agents optimize results with less manual effort and need for complex infrastructure. Developers can focus on innovation while Weaviate handles the heavy lifting.
+
+## What’s Next?
+Weaviate Query Agent is now available in Public Preview. [Read the docs](/developers/agents/query), and access it via [Weaviate Serverless Cloud](https://auth.wcs.api.weaviate.io/auth/realms/SeMI/protocol/openid-connect/auth?client_id=wcs-frontend&scope=openid%20email%20profile&response_type=code&redirect_uri=https%3A%2F%2Fconsole.weaviate.cloud%2Fapi%2Fauth%2Fcallback%2Fkeycloak&state=hq8gLNGjVQliM-J80i5kzrala69zk1xLcqTjIiC7Ofc&code_challenge=bMCkpkeP7Ep6sthJIdGiq-gFUekWPBTbczgXo3Rw8jI&code_challenge_method=S256) or our free 14-day sandbox. We’ll be sharing technical tutorials and developer enablement materials for Query Agent in the coming days. Keep an eye on our blog and follow us on [LinkedIn](https://www.linkedin.com/company/weaviate-io/) for the latest. 
+
+The Innovation Lab is always cooking, so stay tuned for updates. Transformation and Personalization Agents are up next! 
+
+import WhatsNext from '/_includes/what-next.mdx'
+
+<WhatsNext />
+

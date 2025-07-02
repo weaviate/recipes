@@ -1,0 +1,100 @@
+Weaviate `1.29` brings a host of new features and improvements. It introduces multi-vector embedding support (preview) and new NVIDIA model support. Weaviate's role-based access control (RBAC) and async replication are now generally available. We've also made further improvements to the BlockMax WAND algorithm to speed up keyword and hybrid searches, among other enhancements.
+
+Here are the release ⭐️*highlights*⭐️!
+
+![Weaviate 1.29](./img/hero.png)
+
+- [Multi-vector embedding support (Preview)](#multi-vector-embedding-support-preview)
+- [NVIDIA model support](#nvidia-model-support)
+- [Role-based access control (RBAC) in GA](#role-based-access-control-rbac-in-ga)
+- [BlockMax WAND (Technical Preview)](#blockmax-wand-technical-preview)
+- [Async replication in GA](#async-replication-in-ga)
+
+## Multi-vector embedding support (Preview)
+
+:::caution 🚧 Technical Preview
+Multi-vector embedding support is added `v1.29` as a **technical preview**. This means that the feature is still under development and may change in future releases, including potential breaking changes. **We do not recommend using this feature in production environments at this time.**
+:::
+
+Weaviate now supports multi-vector embeddings, allowing you to store and query using multi-vector embeddings such as ColBERT, ColPali and ColQwen.
+
+![Single vs Multi-vector embedding comparison visualization](../../developers/weaviate/tutorials/_includes/single_multi_vector_comparison_light.png#gh-light-mode-only "Single vs Multi-vector embedding comparison visualization")
+![Single vs Multi-vector embedding comparison visualization](../../developers/weaviate/tutorials/_includes/single_multi_vector_comparison_dark.png#gh-dark-mode-only "Single vs Multi-vector embedding comparison visualization")
+
+This approach enables more precise searching through "late interaction" - a technique that matches individual parts of texts rather than comparing them as whole units.
+
+Using multi-vector embeddings can improve the quality of search results, especially for long texts or complex queries.
+
+The following visualization shows how late interaction works in a ColBERT model, in comparison to a single-vector model.
+
+![ColBERT late interaction vs single-vector visualization](../../developers/weaviate/tutorials/_includes/colbert_late_interaction_light.png#gh-light-mode-only "ColBERT late interaction vs single-vector visualization")
+![ColBERT late interaction vs single-vector visualization](../../developers/weaviate/tutorials/_includes/colbert_late_interaction_dark.png#gh-dark-mode-only "ColBERT late interaction vs single-vector visualization")
+
+This feature is available as a technical preview in `1.29`, so we're excited to hear your feedback and suggestions for further improvements.
+
+If you would like to try out multi-vector embeddings in Weaviate, check out the [Multi-vector embeddings tutorial](/developers/weaviate/tutorials/multi-vector-embeddings) which will take you end-to-end, for both:
+
+- [Using Jina AI ColBERT model integration](/developers/weaviate/tutorials/multi-vector-embeddings#option-1-colbert-model-integration), or
+- [Using user-provided multi-vector embeddings](/developers/weaviate/tutorials/multi-vector-embeddings#option-2-user-provided-embeddings).
+
+## NVIDIA model support
+
+Weaviate's suite of [model integrations](/developers/weaviate/model-providers/) now includes support for NVIDIA's NIM inference service.
+
+![Embedding integration illustration](../../developers/weaviate/model-providers/_includes/integration_nvidia_embedding.png)
+
+Weaviate users can now use NVIDIA model integration to [create text embeddings](/developers/weaviate/model-providers/nvidia/embeddings), [create multi-modal embeddings](/developers/weaviate/model-providers/nvidia/embeddings-multimodal), and use [generative AI models](/developers/weaviate/model-providers/nvidia/generative). (Reranker model support coming soon)
+
+These model integration pages provide detailed instructions on how to configure Weaviate with NVIDIA models and start using them in your applications.
+
+## Role-based access control (RBAC) in GA
+
+Role-based access control (RBAC) is now generally available in Weaviate `1.29`, offering more granular control over user permissions.
+
+The RBAC feature allows you to define roles and assign permissions to users based on their roles. This enables you to control who can access, read, write, or delete data in Weaviate.
+
+There have been a number of changes to the RBAC API in `1.29` from the preview API in `1.28`, some of which are breaking changes.
+
+This was done to make the API more consistent and easier to use, and to introduce new features. Keep also in mind that the RBAC features is still in development, and we have plans to add more features in the future.
+
+Refer to the [RBAC documentation](/developers/weaviate/configuration/rbac) for more information.
+
+## BlockMax WAND (Technical Preview)
+
+:::caution 🚧 Technical Preview
+BlockMax WAND algorithm is available in `v1.29` as a **technical preview**. This means that the feature is still under development and may change in future releases, including potential breaking changes. **We do not recommend using this feature in production environments at this time.**
+:::
+
+The BlockMax WAND algorithm continues to evolve in Weaviate `1.29` with further improvements to speed up BM25 and hybrid searches.
+
+It organizes the inverted index in blocks to enable skipping over blocks that are not relevant to the query. This can significantly reduce the number of documents that need to be scored, improving search performance.
+
+In our internal testing, we have seen up to a 10x speedup in keyword searches due to BlockMax WAND.
+
+If you are experiencing slow BM25 (or hybrid) searches, try enabling BlockMax WAND to see if it improves performance.
+
+To read more about BlockMax WAND, and to try it out, refer to the [Indexing page](/developers/weaviate/concepts/indexing#blockmax-wand-algorithm).
+
+**To use BlockMax WAND in Weaviate `v1.29`, it must be enabled prior to collection creation.** As of this version, Weaviate will not migrate existing collections to use BlockMax WAND.
+
+## Async replication in GA
+
+For those of you using Weaviate in a distributed environment, async replication is now generally available in `1.29`.
+
+When each shard is replicated across multiple nodes, async replication guarantees that all nodes holding copies of the same data remain in sync by periodically comparing and propagating data.
+
+Async replication supplements the existing repair-on-read mechanism. If a node becomes inconsistent between sync checks, the repair-on-read mechanism catches the problem at read time.
+
+To activate async replication, set `asyncEnabled` to true in the [`replicationConfig` section of your collection definition](/developers/weaviate/manage-data/collections#replication-settings). Visit the [How-to: Replication](/developers/weaviate/configuration/replication#async-replication-settings) page to learn more about the available async replication settings, and [Concepts: Replication/Consistency](/developers/weaviate/concepts/replication-architecture/consistency) for more information on how async replication works.
+
+## Summary
+
+Ready to Get Started?
+
+Enjoy the new features and improvements in Weaviate `1.29`. The release is available open-source as always [on GitHub](https://github.com/weaviate/weaviate/releases/tag/v1.28.0), and will be available for new Sandboxes on [Weaviate Cloud](https://console.weaviate.cloud/) very shortly.
+
+For those of you upgrading a self-hosted version, please check the [migration guide](/developers/weaviate/more-resources/migration#general-upgrade-instructions) for detailed instructions.
+
+It will be available for Serverless clusters on Weaviate Cloud soon as well.
+
+Thanks for reading, see you next time 👋!

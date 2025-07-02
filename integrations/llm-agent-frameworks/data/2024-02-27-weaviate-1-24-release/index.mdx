@@ -1,0 +1,88 @@
+Weaviate `1.24` is here!
+
+Here are the release ⭐️*highlights*⭐️!
+
+![Weaviate 1.24](./img/hero.png)
+
+- [**Named vectors.**](/blog/weaviate-1-24-release#named-vectors) A single object can have more than one vector embeddings. Create vectors for properties, use different vectorization models, and apply different metrics to fine tune interactions with your data.
+- [**HNSW and binary quantization (BQ)**](/blog/weaviate-1-24-release#hnsw-and-binary-quantization) HNSW indexes and BQ combine for serious compression and blazing speed.
+- [**Simplified Docker configuration.**](/blog/weaviate-1-24-release#simplified-docker-configuration) A new Docker image that needs no configuration.
+- [**Backend improvements.**](/blog/weaviate-1-24-release#backend-improvements) Numerous improvements to make updates, imports, and deletions faster.
+- [**Python client update.**](/blog/weaviate-1-24-release#python-client)  General availability, support for all the latest features.
+
+## Named vectors
+
+![Named vectors](./img/multi-vector.png)
+
+Named vectors make your collections richer and more versatile.
+
+Starting in 1.24, an object can have more than one vector embedding. Each vector is independent. Each vector has its own index, its own compression, and its own vectorizer. This means you can create vectors for properties, use different vectorization models, and apply different metrics to fine tune interactions with your data.
+
+In earlier versions, objects in your collections are limited to one vector. Now, you can vectorize meta data like titles and descriptions so that it is available for vector search. You can group things that are logically related, like a music video and a lyric sheet, in the same object. You don't have to create [cross-references](/developers/weaviate/manage-data/cross-references) or manage shared metadata. A single object in a collection can have multiple named vectors.
+
+You don't have to use named vectors in your collections, but if you do, adjust your queries to specify which vector you want to use.
+
+For details, see [Multiple vector embeddings](/developers/weaviate/config-refs/schema/multi-vector).
+
+## HNSW and binary quantization
+
+![HNSW and binary quantization](./img/hnsw-and-bq.png)
+
+Weaviate improves [binary quantization (BQ)](/developers/weaviate/configuration/compression/bq-compression) in 1.24 to be faster, more memory efficient, and more cost-effective. Use BQ vector compression with [HNSW indexes](/developers/weaviate/concepts/vector-index#hierarchical-navigable-small-world-hnsw-index) to dramatically improve your query speed.
+
+BQ compresses vector representations while preserving essential information. Uncompressed, Weaviate uses a `float32` to store each dimension. BQ uses one bit per dimension to encode Vector directionality. This means BQ compresses vectors from 32 bits per dimension to 1 bit per dimension - a savings of 32 times the space. This compression significantly reduces storage requirements.
+
+Comparing BQ compressed vectors is fast. To calculate the distance between to vectors, compare their dimensional agreement. The bitwise comparison ensures optimal resource utilization without compromising accuracy. For instance, consider two vectors encoded as [1,1,0,1,0,1,0,1] and [1,1,0,0,1,1,0,1]. Their distance is 2.
+
+<details>
+  <summary>
+    Bitwise comparison details
+  </summary>
+
+Compare each value in the first vector one with the corresponding value in the second vector. If they are the same, score `0`. If they are different, score `1`. The distance between the vectors is the sum of the bitwise comparisons.
+
+```
+[1,1,0,1,0,1,0,1]
+[1,1,0,0,1,1,0,1]
+-----------------
+ 0+0+0+1+1+0+0+0 = 2
+ ```
+
+</details>
+
+Efficient BQ processing compliments our HNSW index to enable mind dizzyingly fast vector search and throughput!
+
+Let’s talk numbers! You might know from our v1.23 release that combining a [flat index](/developers/weaviate/concepts/vector-index#flat-index) with BQ enables real-time search capabilities. Even so, a brute force a search on 1 million vectors, where each vector has 768 dimensions, takes about 23 milliseconds with a flat index. When you use HNSW and BQ, even with vectors six times as big (4608 dimensions), the same brute force search only takes about 90 milliseconds.
+
+A flat index combined with BQ is fast, but compare a HNSW index combined with BQ. Together HNSW and BQ enable vector search capabilities that reach nearly 10,000 queries per second at 85% recall!
+
+Keep an eye out for an upcoming blog post with the nitty-gritty details of how HNSW+BQ compares to other index and compression algorithms.
+
+## Simplified Docker configuration
+
+Starting in v1.24, there is a new Docker image that runs using common, default values. This image lets you start development and exploration quickly. Just enter a simple command line:
+
+```bash
+docker run -p 8080:8080 -p 50051:50051 cr.weaviate.io/semitechnologies/weaviate:1.24.1
+```
+
+Alternatively, you can edit the `docker-compose.yml` file to customize your instance.
+
+For details, see [Docker configuration](/developers/weaviate/installation/docker-compose)
+
+## Backend improvements
+
+Weaviate is a robust platform that handles many kinds of workloads. This release brings major improvements for imports, updates, and deletions. You don't have to do anything to enable these fixes, but you may notice improved upload times, especially if you make frequent changes to your collections.
+
+## Python client
+
+The new Weaviate [Python client v4](/developers/weaviate/client-libraries/python) is available. The latest release adds support for named vectors and brings numerous other updates. If you have feedback on the new client, please let us know.
+
+- To learn more about the new client, read the [client release blog post](/blog/py-client-v4-release).
+- To learn how to upgrade your code, see the [v3 to v4 migration guide](/developers/weaviate/client-libraries/python/v3_v4_migration).
+
+## Summary
+
+Enjoy the new features and improvements in Weaviate `1.24`. This release is available as a docker image and on [WCD](https://console.weaviate.cloud/). Try it out in a free, WCD sandbox, or download a copy and try it out locally.
+
+Thanks for reading, see you next time 👋!
