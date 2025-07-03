@@ -1,0 +1,283 @@
+---
+title: 'Introducing the Weaviate Personalization Agent'
+slug: personalization-agent
+authors: [charles-pierse, tuana, alvin]
+date: 2025-04-15
+tags: ['concepts', 'agents', 'release']
+image: ./img/hero.png
+description: "Learn about how you can use our new agentic personalization service to provide user-catered recommendations from Weaviate collections."
+---
+![Introducing the Weaviate Personalization Agent](./img/hero.png)
+
+Over the past few weeks, we’ve brought to you the [`QueryAgent`](/blog/query-agent), the [`TransformationAgent`](/blog/transformation-agent), and today, we’re back with our latest addition to the Weaviate Agents: the `PersonalizationAgent`.
+
+This new service that we’re releasing for all [Weaviate Serverless Cloud](/deployment/serverless) and Sandbox users to preview today is only the beginning of our agentic services geared to retrieve personalized objects from Weaviate collections based on custom instructions, user profiles and their past interactions with your products.
+
+In this blog, we’ll walk through this preview release of the `PersonalizationAgent`, how you can get started by creating your own, as well as what our vision is for the future of this service
+
+:::note 
+This blog comes with two accompanying recipes to help you get started, one of which we will look into in detail here: the ['food recommender' agent recipe](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/personalization-agent-get-started-recipes.ipynb) and the [‘movie recommender’ agent recipe](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/personalization-agent-get-started-movies.ipynb). In this blog, we’ll focus on the food recommender.
+:::
+
+## What is the Personalization Agent
+
+To put it simply, you can think of this first release of the `PersonalizationAgent` as an agentic ranking service that takes into account a users “persona” and past “interactions” while returning the most relevant objects to them from your collection.
+
+For many applications, delivering personalized search is critical to ensure that results are evolving over time to support ever changing user interests. For example, if you’re a clothing brand and want to help users find exactly what they’re looking for, in their style. Or, if you host a website full of recipes and you’d like to surface recipes that a user _might_ prefer over others to the top. The Weaviate `PersonalizationAgent` is a service that aims to do just this for any given Weaviate collection. And it does this by employing a few new approaches:
+
+1.  By introducing a new class called `Persona`, which essentially represents an end-user and optionally any additional metadata about them that may be useful.
+2.  By introducing `PersonaInteraction` alongside it, which represents positive or negative weighted interactions with a given object in your collection.
+3.  Finally and possibly most importantly, by creating a sister collection in the background, where we can store these personas and persona interactions.
+
+![Personalization Agent](img/personalization-agent.png)
+
+Using all of this extra information about our end-users, the `PersonalizationAgent` will employ both classic ML methods and LLMs, to fetch and rank objects from our collection, specifically catered for an individual user.
+
+That’s a lot, so let’s break it down.
+
+### Personas
+
+A persona is essentially what it says on the tin, a representation of a person. However, what kind of personal information we need, or what might be valuable information may differ depending on the application. So, for the `PersonalizationAgent` we’ve provided a helper class that can be initialized based on any persona property that you need.
+
+For example, if we were to create an application centered around recipes, we may want to have a persona that lists their likes, dislikes and maybe their favorite cuisines. But, if we’re creating a movie recommendation service, maybe we need our personas to include ages, favorite genres, and top 3 favorite movies.
+
+Here, it is completely up to us (who are creating an agentic personalization service for end-users), to decide on what specific (non-changing) information is most useful to include about each user.
+
+A `PersonalizationAgent` is initialized with a blueprint of what properties we want in each new user (persona) we introduce to the agent. That blueprint comes in the form of a dictionary indicating property name, and datatype:
+
+```python
+user_properties = {
+    "favorite_cuisines": DataType.TEXT_ARRAY,
+    "likes": DataType.TEXT_ARRAY,
+    "dislikes": DataType.TEXT_ARRAY,
+}
+
+```
+
+Once we know what those properties are, we can add as many users to our agent as needed. For each user, we initialize a `Persona` with a unique ID, and provide the requested properties.
+
+```python
+Persona(persona_id=persona_id,
+        properties={
+            "favorite_cuisines": ["Italian", "Thai"],
+            "likes": ["chocolate", "salmon", "pasta", "most veggies"],
+            "dislikes": ["okra", "mushroom"],
+        })
+
+```
+
+### Persona Interactions
+
+Once we have a Persona for a given user, we can technically already start to provide them with personalized data simply based on their profile. However, the agent is also able to take into account any past interactions the user may have had with the objects in our collection.
+
+An interaction in this case is a simple class that represents positive or negative sentiment to any given object, by any given persona. Each interaction has a `weight` that can be set to anything between -1.0 to 1.0. For example, 1.0 might be the weight given for an object marked as a users ‘favorite’, while 0.8 might be for something they ‘liked’ and -0.5 for something they disliked etc.
+
+Imagine a ‘like’ and ‘dislike’ button for each entry on a webpage. When a user hits ‘like’, this may mean its time to add a new interaction with weight 1 for that specific object in the Weaviate collection.
+
+For example, a positive interaction by `persona_a` for `item_a` is:
+
+```python
+PersonaInteraction(persona_id=persona_a, item_id=item_a, weight=1)
+
+```
+
+As we create these personas and interactions, the `PersonalizationAgent` will start storing them in a separate “collection_interactions” collection.
+
+The `PersonalizationAgent` will vectorize all persona and interaction data as it comes in. When the agent is asked to provide personalized rankings for a user, it will not only use the vectors for the actual objects in the original collection, but also the vectors for personas and interactions from the second agent created collection. But, more on how personalized rankings are actually made in the next section.
+
+### Personalized Ranking and Filtering
+
+Personalized rankings of objects are based on a mixture of both classic ML clustering based on nearest vectors, and a generative LLM with the `PersonalizationAgent`. Based on a persona and their interactions, Weaviate will retrieve the nearest objects based on positive and negative user preferences. We can then choose to base our recommendations to the user solely based on these ‘clusters’ of user preferences. Or, and possibly more interestingly (and more ‘agentically’) - we can also employ a method where we _first_ fetch recommended objects based on these clusters, followed by using an LLM to re-rank them based on all the information it’s given about the user. We will see how to do this in the following section where we will create our very own `PersonalizationAgent`.
+
+### Our Vision for the Future of Personalization Agents
+
+While today’s release is ready for all Weaviate Serverless Cloud and Sandbox users to preview, it’s just a start. This release, as you will also see below, is centered around getting the relevant objects for the user, from a collection. Soon, we will also add personalized Weaviate [queries](/developers/weaviate/search), which will allow us to incorporate all of the personalization above into any of the Weaviate collection queries. Another update we hope to make alongside this will be to allow these agents to be used alongside and with the [`QueryAgent`](/blog/query-agent), allowing us to create a multi agent Weaviate collection search system that can also provide personalized responses for some collections.
+
+## Creating Personalization Agents
+
+:::note 
+👩‍🍳 For this announcement, we’ve also released an accompanying ‘food recommender’ agent [recipe](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/personalization-agent-get-started-recipes.ipynb) to help you get started. For questions or feedback, you can [join the ‘Agents’ topic in the Weaviate Forum](https://forum.weaviate.io/c/agents/10).
+:::
+
+To get started, we need to install the Weaviate Python client. The `PersoanlizationAgent` (as well as the `QueryAgent` and `TransformationAgent`) is now ready to preview via the Weaviate Python client, for all Weaviate Serverless Cloud users (including free Sandboxes).
+
+```bash
+pip install weaviate-client[agents]
+```
+
+As an example scenario, we’ve prepared two recipes: one with which you can create a food recommender service based on users’ likes, dislikes and favorite cuisines, another which has you create a movie recommender service based on a users age, favorite genres etc.
+
+Let’s take a look at the food recommender service here. To get started, we need a collection. In this case, let’s imagine a collection called “Recipes” which lists names of dishes and short descriptions about each dish, as well as the cuisine that the dish belongs to.
+
+A `PersonalizationAgent` is initialized with the following:
+
+-   The name of the `reference_collection` which the agent will return personalized recommendations for.
+-   (Optionally) `user_properties` which lists the names and datatypes of properties we might want to know about each user.
+
+In this case, we initialize the following agent:
+
+```python
+from weaviate.agents.personalization import PersonalizationAgent
+
+agent = PersonalizationAgent.create(client=client,
+									reference_collection="Recipes",
+									user_properties={"favorite_cuisines": DataType.TEXT_ARRAY,
+													 "likes": DataType.TEXT_ARRAY,
+													 "dislikes": DataType.TEXT_ARRAY
+													 },
+								    )
+
+```
+
+Think of `user_properties` as a blueprint of the information that may be useful to the agent about each user (persona) when returning personalized objects from the collection.
+
+In the case of our food recommender service, we’ve gone for “favorite_cuisines”, “likes” and “dislikes”. Soon, when our agent is able to also filter on top of returning rankings, we may also like to include “intolerances” for this type of recommender service for example.
+
+### Creating Personas and Adding New Users
+
+Once we have our agent and a blueprint of what info we need on each individual, we can start adding users to our agent.
+
+For the `PersonalizationAgent`, we add new users with the `Persona` class, which is initialized with a unique `persona_id` and the `properties` that our agent expect, defined when initializing it with `user_properties`. Let’s imagine Jane Doe, she likes salmon, but hates mushroom. Her `Persona` may be initialized as the following:
+
+```python
+from weaviate.agents.classes import Persona
+
+jane_doe = Persona(persona_id=jane_doe_id,
+				   properties={"favorite_cuisines": ["Italian", "Thai"],
+					           "likes": ["chocolate", "salmon", "pasta", "most veggies"],
+					           "dislikes": ["okra", "mushroom"],
+					         },
+				  )
+```
+
+Once we have a new Persona, we add it to the agent with `add_persona`:
+
+```python
+agent.add_persona(jane_doe)
+```
+
+### The Interactions Collection & Adding New Interactions
+
+One key thing that the `PersonalizationAgent` does in the background is that once initialized, it creates a “sister collection” for the reference collection. We call this the persona interactions collection. For our food recommender service, since the reference collection is called “Recipes”, our interactions collection will be called “Recipes_persona_interactions”.
+
+As we start adding new personas, the agent will start inserting (and vectorizing) objects that represent the persona to this interactions collection. For example notice the screenshot of the object below that represents our very own `jane_doe`:You may also notice that there are two other properties as well: `positive` and `negative`. This is where the agent will start to insert the personas interactions on specific objects in the regerence collection (Recipes).
+
+Later, when returning objects that the specific user may be interested in, the agent will use not only the reference collection, but also the interactions collection. This way, it can base its ranking on both the profile of the persona, as well as their past interactions (both positive and negative) with the objects in our collection (in this case, with dishes listed in “Recipes”).
+
+For example, let’s assume the following rule for our food recommender service:
+
+```
+1.0: favorite meal
+0.8: user liked the dish
+0.5: user viewed the recipe page
+-0.5: user disliked the dish
+-1.0: user absolutely hated the dish 👎
+
+```
+
+Our `jane_doe` may have the following interactions:
+
+```python
+from weaviate.collections.classes.filters import Filter
+
+reviewed_foods = [
+    "Chicken Tikka Masala",
+    "Matcha Ice Cream",
+    "Fiorentina Steak",
+    "Duck Confit",
+    "Pappardelle with Porcini"
+]
+
+reviews_dict = {
+    recipe.properties["title"]: recipe
+    for recipe in recipes_collection.query.fetch_objects(
+        filters=Filter.by_property("title").contains_any(reviewed_foods), limit=20
+    ).objects
+}
+
+interactions = [
+    PersonaInteraction(
+        persona_id=jane_doe_id, item_id=reviews_dict["Chicken Tikka Masala"].uuid, weight=0.8
+    ),
+    PersonaInteraction(
+        persona_id=jane_doe_id, item_id=reviews_dict["Matcha Ice Cream"].uuid, weight=0.8
+    ),
+    PersonaInteraction(
+        persona_id=jane_doe_id, item_id=reviews_dict["Fiorentina Steak"].uuid, weight=0.8
+    ),
+    PersonaInteraction(
+        persona_id=jane_doe_id, item_id=reviews_dict["Duck Confit"].uuid, weight=1.0
+    ),
+    PersonaInteraction(
+        persona_id=jane_doe_id, item_id=reviews_dict["Pappardelle with Porcini"].uuid, weight=-1.0
+    ),
+
+]
+
+agent.add_interactions(interactions=interactions)
+
+```
+
+It’s worth noting at this point that the more interactions we have for an individual, the more the agent has context about that person. Thus, the personalized ranking gets better as we add more and more interactions.
+
+### Personalized Rankings
+
+The idea behind how the agent returns personalized objects is simple: First, we cluster the objects based on user persona and past interactions using classic ML clustering. The first retrieval of objects actually happens only based on this clustering. So, for a simpler (and cheaper) personalized ranking, we can leave it there.
+
+But next - and optionally - we may choose to get objects using what we call agent ranking. This is where Weaviate will use an LLM to then rerank the objects returned after the first retrieval, based on the additional context provided via the user persona and interactions.
+
+Additionally, and again optionally, we may also provide a custom instruction to our agent. This instruction can describe what kind of personalization and ranking we aim to achieve with our application. This serves as an efficient way of providing yet more context to the agent about the ranking task at hand.
+
+For example, for our food recommender service, we may want to create a service that recommends a diverse set of dishes. We set `use_agent_ranking` to `True` and call `get_objects`:
+
+```python
+response = agent.get_objects(persona_id,
+                             limit=50, 
+                             use_agent_ranking=True,
+                             instruction="""Your task is to recommend a diverse set of dishes to the user 
+                             taking into account their likes and dislikes. It's especially important to avoid their dislikes.""",
+)
+
+```
+
+The response we get from the agent not only includes the re-ranked 50 of the most relevant objects for the user, but also the agents `ranking_rationale` as to why the ranking was done as such. For example, the ranking for our `jane_doe` may look like the following:
+
+```python
+print(response.ranking_rationale)
+for i, obj in enumerate(response.objects[:10]):
+    print(f"*****{i}*****")
+    print(obj.properties["title"])
+    print(obj.properties["description"])
+    print(obj.properties["labels"])
+
+```
+
+```
+We've curated a diverse selection of dishes that avoids your dislikes 
+and highlights your favorite cuisines like Italian and Thai. 
+Look forward to enjoying delicious Italian classics and unique dishes that 
+resonate with your love for pasta and veggies.
+
+*****0*****
+Pizza Margherita
+A simple yet iconic pizza with San Marzano tomatoes, mozzarella di bufala, fresh basil, and extra-virgin olive oil, encapsulating the Neapolitan pizza tradition.
+Italian
+*****1*****
+Frittata di Zucca e Pancetta
+A fluffy egg omelette with sweet potatoes and pancetta, seasoned with herbs and grated cheese, a beloved dish from the heart of Italy.
+Italian
+*****2*****
+Lasagna alla Bolognese
+Layers of flat pasta sheets, rich Bolognese sauce, and béchamel, baked to perfection.
+Italian
+...
+
+```
+
+## Summary
+
+The `PersonalizationAgent` is Weaviate’s newest agentic service that delivers personalized recommendations by combining user profiles, past interactions, and LLM-powered ranking. It introduces personas, interaction tracking, and an agentic pipeline for serving tailored results from any collection. Available now for all Serverless Cloud and Sandbox users—get started with the provided recipe and start building intelligent, user-aware applications today.
+
+import WhatsNext from '/_includes/what-next.mdx'
+
+<WhatsNext />
