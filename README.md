@@ -28,9 +28,7 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 
 | Feature | Description |
 |---------|-------------|
-| Similarity Search | Use Weaviate's `nearText` operator to run semantic search queries (broken out by model provider) |
-| Hybrid Search | Use Weaviate's `hybrid` operator to run hybrid search queries (broken out by model provider) |
-| Generative Search | Build a simple RAG workflow using Weaviate's `.generate` (broken out by model provider) |
+| Model Providers | Use Weaviate's `nearText`, `hybrid`, and `.generate` operator with various model providers |
 | Filters | Narrow down your search results by adding filters to your queries |
 | Reranking | Add reranking to your pipeline to improve search results (broken out by model provider) |
 | Media Search | Use Weaviate's `nearImage` and `nearVideo` operator to search using images and videos |
