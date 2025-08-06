@@ -1,4 +1,4 @@
-The Ollama library allows you to easily run a wide range of models on your own device. You can use Weaviate's [Ollama integration](https://docs.weaviate.io/weaviate/model-providers/ollama) to use a variety of models. Below, you can find a list of Notebooks.
+Ollama offers access to a wide range of models. You can use Weaviate's [Ollama integration](https://docs.weaviate.io/weaviate/model-providers/ollama) to use a variety of models. Below, you can find a list of Notebooks.
 
 | Model | Task | Notebook|
 | --- | --- | --- |
