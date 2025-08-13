@@ -1,0 +1,133 @@
+Weaviate `1.25` is here!
+
+Here are the release ⭐️*highlights*⭐️!
+
+![Weaviate 1.25](./img/hero.png)
+
+- [**Dynamic Vector Index**](#dynamic-vector-index) Dynamically switch from flat indexes to HNSW to efficiently scale as your data grows.
+- [**Raft**](#raft) Improves schema management and makes multi-node clusters more reliable.
+- [**New Modules**](#new-model-integrations) Loads of new modules that empower you to host and run open source embedding and language models locally!
+- [**Batch vectorization**](#batch-vectorization) Faster and more efficient use of APIs during data import.
+- [**Automatic tenant creation**](#automatic-tenant-creation) Easier data uploads and tenant creation for your application.
+- [**Search improvements**](#search-improvements) Hybrid search gets vector similarity search and grouping. method. Keyword search also gets grouping.
+
+## Dynamic vector index
+
+![dynamic_index](./img/dynamic.png)
+
+Configuring Weaviate and not sure if you have enough objects to justify building a full HNSW index or to stick to a flat index? We’ve got good news for you: In 1.25 we’re introducing the dynamic vector index!
+
+Previously you’d have to decide at the outset if you wanted a flat or HNSW index. The flat index was ideal for use cases with a small object count where brute force nearest neighbors search was viable and would provide lower memory overhead and good latency. As the object count increased the flat index would become prohibitively slow and this is what the HNSW index would solve.
+
+With 1.25 you can now configure Weaviate to use a dynamic index. This will initially create a flat index to be used and once the number of objects exceeds a certain threshold (by default 10,000 objects) it will dynamically switch you over to an HNSW index.
+
+Here is how you can configure Weaviate to use a dynamic index:
+
+```json
+{
+	"vectorIndexType": "dynamic",
+	"vectorIndexConfig": {
+		"distance": "dot",
+		"threshold": 10000,
+		"hnsw" : {
+			... standard HNSW configuration
+		},
+		"flat": {
+		  ... standard Flat configuration
+		}
+}
+```
+
+This is a one-way dynamic switch that converts the flat index to HNSW. The index does not switch back to a flat index even if the object count drops below the threshold.
+
+Above the threshold value, HNSW indexes are faster for queries, but they also have a larger memory footprint than flat indexes.
+
+Dynamic indexes are particularly useful in a multi-tenant clusters. HNSW indexes have higher resource costs, but they do not have to be enabled for every tenant. All tenants start with less resource intensive flat indexes. If particular tenant collection grows large enough, the index dynamically switches that tenant to HNSW. The smaller tenants continue to use flat indexes.
+
+import DynamicAsyncRequirements from '/_includes/dynamic-index-async-req.mdx';
+
+<DynamicAsyncRequirements/>
+
+## Raft
+
+import WV8onRaft from './img/raft-weaviate.png';
+
+<center><img src={WV8onRaft} width="50%" alt="Weaviate on a raft"/></center>
+
+Weaviate clusters can be large; there can be a lot of nodes to coordinate. The host systems have to work together reliably and efficiently, even under high loads. [Raft](https://raft.github.io/) is a robust consensus algorithm that helps make multi-node clusters more fault tolerant.
+
+There are two types of data in a Weaviate cluster: your actual data, and system state information. Earlier releases use a two-phase commit protocol to store schema information. This mechanism doesn't scale well and can leads to locking behavior in multi-node clusters. Starting in 1.25, Weaviate uses Raft to store schema information and cluster state details. Raft ensures your schemas are safe and helps you to reliably scale multi-node clusters for production workloads. The underlying data [storage](/developers/weaviate/concepts/storage) is managed the same way as before - [replication](/developers/weaviate/concepts/replication-architecture) and [sharding](/developers/weaviate/concepts/cluster) continue to safeguard your data while making it available for your applications.
+
+If you are new to Weaviate, you can take immediate advantage of Raft. If you are upgrading a Kubernetes deployment from an earlier version, be sure to review the [migration guide](/developers/weaviate/more-resources/migration/weaviate-1-25) before you upgrade. There is a one-time migration step to update the [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/).
+
+## New model integrations
+
+This release brings important new integrations with third party APIs.
+
+### OctoAI integration
+
+import OctoAIDeprecationNote from '/developers/weaviate/model-providers/octoai/_includes/octoai_deprecation.md';
+
+<OctoAIDeprecationNote/>
+
+With version 1.25 we’re announcing an integration with OctoAI which will make it even easier for users to access many open source embedding and language models such as Llama3-70b, Mixtral-8x22b and more.
+
+We are releasing two integrations: text2vec-octoai and generative-octoai that integrate Weaviate and the OctoAI service. OctoAI provides hosted inference services for embedding models and large language models.
+
+The current models supported include:
+
+	"qwen1.5-32b-chat"
+	"meta-llama-3-8b-instruct"
+	"meta-llama-3-70b-instruct"
+	"mixtral-8x22b-instruct"
+	"nous-hermes-2-mixtral-8x7b-dpo"
+	"mixtral-8x7b-instruct"
+	"mixtral-8x22b-finetuned"
+	"hermes-2-pro-mistral-7b"
+	"mistral-7b-instruct"
+	"codellama-7b-instruct"
+	"codellama-13b-instruct"
+	"codellama-34b-instruct"
+	"llama-2-13b-chat"
+	"llama-2-70b-chat"
+
+To get started using Weaviate with OctoAI all you need is an OctoAI API key that you can get [from here](https://octo.ai/)! Read more about how you can use the [`generative-octoai` integration model](/developers/weaviate/model-providers/octoai/generative) and the [`text2vec-octoai` integration model](/developers/weaviate/model-providers/octoai/embeddings).
+
+### Multimodal Google PaLM integration
+
+The multi2vec-palm integration model is an update to v1.24 that lets you use Google’s hosted embedding models to embed multimodal data.
+
+Prior to the release of this model if users wanted to embed multimodal data they’d have to self-host the embedding model on their own compute but with multi2vec-palm building multimodal applications is easier than ever.
+
+Using Google’s [multimodal embedding model](https://cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-multimodal-embeddings) you can now embed text, images and videos all into the same vector space and perform cross-modal retrieval!
+
+Learn more about how you can use the integration model [here](/developers/weaviate/model-providers/google/embeddings-multimodal).
+
+## Batch vectorization
+
+Data imports often involve a vectorization step. You designate a third party vectorization service in your collection schema, and Weaviate sends objects to the service's API during data imports. In earlier versions, each object is sent as a single API call. This creates a bottleneck and leads to long import times.
+
+Some third part services offer more efficient, batch APIs. Starting in 1.25, you can configure Weaviate to [send batches of objects](/developers/weaviate/manage-data/import#batch-vectorization) to vectorization services that offer batch APIs.
+
+Batch operations have two primary advantages:
+
+- Sending batches of objects is significantly faster than sending objects one at a time.
+- Some third party providers discount batch processing so you save money.
+
+## Automatic tenant creation
+
+[Multi-tenant collections](/developers/weaviate/manage-data/multi-tenancy) are a useful way to separate and organize data. Earlier version of Weaviate, [batch imports](/developers/weaviate/manage-data/import) already support multi-tenant operations. However, you have to create the tenants before you import data. This extra step can be inconvenient.
+
+Starting in 1.25, you can configure Weaviate to [create new tenants](/developers/weaviate/manage-data/multi-tenancy#automatically-add-new-tenants)  during batch imports if the tenants don't already exist. Use automatic multi-tenant creation to streamline your data imports.
+
+## Search improvements
+
+Standalone vector searches use the [`nearText`](/developers/weaviate/search/similarity#search-with-text) and [`nearVector`](/developers/weaviate/search/similarity#search-with-a-vector) similarity operators to fine tune search results. Since [hybrid search](/developers/weaviate/search/hybrid) combines the strengths of vector search and keyword search, many of you asked for this feature in hybrid search too. It's here! The 1.25 release adds the [similarity operators](/developers/weaviate/search/hybrid#vector-similarity-search) to the vector component of hybrid search.
+
+There is another search improvement that the Weaviate community is asking for. Starting in 1.25, the `groupBy` operator is available for [hybrid search](/developers/weaviate/search/hybrid#group-results) and [keyword search](/developers/weaviate/search/bm25#group-results). Use `groupBy` to categorize your search results or to aggregate and summarize the data.
+
+## Summary
+
+Enjoy the new features and improvements in Weaviate `1.25`. This release is available as a docker image and is coming soon to Weaviate Cloud [WCD](https://console.weaviate.cloud/).
+
+Thanks for reading, see you next time 👋!
