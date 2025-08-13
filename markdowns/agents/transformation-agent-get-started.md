@@ -1,6 +1,5 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/transformation-agent-get-started.ipynb
 toc: True
 title: "Build A Weaviate Transformation Agent"
 featured: True
@@ -8,9 +7,9 @@ integration: False
 agent: True
 tags: ['Transformation Agent']
 ---
-<a href="https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/transformation-agent-get-started.ipynb" target="_blank">
-  <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
-</a>
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/transformation-agent-get-started.ipynb)
+
+# Build a Weaviate Transformation Agent
 
 In this recipe, we will use a Weaviate [`TransformationAgent`](https://weaviate.io/developers/agents/transformation) to enhance our data in Weaviate. We will build an agent that has access to a collection containing a bunch or research papers, their abstracts and titles. We will then use the agent to create additional properties for eaach of our objects in the collection.
 

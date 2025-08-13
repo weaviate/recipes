@@ -1,6 +1,5 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-features/multi-vector/multi-vector-colipali-rag.ipynb
 toc: True
 title: "Multi-vector RAG: Using Weaviate to search a collection of PDF documents "
 featured: False
@@ -8,9 +7,9 @@ integration: False
 agent: False
 tags: ['ColPali', 'Named Vectors']
 ---
-<a href="https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-features/multi-vector/multi-vector-colipali-rag.ipynb" target="_blank">
-  <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
-</a>
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-features/multi-vector/multi-vector-colipali-rag.ipynb)
+
+# Multi-vector RAG: Using Weaviate to search a collection of PDF documents 
 
 ## Introduction
 

@@ -1,6 +1,5 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/personalization-agent-get-started-recipes.ipynb
 toc: True
 title: "Build a Weaviate Personalization Agent - Food Recommender"
 featured: False
@@ -8,9 +7,9 @@ integration: False
 agent: True
 tags: ['Personalization Agent']
 ---
-<a href="https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/personalization-agent-get-started-recipes.ipynb" target="_blank">
-  <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
-</a>
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/personalization-agent-get-started-recipes.ipynb)
+
+# Build a Weaviate Personalization Agent - Food Recommender
 
 In this recipe, we will use the new Weaviate `PersonalizationAgent` to fetch personalized objects from a Weaviate collection, in a user personalized way. This new agentic way of retrieving objects is based on a users persona profile and past interactions with your collection.
 
@@ -21,6 +20,22 @@ To help you get started, we're providing a few demo datasets, available on Huggi
 - [Movies](https://huggingface.co/datasets/weaviate/agents/viewer/personalization-agent-movies): A dataset that lists movies, their ratings, original language etc.
 
 For this example, we will be using the recipes dataset to create a food recommender service
+
+>[Build a Weaviate Personalization Agent - Food Recommender](#scrollTo=RFe3JtuV6G2f)
+
+>>[Setting Up Weaviate & Importing Data](#scrollTo=IIiKq8EmjyTM)
+
+>>>[Create a New Collection](#scrollTo=3-5ycZprDlxz)
+
+>>[Create a Personalization Agent](#scrollTo=gnagQwcrEQ44)
+
+>>>[Adding New Personas](#scrollTo=segYgHwaEcUG)
+
+>>>[Adding Interactions](#scrollTo=8Cs2sRgXFaPA)
+
+>>[Get Recommendations and Rationale](#scrollTo=oGqM48QJGk-7)
+
+>>>[Get Recommendations with an Instruction](#scrollTo=ypmeUzRNGxQE)
 
 ```python
 !pip install 'weaviate-client[agents]' datasets

@@ -1,6 +1,5 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/query-agent-get-started.ipynb
 toc: True
 title: "Build A Weaviate Query Agent - The E-Commerce Assistant"
 featured: True
@@ -8,9 +7,9 @@ integration: False
 agent: True
 tags: ['Query Agent']
 ---
-<a href="https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/query-agent-get-started.ipynb" target="_blank">
-  <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
-</a>
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/query-agent-get-started.ipynb)
+
+# Build A Weaviate Query Agent - The E-Commerce Assistant
 
 In this recipe, we will be building a simple e-commerce assistant agent with the [Weaviate Query Agent](https://weaviate.io/developers/agents). This agent will have access to a number of Weaviate collections, and will be capable of answering complex queries about brands and clothing items, accessing information from each collection.
 
@@ -25,6 +24,26 @@ Additionally, we also have access to some other unrelated datasets which you can
 
 - [**Financial Contracts**:](https://huggingface.co/datasets/weaviate/agents/viewer/query-agent-financial-contracts) A dataset of financial contracts between indivicuals and/or companies, as well as information on the type of contract and who has authored them.
 - [**Weather**:](https://huggingface.co/datasets/weaviate/agents/viewer/query-agent-weather) Daily weather information including temperature, wind speed, percipitation, pressure etc.
+
+>[Build A Weaviate Query Agent - The E-Commerce Assistant](#scrollTo=iGfss7TuSM_n)
+
+>>[Setting Up Weaviate & Importing Data](#scrollTo=V7eGoTMgV597)
+
+>>>[Prepare the Collections](#scrollTo=XqbFu9xHMzEU)
+
+>>[Set Up the Query Agent](#scrollTo=4H7h-onziDEA)
+
+>>[Run the Query Agent](#scrollTo=XnJiTt5LiMp-)
+
+>>>[Ask a Question](#scrollTo=XnJiTt5LiMp-)
+
+>>>[Ask a follow up question](#scrollTo=RqsUGStI-RC_)
+
+>>>[Search over multiple collections](#scrollTo=sl78PHYmBe2s)
+
+>>>[Changing the System Prompt](#scrollTo=Hm32UutOC63l)
+
+>>>[Try More Questions](#scrollTo=70lwuxf1F38d)
 
 ## 1. Setting Up Weaviate & Importing Data
 
@@ -553,7 +572,7 @@ Les vitesses de vent minimales, maximales et moyennes sont respectivement de 8,4
 ```
 ### Try More Questions
 
-For example Let's try to find out more about the brans "Eko & Stitch"
+- For example Let's try to find out more about the brans "Eko & Stitch"
 
 ```python
 response = multi_lingual_agent.run("Does Eko & Stitch have a branch in the UK? Or if not, does it have parent or child company in the UK?")
@@ -565,7 +584,7 @@ Python output:
 ```text
 Yes, Eko & Stitch has a branch in the UK. The brand is part of the broader company Nova Nest, which serves as Eko & Stitch's parent brand. Eko & Stitch itself operates in the UK and has its child brands, Eko & Stitch Active and Eko & Stitch Kids, also within the UK.
 ```
-Our `multi_lingual_agent` also has access to a collection called "Financial_contracts". Let's try to find out some more information about this dataser.
+- Our `multi_lingual_agent` also has access to a collection called "Financial_contracts". Let's try to find out some more information about this dataser.
 
 ```python
 response = multi_lingual_agent.run("What kinds of contracts are listed? What's the most common type of contract?")

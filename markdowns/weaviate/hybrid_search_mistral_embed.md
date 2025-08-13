@@ -1,6 +1,5 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-features/hybrid-search/hybrid_search_mistral.ipynb
 toc: True
 title: "Hybrid Search with Mistral"
 featured: False
@@ -8,9 +7,9 @@ integration: False
 agent: False
 tags: ['Hybrid Search', 'Mistral']
 ---
-<a href="https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-features/hybrid-search/hybrid_search_mistral.ipynb" target="_blank">
-  <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
-</a>
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-features/model-providers/mistral/hybrid_search_mistral_embed.ipynb)
+
+# Hybrid Search with Mistral
 
 This recipe will show you how to run hybrid search with embeddings from Mistral.
 

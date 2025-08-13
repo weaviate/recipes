@@ -1,6 +1,5 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/personalization-agent-get-started-movies.ipynb
 toc: True
 title: "Build a Weaviate Personalization Agent - Movie Recommender"
 featured: True
@@ -8,9 +7,9 @@ integration: False
 agent: True
 tags: ['Personalization Agent']
 ---
-<a href="https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/personalization-agent-get-started-movies.ipynb" target="_blank">
-  <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
-</a>
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/personalization-agent-get-started-movies.ipynb)
+
+# Build a Weaviate Personalization Agent - Movie Recommender
 
 In this recipe, we will use the new Weaviate `PersonalizationAgent` to fetch personalized objects from a Weaviate collection, in a user personalized way. This new agentic way of retrieving objects is based on a users persona profile and past interactions with your collection.
 

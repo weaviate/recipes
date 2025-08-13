@@ -152,6 +152,11 @@ def _replace_image_path_match(match, notebook_dir_rel_path_str):
     parts = img_path_original.split(" ", 1)
     img_path_cleaned = parts[0]
     img_title = f" {parts[1]}" if len(parts) > 1 else ""
+    
+    # Skip processing if this is already an absolute URL (like colab badges)
+    if img_path_cleaned.startswith(('http://', 'https://')):
+        return match.group(0)  # Return the original match unchanged
+    
     img_path_rel = img_path_cleaned.removeprefix("./")
 
     notebook_dir_rel_path = Path(notebook_dir_rel_path_str)
@@ -168,14 +173,13 @@ def _replace_image_path_match(match, notebook_dir_rel_path_str):
 # --- Core Transformation Steps ---
 
 
-def _generate_frontmatter(notebook_info):  # (Keep as is)
+def _generate_frontmatter(notebook_info):
     tags_string = str(notebook_info.get("tags", []))
     # Use textwrap.dedent for cleaner multiline string formatting
     return textwrap.dedent(
         f"""\
     ---
     layout: recipe
-    colab: {notebook_info.get("colab")}
     toc: True
     title: "{notebook_info["title"]}"
     featured: {notebook_info.get("featured", False)}
@@ -448,7 +452,6 @@ def _fix_image_paths(markdown_body, notebook_info):  # (Keep as is)
         return markdown_body  # Return original body on other errors
 
 
-# *** NEW HELPER FUNCTION ***
 def _remove_whatnext_component(markdown_body):
     """Removes the WhatNext import and component lines."""
     print("  Removing WhatNext component lines...")
@@ -510,28 +513,6 @@ def _remove_redundant_title_heading(markdown_body, notebook_info):
     return markdown_body
 
 
-def _add_colab_badge(frontmatter, notebook_info):
-    """
-    Adds a Colab badge HTML right after the frontmatter.
-    Uses the colab URL from notebook_info.
-    """
-    print("  Adding Colab badge...")
-    colab_url = notebook_info.get("colab", "")
-    if not colab_url:
-        print("    Warning: No Colab URL found in notebook_info. Skipping badge.")
-        return frontmatter
-
-    # Create the badge HTML
-    badge_html = f"""<a href="{colab_url}" target="_blank">
-  <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
-</a>
-
-"""  # Note the trailing newlines
-
-    # Return the frontmatter with the badge HTML appended
-    return frontmatter + badge_html
-
-
 def _determine_output_path(notebook_info, output_path_base):  # (Keep as is)
     notebook_path = Path(notebook_info["file"])
     filename_stem = notebook_path.stem
@@ -560,7 +541,7 @@ def _write_output_file(output_path, frontmatter, final_markdown_body):  # (Keep 
         raise  # Re-raise the exception to be caught by the main loop
 
 
-# --- Main Public Function (Updated Workflow) ---
+# --- Main Public Function ---
 
 
 def convert_notebook_to_markdown(notebook_info, output_path_base):
@@ -583,9 +564,6 @@ def convert_notebook_to_markdown(notebook_info, output_path_base):
 
     # Step 1: Generate Frontmatter
     frontmatter = _generate_frontmatter(notebook_info)
-
-    # Step 1.5: Add Colab Badge (New Step)
-    frontmatter_with_badge = _add_colab_badge(frontmatter, notebook_info)
 
     # Step 2: Load and Clean Notebook Node
     try:
@@ -622,9 +600,8 @@ def convert_notebook_to_markdown(notebook_info, output_path_base):
     # Step 10: Remove Redundant Title Heading
     md_body_step10 = _remove_redundant_title_heading(md_body_step9, notebook_info)
 
-    # Step 10: Determine Output Path (Renumbered)
+    # Step 11: Determine Output Path
     output_file_path = _determine_output_path(notebook_info, output_path_base)
 
-    # Step 11: Write Output File (Renumbered)
-    # Pass the result from the WhatNext removal step
-    _write_output_file(output_file_path, frontmatter_with_badge, md_body_step10)
+    # Step 12: Write Output File
+    _write_output_file(output_file_path, frontmatter, md_body_step10)

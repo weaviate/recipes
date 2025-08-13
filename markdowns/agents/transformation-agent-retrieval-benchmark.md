@@ -1,6 +1,5 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/transformation-agent-retrieval-benchmark.ipynb
 toc: True
 title: "Benchmarking Arctic 2.0 vs. Arctic 1.5 with Synthetic RAG Evals"
 featured: True
@@ -8,9 +7,9 @@ integration: False
 agent: True
 tags: ['Transformation Agent']
 ---
-<a href="https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/transformation-agent-retrieval-benchmark.ipynb" target="_blank">
-  <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
-</a>
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/agents/transformation-agent-retrieval-benchmark.ipynb)
+
+# Benchmarking Arctic 2.0 vs. Arctic 1.5 with Synthetic RAG Evals
 
 Traditionally, AI system evaluation has relied heavily on human-written evaluation sets. Most notably, this process demands substantial time and resource investment, preventing most developers from creating and properly evaluating their AI systems.
 

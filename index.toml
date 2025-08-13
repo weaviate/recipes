@@ -5,7 +5,7 @@ colab = "https://colab.research.google.com/github/weaviate/recipes/blob/main/"
 
 [[recipe]]
 title = "Hybrid Search with Mistral"
-notebook = "weaviate-features/hybrid-search/hybrid_search_mistral.ipynb"
+notebook = "weaviate-features/model-providers/mistral/hybrid_search_mistral_embed.ipynb"
 tags = ["Hybrid Search", "Mistral"]
 description = "Learn how to perform hybrid search in Weaviate using Mistral models for enhanced retrieval."
 
@@ -84,18 +84,18 @@ description = "Learn how to use the Weaviate Personalization Agent to create tai
 
 [[recipe]]
 title = "Generative search (RAG) with AWS Bedrock"
-notebook = "weaviate-features/generative-search/generative_search_aws_bedrock.ipynb"
+notebook = "weaviate-features/model-providers/aws/rag_titan-text-express-v1_bedrock.ipynb"
 tags = ["Generative Search", "RAG", "AWS"]
 description = "Learn how to perform Retrieval-augmented generation (RAG) with AWS Bedrock."
 
 [[recipe]]
 title = "Generate new content with NVIDIA models and RAG"
-notebook = "weaviate-features/generative-search/generative_search_nvidia.ipynb"
+notebook = "weaviate-features/model-providers/nvidia/rag_llama_3.1_nemotron_51b_instruct.ipynb"
 tags = ["Generative Search", "RAG", "NVIDIA"]
 description = "Use an NVIDIA generative model with Weaviate to create new blog posts."
 
 [[recipe]]
 title = "Similarity Search with Cohere"
-notebook = "weaviate-features/similarity-search/similarity_search_cohere.ipynb"
+notebook = "weaviate-features/model-providers/cohere/similarity_search_embed_multilingual_v2.0.ipynb"
 tags = ["Similarity Search", "Cohere"]
 description = "Perform semantic (similarity) search with Weaviate and Cohere."

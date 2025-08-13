@@ -1,6 +1,5 @@
 ---
 layout: recipe
-colab: https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/embedding-service/weaviate_embeddings_service.ipynb
 toc: True
 title: "How to Use Weaviate Embedding Service"
 featured: True
@@ -8,9 +7,9 @@ integration: False
 agent: False
 tags: ['Weaviate Embeddings', 'Weaviate Cloud']
 ---
-<a href="https://colab.research.google.com/github/weaviate/recipes/blob/main/weaviate-services/embedding-service/weaviate_embeddings_service.ipynb" target="_blank">
-  <img src="https://img.shields.io/badge/Open%20in-Colab-4285F4?style=flat&logo=googlecolab&logoColor=white" alt="Open In Google Colab" width="130"/>
-</a>
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/weaviate/recipes/weaviate-services/embedding-service/weaviate_embeddings_service.ipynb)
+
+# Weaviate Embedding Service
 
 [Weaviate Embeddings](https://weaviate.io/developers/wcs/embeddings) enables you to generate embeddings directly from a [Weaviate Cloud](https://console.weaviate.cloud/) database instance. 
 

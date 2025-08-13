@@ -1,4 +1,3 @@
-# main.py
 import argparse
 from pathlib import Path
 import traceback
@@ -30,12 +29,7 @@ def load_config(config_path):
         index_toml_content = config_path.read_text(encoding="utf-8")
         index_data = tomllib.loads(index_toml_content)
         print("Successfully loaded configuration.")
-        # Basic validation
-        if "config" not in index_data or "colab" not in index_data["config"]:
-            print(
-                "Error: 'config' section with 'colab' URL base missing in configuration."
-            )
-            return None
+
         if "recipe" not in index_data:
             print("Warning: No recipes found in 'recipe' section of configuration.")
             # Allow continuing if recipes might be empty
@@ -93,7 +87,6 @@ def main():
     print(f"Output directory: {base_output_path.resolve()}")
 
     # Process recipes
-    colab_base_url = index_data["config"]["colab"]
     recipes = index_data.get("recipe", [])  # Use .get for safety
 
     if not recipes:
@@ -129,7 +122,6 @@ def main():
         notebook_info = {
             "file": notebook_abs_path,
             "title": title,
-            "colab": f"{colab_base_url.rstrip('/')}/{notebook_rel_path_str}",
             "featured": recipe_data.get("featured", False),
             "integration": recipe_data.get("integration", False),
             "agent": recipe_data.get("agent", False),
