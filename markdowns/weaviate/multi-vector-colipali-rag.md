@@ -93,10 +93,6 @@ the general pytorch docs in order to figure out how to best run the models on
 your hardware.
 
 ```python
-
-```
-
-```python
 # Load the ColQWEN model
 import torch
 from colpali_engine.models import ColQwen2, ColQwen2Processor
