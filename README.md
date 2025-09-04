@@ -46,17 +46,7 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 
 ## Adding recipes to Weaviate Docs
 
-In your PR, you should make sure you've completed the following steps:
-
-1. Add an entry for your recipe into `index.toml`. Add any relevant and optional tags: `tags: a list of topic tags`, `agent: true or false`, `integration: true or false` etc.
-2. `pip install -r requirements.txt`
-3. `python scripts/generate_markdowns.py`: This will generate a markdown version of your recipe including the frontmatter needed for the website. Check that the markdown looks correct and fix any errors that running this script causes.
-4. Create the PR which should includes: your recipe, an edit to the `index.toml` as well as the generated markdown in `markdowns/`
-
-> [!IMPORTANT]
-> - Use the tag `description` in the `index.toml` file for LLM friendliness. 
-> - Handling images: If your recipe has an image displayed in it, we recommend embedding the image via it's GitHub URL.
-> - ⚠️ If you are making changed to the `recipes` repository layout, please make sure you've corrected the recipe paths in `index.toml` if they have changed location!
+Check out [this contributor guide](./scripts/README.md) about converting recipes (Jupyter Notebooks) into docs friendly markdown.
 
 ## Feedback ❓
 Please note this is an ongoing project, and updates will be made frequently. If you have a feature you would like to see, please create a GitHub issue or feel free to contribute one yourself!

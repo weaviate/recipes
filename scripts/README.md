@@ -1,25 +1,38 @@
-# Jupyter Notebook to Markdown Converter
+## Adding recipes to Weaviate Docs
+
+In your PR, you should make sure you've completed the following steps:
+
+1. Add an entry for your recipe into `index.toml`. Add any relevant and optional tags: `tags: a list of topic tags`, `agent: true or false`, `integration: true or false` etc.
+2. `pip install -r requirements.txt`
+3. `python scripts/generate_markdowns.py`: This will generate a markdown version of your recipe including the frontmatter needed for the website. Check that the markdown looks correct and fix any errors that running this script causes.
+4. Create the PR which should includes: your recipe, an edit to the `index.toml` as well as the generated markdown in `markdowns/`
+
+After you have created the markdown files and updated the `index.toml` file, you can copy them into the Weaviate Docs repository and create a PR.
+
+> [!IMPORTANT]
+> - Use the tag `description` in the `index.toml` file for LLM friendliness. 
+> - Handling images: If your recipe has an image displayed in it, we recommend embedding the image via it's GitHub URL.
+> - ⚠️ If you are making changed to the `recipes` repository layout, please make sure you've corrected the recipe paths in `index.toml` if they have changed location!
+
+## Jupyter Notebook to Markdown converter
 
 This tool converts Jupyter notebooks to Markdown format optimized for Docusaurus documentation.
-
-## Overview
-
 The `generate_markdown.py` script processes Jupyter notebooks defined in the `/index.toml` configuration file, converting them to Markdown files with appropriate frontmatter, formatting, and enhancements for display in a Docusaurus documentation site.
 
-## Usage
+### Usage
 
 ```bash
 python generate_markdown.py [--config CONFIG_PATH] [--output OUTPUT_DIR]
 ```
 
-### Arguments
+Arguments:
 
 - `--config`: Path to the TOML configuration file (default: `/index.toml`)
 - `--output`: Base directory for markdown output (default: `/markdowns`)
 
 ### Configuration File Structure
 
-The items in the TOML configuration file should have the following structure:
+The items in the `index.toml` configuration file should have the following structure:
 
 ```toml
 [[recipe]]
@@ -31,7 +44,7 @@ agent = false
 tags = ["tag1", "tag2"]
 ```
 
-## What the script does
+### What the script does
 
 1. Reads the TOML configuration file that specifies notebooks to convert
 2. For each notebook:
@@ -40,8 +53,6 @@ tags = ["tag1", "tag2"]
    - Converts the notebook content to Markdown
    - Applies various transformations to make it Docusaurus-compatible
    - Outputs the transformed Markdown to the specified directory
-
-### Transformation process
 
 The `notebook_converter.py` script performs the following steps in the conversion process:
 
@@ -61,18 +72,10 @@ The `notebook_converter.py` script performs the following steps in the conversio
 11. **Remove First H1 Heading**: Removes the first H1 heading if it exists
 12. **Write Output**: Saves the processed Markdown to the output directory
 
-## Output Structure
+### Output Structure
 
 The output will be organized into subdirectories based on notebook type:
 
 - `agents/` - For agent-related notebooks
 - `integrations/` - For integration-related notebooks
 - `weaviate/` - For general Weaviate notebooks
-
-## Example
-
-```bash
-python generate_markdown.py --config my_index.toml --output docs/recipes
-```
-
-This will process all notebooks defined in `my_index.toml` and output the resulting Markdown files to the `docs/recipes` directory.
