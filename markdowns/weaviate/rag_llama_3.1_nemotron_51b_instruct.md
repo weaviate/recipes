@@ -112,7 +112,7 @@ if (client.collections.exists("BlogChunks")):
 client.collections.create(
     name="BlogChunks",
 
-    vectorizer_config=wc.Configure.Vectorizer.text2vec_nvidia( # specify the vectorizer and model
+    vector_config=wc.Configure.Vectors.text2vec_nvidia( # specify the vectorizer and model
         model="nvidia/nv-embed-v1", # optional, default is nvidia/nv-embed-v1
     ),
 
@@ -178,7 +178,7 @@ Python output:
 ```python
 # Insert the objects (chunks) into the Weaviate cluster
 
-blogs = client.collections.get("BlogChunks")
+blogs = client.collections.use("BlogChunks")
 
 for blog_chunk in blog_chunks:
     random_uuid = get_valid_uuid(uuid4())
@@ -206,7 +206,7 @@ Hybrid search combines BM25 and vector search and weighs the two algorithms depe
 ```python
 import json 
 
-blogs = client.collections.get("BlogChunks")
+blogs = client.collections.use("BlogChunks")
 
 response = blogs.query.hybrid(
     query="What is Ref2Vec",
@@ -239,7 +239,7 @@ Here is what happens in the below:
 The first line in the output is the generated text, and the `content` pieces below it, are what was retrieved from Weaviate and passed to NVIDIA.
 
 ```python
-blogs = client.collections.get("BlogChunks")
+blogs = client.collections.use("BlogChunks")
 
 response = blogs.generate.near_text(
     query="What is Ref2Vec?",

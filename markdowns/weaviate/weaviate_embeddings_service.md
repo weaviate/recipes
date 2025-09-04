@@ -88,7 +88,7 @@ if (client.collections.exists("JeopardyQuestion")):
 client.collections.create(
     name="JeopardyQuestion",
 
-    vectorizer_config=wc.Configure.Vectorizer.text2vec_weaviate( # specify the vectorizer and model type you're using
+    vector_config=wc.Configure.Vectors.text2vec_weaviate( # specify the vectorizer and model type you're using
         model="Snowflake/snowflake-arctic-embed-l-v2.0", # default model
     ),
 
@@ -124,7 +124,7 @@ df = pd.read_csv(StringIO(resp.text))
 
 ```python
 # Get a collection object for "JeopardyQuestion"
-collection = client.collections.get("JeopardyQuestion")
+collection = client.collections.use("JeopardyQuestion")
 
 # Insert data objects with batch import
 with collection.batch.dynamic() as batch:
@@ -151,7 +151,7 @@ Insert complete.
 ```python
 # count the number of objects
 
-collection = client.collections.get("JeopardyQuestion")
+collection = client.collections.use("JeopardyQuestion")
 response = collection.aggregate.over_all(total_count=True)
 
 print(response.total_count)
@@ -166,7 +166,7 @@ Python output:
 ### Vector Search
 
 ```python
-collection = client.collections.get("JeopardyQuestion")
+collection = client.collections.use("JeopardyQuestion")
 
 response = collection.query.near_text(
     query="marine mamal with tusk", 
@@ -202,7 +202,7 @@ The `alpha` parameter determines the weight given to the sparse and dense search
 Alpha is an optional parameter. The default is set to `0.75`.
 
 ```python
-collection = client.collections.get("JeopardyQuestion")
+collection = client.collections.use("JeopardyQuestion")
 
 response = collection.query.hybrid(
     query="unicorn-like artic animal",
@@ -235,7 +235,7 @@ Data: {
 Learn more about the different filter operators [here](https://docs.weaviate.io/weaviate/search/filters).
 
 ```python
-collection = client.collections.get("JeopardyQuestion")
+collection = client.collections.use("JeopardyQuestion")
 
 response = collection.query.fetch_objects(
     limit=2,
@@ -265,7 +265,7 @@ Data: {
 ### Generative Search (RAG)
 
 ```python
-collection = client.collections.get("JeopardyQuestion")
+collection = client.collections.use("JeopardyQuestion")
 
 response = collection.generate.hybrid(
     query="unicorn-like artic animal",

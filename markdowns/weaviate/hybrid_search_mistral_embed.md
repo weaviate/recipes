@@ -99,7 +99,7 @@ if (client.collections.exists("JeopardyQuestion")):
 client.collections.create(
     name="JeopardyQuestion",
 
-    vectorizer_config=wc.Configure.Vectorizer.text2vec_mistral( # specify the vectorizer and model
+    vector_config=wc.Configure.Vectors.text2vec_mistral( # specify the vectorizer and model
         model="mistral-embed",
     ),
 
@@ -121,7 +121,7 @@ resp = requests.get(url)
 data = json.loads(resp.text)
 
 # Get a collection object for "JeopardyQuestion"
-jeopardy = client.collections.get("JeopardyQuestion")
+jeopardy = client.collections.use("JeopardyQuestion")
 
 # Insert data objects
 response = jeopardy.data.insert_many(data)

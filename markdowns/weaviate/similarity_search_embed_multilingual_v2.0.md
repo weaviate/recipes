@@ -55,7 +55,7 @@ if (client.collections.exists("JeopardyQuestion")):
 client.collections.create(
     name="JeopardyQuestion",
 
-    vectorizer_config=wc.Configure.Vectorizer.text2vec_cohere( # specify the vectorizer and model type you"re using
+    vector_config=wc.Configure.Vectors.text2vec_cohere( # specify the vectorizer and model type you"re using
         model="embed-multilingual-v2.0",                       # defaults to embed-multilingual-v2.0 if not set
     ),
 
@@ -78,7 +78,7 @@ resp = requests.get(url)
 data = json.loads(resp.text)
 
 # Get a collection object for "JeopardyQuestion"
-jeopardy = client.collections.get("JeopardyQuestion")
+jeopardy = client.collections.use("JeopardyQuestion")
 
 # Insert data objects
 response = jeopardy.data.insert_many(data)
@@ -109,7 +109,7 @@ Find a `JeopardyQuestion` about "animals in movies". Limit it to only 4 response
 ```python
 # note, you can reuse the collection object from the previous cell.
 # Get a collection object for "JeopardyQuestion"
-jeopardy = client.collections.get("JeopardyQuestion")
+jeopardy = client.collections.use("JeopardyQuestion")
 
 response = jeopardy.query.near_text(
     query="african beasts",
