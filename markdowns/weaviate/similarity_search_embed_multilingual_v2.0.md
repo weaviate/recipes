@@ -96,11 +96,11 @@ else:
 
 Similarity search options for text objects in **Weaviate**:
 
-1. [near_text](https://weaviate.io/developers/weaviate/search/similarity#an-input-medium)
+1. [near_text](https://docs.weaviate.io/weaviate/search/similarity#an-input-medium)
 
-2. [near_object](https://weaviate.io/developers/weaviate/search/similarity#an-object)
+2. [near_object](https://docs.weaviate.io/weaviate/search/similarity#an-object)
 
-3. [near_vector](https://weaviate.io/developers/weaviate/search/similarity#a-vector)
+3. [near_vector](https://docs.weaviate.io/weaviate/search/similarity#a-vector)
 
 ### nearText Example
 

@@ -17,9 +17,9 @@ This recipe will show you how to run hybrid search with embeddings from Mistral.
 
 1. Weaviate cluster
     1. You can create a 14-day free sandbox on [WCD](https://console.weaviate.cloud/)
-    2. [Embedded Weaviate](https://weaviate.io/developers/weaviate/installation/embedded)
-    3. [Local deployment](https://weaviate.io/developers/weaviate/installation/docker-compose#starter-docker-compose-file)
-    4. [Other options](https://weaviate.io/developers/weaviate/installation)
+    2. [Embedded Weaviate](https://docs.weaviate.io/deploy/installation-guides/embedded)
+    3. [Local deployment](https://docs.weaviate.io/deploy/installation-guides/docker-installation)
+    4. [Other options](https://docs.weaviate.io/deploy)
 
 2. Mistral API key. Grab one [here](https://docs.mistral.ai/api/).
 

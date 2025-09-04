@@ -11,7 +11,7 @@ tags: ['Weaviate Embeddings', 'Weaviate Cloud']
 
 # Weaviate Embedding Service
 
-[Weaviate Embeddings](https://weaviate.io/developers/wcs/embeddings) enables you to generate embeddings directly from a [Weaviate Cloud](https://console.weaviate.cloud/) database instance. 
+[Weaviate Embeddings](https://docs.weaviate.io/cloud/embeddings) enables you to generate embeddings directly from a [Weaviate Cloud](https://console.weaviate.cloud/) database instance. 
 
 *Please note this service is part of Weaviate Cloud and cannot be accessed through open-source. Additionally, this service is currently under technical preview, and you can request access [here](https://events.weaviate.io/embeddings-preview).*
 
@@ -195,7 +195,7 @@ Data: {
 ```
 ### Hybrid Search
 
-The goal of this notebook is to show you how to use the embedding service. For more information on hybrid search, check out [this folder](https://github.com/weaviate/recipes/tree/main/weaviate-features/hybrid-search) and/or the [documentation](https://weaviate.io/developers/weaviate/search/hybrid).
+The goal of this notebook is to show you how to use the embedding service. For more information on hybrid search, check out [this folder](https://github.com/weaviate/recipes/tree/main/weaviate-features/hybrid-search) and/or the [documentation](https://docs.weaviate.io/weaviate/search/hybrid).
 
 The `alpha` parameter determines the weight given to the sparse and dense search methods. `alpha = 0` is pure sparse (bm25) search, whereas `alpha = 1` is pure dense (vector) search. 
 
@@ -232,7 +232,7 @@ Data: {
 ```
 ### Fetch Objects with Metadata Filters
 
-Learn more about the different filter operators [here](https://weaviate.io/developers/weaviate/search/filters).
+Learn more about the different filter operators [here](https://docs.weaviate.io/weaviate/search/filters).
 
 ```python
 collection = client.collections.get("JeopardyQuestion")
