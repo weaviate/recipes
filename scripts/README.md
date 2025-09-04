@@ -10,9 +10,11 @@ In your PR, you should make sure you've completed the following steps:
 After you have created the markdown files and updated the `index.toml` file, you can copy them into the Weaviate Docs repository and create a PR.
 
 > [!IMPORTANT]
+> Make sure you adhere to these rules: 
 > - Use the tag `description` in the `index.toml` file for LLM friendliness. 
-> - Handling images: If your recipe has an image displayed in it, we recommend embedding the image via it's GitHub URL.
-> - ⚠️ If you are making changed to the `recipes` repository layout, please make sure you've corrected the recipe paths in `index.toml` if they have changed location!
+> - Any JSX element can be written with a self-closing tag, and every element must be closed. The image tag, for example, must always be written as <img/> (and not <img>) in order to be valid JSX that can be transpiled. 
+> - Handling images: If your recipe has an image displayed in it, we recommend embedding the image via it's GitHub URL. Images generated from code can't be transformed into markdown so instead save them and explicitly import them into the notebook.
+> - If you are making changed to the `recipes` repository layout, please make sure you've corrected the recipe paths in `index.toml` if they have changed location!
 
 ## Jupyter Notebook to Markdown converter
 
