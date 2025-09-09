@@ -46,7 +46,7 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 
 ## Adding recipes to Weaviate Docs
 
-Check out [this contributor guide](./scripts/README.md) about converting recipes (Jupyter Notebooks) into docs friendly markdown.
+Check out [this contributor guide](./.docs/README.md) about converting recipes (Jupyter Notebooks) into docs friendly markdown.
 
 ## Feedback ❓
 Please note this is an ongoing project, and updates will be made frequently. If you have a feature you would like to see, please create a GitHub issue or feel free to contribute one yourself!
