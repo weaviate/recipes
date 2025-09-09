@@ -128,9 +128,7 @@ Let's take a look at a sample document page from the loaded PDF dataset.
 display(dataset[289]["page_image"])
 ```
 
-    
-![png](https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-features/multi-vector/output_11_0.png)
-    
+![Retrieved page](https://raw.githubusercontent.com/weaviate/recipes/refs/heads/main/weaviate-features/multi-vector/figures/retrieved_page.png)
 
 ## Step 3: Load the ColVision (ColPali or ColQwen2) model
 
