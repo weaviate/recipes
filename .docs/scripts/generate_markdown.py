@@ -47,42 +47,44 @@ def main():
     parser.add_argument(
         "--config",
         default="index.toml",
-        help="Path to the TOML configuration file relative to project root (default: index.toml)",
+        help="Path to the TOML configuration file relative to .docs directory (default: index.toml)",
     )
     parser.add_argument(
         "--output",
         dest="output",
-        default="markdowns",
-        help="Base directory for markdown output (default: markdowns)",
+        default="markdown",
+        help="Base directory for markdown output relative to .docs directory (default: markdown)",
     )
     args = parser.parse_args()
 
-    script_dir = Path(__file__).parent
-    # Assume the script is run from the project root or a subdirectory thereof.
-    # The config file path should be relative to the project root.
-    # If running main.py from root, script_dir = root. If from ./scripts, script_dir.parent = root.
-    # Let's make it simpler: assume config path is relative to CWD or absolute.
-    # Or, define root relative to the script's location IF the config path isn't absolute.
+    script_dir = Path(__file__).parent  # .docs/scripts/
+    docs_dir = script_dir.parent  # .docs/
+    root_path = docs_dir.parent  # project root
+
+    # Handle config path
     config_path_arg = Path(args.config)
     if config_path_arg.is_absolute():
         config_file_path = config_path_arg
-        root_path = script_dir.parent  # Guess project root based on script location
         print(f"Using absolute config path: {config_file_path}")
-        print(f"Guessed Project root path: {root_path}")
     else:
-        # Assume config path is relative to the project root,
-        # and project root is parent of script's directory
-        root_path = script_dir.parent
-        config_file_path = (root_path / config_path_arg).resolve()
-        print(f"Project root path: {root_path}")
+        # Config path is relative to .docs directory
+        config_file_path = (docs_dir / config_path_arg).resolve()
+
+    print(f"Project root path: {root_path}")
+    print(f"Docs directory path: {docs_dir}")
 
     # Load configuration
     index_data = load_config(config_file_path)
     if index_data is None:
         exit(1)
 
-    # Prepare output directory
-    base_output_path = Path(args.output)
+    # Prepare output directory - relative to .docs directory
+    output_path_arg = Path(args.output)
+    if output_path_arg.is_absolute():
+        base_output_path = output_path_arg
+    else:
+        base_output_path = docs_dir / output_path_arg
+
     base_output_path.mkdir(parents=True, exist_ok=True)
     print(f"Output directory: {base_output_path.resolve()}")
 
