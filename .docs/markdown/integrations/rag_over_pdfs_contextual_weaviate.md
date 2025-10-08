@@ -14,6 +14,12 @@ tags: ['RAG', 'PDF Parsing', 'Document Processing', 'Contextual AI', 'Integratio
 
 By Jinash Rouniyar, DevRel @ Contextual AI
 
+**Versions used:**
+- Weaviate version `1.25.3`
+- Weaviate Python client `4.9.4`
+- Contextual AI client `latest`
+- OpenAI API (for embeddings and generation)
+
 This is a code recipe that uses [Weaviate](https://weaviate.io/) to perform RAG over PDF documents parsed by [Contextual AI Parser](https://docs.contextual.ai/api-reference/parse/parse-file).
 
 In this notebook, we accomplish the following:
