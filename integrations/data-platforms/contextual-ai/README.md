@@ -48,8 +48,8 @@ This recipe demonstrates parsing two distinct document types:
 
 ## Requirements
 
-- Contextual AI API key
-- OpenAI API key
+- Contextual AI API key (for document parsing and content extraction)
+- OpenAI API key (for text embeddings and generative responses)
 - Python environment with required packages
 
 ## Usage
@@ -88,8 +88,8 @@ Consider extending this integration with:
 - Document-level metadata for better source attribution
 - Hybrid search combining keyword and semantic search
 - Different chunking strategies for each document type
-- Advanced RAG frameworks like [DSPy](https://weaviate.io/developers/integrations/llm-frameworks/dspy) or [LlamaIndex](https://docs.llamaindex.ai/en/stable/api_reference/storage/vector_store/weaviate/)
-- [Agentic RAG](https://weaviate.io/blog/what-is-agentic-rag) for complex multi-step queries
+- End-to-end RAG agents via [Contextual AI](https://docs.contextual.ai/user-guides/beginner-guide)
+- Read more about Agentic RAG from [Weaviate](https://weaviate.io/blog/what-is-agentic-rag)
 
 ## Links
 
