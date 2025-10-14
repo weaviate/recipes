@@ -99,3 +99,10 @@ title = "Similarity Search with Cohere"
 notebook = "weaviate-features/model-providers/cohere/similarity_search_embed_multilingual_v2.0.ipynb"
 tags = ["Similarity Search", "Cohere"]
 description = "Perform semantic (similarity) search with Weaviate and Cohere."
+
+[[recipe]]
+title = "RAG over PDFs with Contextual AI Parser and Weaviate"
+notebook = "integrations/data-platforms/contextual-ai/rag_over_pdfs_contextual_weaviate.ipynb"
+tags = ["RAG", "PDF Parsing", "Document Processing", "Contextual AI", "Integration"]
+integration = true
+description = "Learn how to build a powerful RAG pipeline using Contextual AI Parser for document parsing and Weaviate for vector search and generation."
