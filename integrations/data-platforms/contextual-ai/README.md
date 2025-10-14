@@ -50,6 +50,7 @@ This recipe demonstrates parsing two distinct document types:
 
 - Contextual AI API key (for document parsing and content extraction)
 - OpenAI API key (for text embeddings and generative responses)
+- Weaviate Cloud Cluster (for storing and retrieving the documents)
 - Python environment with required packages
 
 ## Usage
