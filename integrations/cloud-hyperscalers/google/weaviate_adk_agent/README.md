@@ -2,6 +2,8 @@
 
 A comprehensive Weaviate vector database agent built with Google's Agent Development Kit (ADK). This agent provides natural language interaction with Weaviate, enabling full CRUD operations, vector search, collection management, and more through an intelligent conversational interface.
 
+To learn more about Google ADK, check out the docs [here](https://google.github.io/adk-docs/).
+
 ## Features
 
 - **Collection Management**: Create, delete, list collections, and manage schemas
