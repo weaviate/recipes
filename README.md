@@ -44,9 +44,9 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 | Agents | Use Weaviate's inherent agents like the `QueryAgent` & `TransformationAgent` |
 | Weaviate Embeddings | [Weaviate Embeddings](https://weaviate.io/developers/wcs/embeddings) enables you to generate embeddings directly from a [Weaviate Cloud](https://console.weaviate.cloud/) database instance. | 
 
-## Adding recipes to Weaviate Docs
+## Adding Recipes to Weaviate Docs
 
-Check out [this contributor guide](./.docs/README.md) about converting recipes (Jupyter Notebooks) into docs friendly markdown.
+Check out [this contributor guide](./.docs/README.md) to convert recipes (Jupyter Notebooks) into docs friendly markdown.
 
 ## Feedback ❓
 Please note this is an ongoing project, and updates will be made frequently. If you have a feature you would like to see, please create a GitHub issue or feel free to contribute one yourself!
