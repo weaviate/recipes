@@ -1,0 +1,41 @@
+---
+services:
+  weaviate:
+    command:
+    - --host
+    - 0.0.0.0
+    - --port
+    - '8080'
+    - --scheme
+    - http
+    image: cr.weaviate.io/semitechnologies/weaviate:1.36.8
+    ports:
+    - 8080:8080
+    - 50051:50051
+    volumes:
+    - weaviate_data:/var/lib/weaviate
+    restart: on-failure:0
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      CLUSTER_HOSTNAME: 'node1'
+      # Example authentication configuration using API keys
+      # OIDC access can also be used with RBAC
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'false'
+      AUTHENTICATION_APIKEY_ENABLED: 'true'
+      AUTHENTICATION_APIKEY_ALLOWED_KEYS: 'root-user-key'
+      AUTHENTICATION_APIKEY_USERS: 'root-user'
+
+      # Authorization configuration
+      # Enable RBAC
+      AUTHORIZATION_RBAC_ENABLED: 'true'
+
+      # Provide pre-configured roles to users
+      # This assumes that the relevant user has been authenticated and identified
+
+      # You MUST define at least one root user
+      AUTHORIZATION_RBAC_ROOT_USERS: 'root-user'
+      # Enable the runtime user management
+      AUTHENTICATION_DB_USERS_ENABLED: 'true'      
+volumes:
+  weaviate_data:
