@@ -132,16 +132,18 @@ def query_blend_rating_and_price(collection, vector, depth: Optional[int], limit
         near_vector=vector,
         limit=limit,
         boost=Boost.blend(
-            Boost.filter(
-                Filter.by_property("average_rating").greater_or_equal(4.0),
-                weight=2.0,
-            ),
-            Boost.numeric_decay(
-                "price",
-                origin=30,
-                scale=100,
-                curve=Boost.Curve.EXPONENTIAL,
-            ),
+            [
+                Boost.filter(
+                    Filter.by_property("average_rating").greater_or_equal(4.0),
+                    weight=2.0,
+                ),
+                Boost.numeric_decay(
+                    "price",
+                    origin=30,
+                    scale=100,
+                    curve=Boost.Curve.EXPONENTIAL,
+                ),
+            ],
             weight=0.8,
             depth=depth,
         ),
@@ -175,7 +177,7 @@ def query_property_rating_count(collection, vector, depth: Optional[int], limit:
     results = collection.query.near_vector(
         near_vector=vector,
         limit=limit,
-        boost=Boost.property(
+        boost=Boost.numeric_property(
             "rating_number",
             modifier=Boost.Modifier.LOG1P,
             weight=0.7,
@@ -193,11 +195,13 @@ def query_blend_property_and_boost(collection, vector, depth: Optional[int], lim
         near_vector=vector,
         limit=limit,
         boost=Boost.blend(
-            Boost.filter(
-                Filter.by_property("average_rating").greater_or_equal(4.0),
-                weight=2.0,
-            ),
-            Boost.property("rating_number", modifier="log1p"),
+            [
+                Boost.filter(
+                    Filter.by_property("average_rating").greater_or_equal(4.0),
+                    weight=2.0,
+                ),
+                Boost.numeric_property("rating_number", modifier=Boost.Modifier.LOG1P),
+            ],
             weight=0.8,
             depth=depth,
         ),

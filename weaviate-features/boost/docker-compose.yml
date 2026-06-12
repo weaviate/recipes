@@ -8,7 +8,7 @@ services:
     - '8080'
     - --scheme
     - http
-    image: semitechnologies/weaviate:preview--draft-add-rank-soft-ranking-query-parameter-5c3474b.arm64
+    image: semitechnologies/weaviate:1.38.0
     ports:
     - 8080:8080
     - 50051:50051

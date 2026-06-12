@@ -2858,12 +2858,13 @@ wheels = [
 
 [[package]]
 name = "weaviate-client"
-version = "4.20.6.dev13+g2550d3ecf"
-source = { git = "https://github.com/weaviate/weaviate-python-client.git?rev=feature%2Fboost#2550d3ecfbf39bd966c64f81a93c8c8585b30a7b" }
+version = "4.21.3.dev13+gec1073b24"
+source = { git = "https://github.com/weaviate/weaviate-python-client.git?rev=feature%2Fboost#ec1073b24175e10654ed7dffb14fccaecd27f60d" }
 dependencies = [
     { name = "authlib" },
     { name = "grpcio" },
     { name = "httpx" },
+    { name = "packaging" },
     { name = "protobuf" },
     { name = "pydantic" },
     { name = "validators" },
