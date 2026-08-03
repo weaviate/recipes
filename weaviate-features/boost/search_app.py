@@ -121,7 +121,7 @@ def build_boost(profile: str, weight: float, depth: int = 100, origin: Optional[
             weight=weight, depth=depth,
         )
     if profile == "popularity":
-        return Boost.property(
+        return Boost.numeric_property(
             "rating_number", modifier=Boost.Modifier.LOG1P,
             weight=weight, depth=depth,
         )
@@ -135,16 +135,20 @@ def build_boost(profile: str, weight: float, depth: int = 100, origin: Optional[
         )
     if profile == "blend":
         return Boost.blend(
-            Boost.filter(
-                Filter.by_property("average_rating").greater_or_equal(4.0), weight=2.0
-            ),
-            Boost.numeric_decay("price", origin=30, scale=100, curve=Boost.Curve.EXPONENTIAL),
+            [
+                Boost.filter(
+                    Filter.by_property("average_rating").greater_or_equal(4.0), weight=2.0
+                ),
+                Boost.numeric_decay("price", origin=30, scale=100, curve=Boost.Curve.EXPONENTIAL),
+            ],
             weight=weight, depth=depth,
         )
     if profile == "blend_popular_cheap":
         return Boost.blend(
-            Boost.property("rating_number", modifier=Boost.Modifier.LOG1P, weight=1.5),
-            Boost.numeric_decay("price", origin=15, scale=40, curve=Boost.Curve.LINEAR),
+            [
+                Boost.numeric_property("rating_number", modifier=Boost.Modifier.LOG1P, weight=1.5),
+                Boost.numeric_decay("price", origin=15, scale=40, curve=Boost.Curve.LINEAR),
+            ],
             weight=weight, depth=depth,
         )
     return None

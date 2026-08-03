@@ -3,9 +3,8 @@
 This recipe shows how to use Weaviate's new Boost feature (v1.38+). Boost lets you re-rank vector or keyword search results using filters, numeric/time decay functions, property values, and blends — without changing the underlying retrieval vector model. It is particularly useful for time based queries (such as memories) or boosting vector search
 retrieval by numeric values like popularity.
 
-> **Status:** This recipe uses preview builds of both the Weaviate server and Python client.
+> **Status:** This recipe uses the released Weaviate server 1.38.0 and a preview build of the Python client.
 >
-> - Server PR: https://github.com/weaviate/weaviate/pull/11103
 > - Python client PR: https://github.com/weaviate/weaviate-python-client/pull/2030
 
 ## Prerequisites
@@ -68,4 +67,4 @@ Open http://localhost:8000 to search products with a web UI. Switch between boos
 | `query_with_rank.py` | CLI demo of all boost types |
 | `results.txt` | Example output from `query_with_rank.py` |
 | `search_app.py` | Interactive FastAPI web app |
-| `docker-compose.yml` | Weaviate preview docker compose |
+| `docker-compose.yml` | Weaviate 1.38.0 docker compose |
