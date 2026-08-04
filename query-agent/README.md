@@ -1,9 +1,6 @@
-## Weaviate Agents
-Weaviate Agents are pre-built agentic services designed for specific tasks. 
+## Query Agent
+Weaviate's Query Agent: Pre-built agentic service designed to answer natural language queries based on the data stored in Weaviate Cloud.
 
-- Query Agent: Pre-built agentic service designed to answer natural language queries based on the data stored in Weaviate Cloud.
-- Transformation Agent: Agentic service designed to augment and transform data using foundation models.
-- Personalization Agent: Agentic service designed to return personalized recommendations tailored to each user. 
 
 
 
@@ -32,7 +29,4 @@ Learn how to use the Weaviate Query Agent as a tool with LLM SDKs, Agent Framewo
 | TruLens | Operations | [Notebook](https://github.com/weaviate/recipes/blob/main/integrations/operations/trulens/query-agent-evaluation-with-trulens.ipynb)     |
 
 ## Documentation
-- [Weaviate Agents Introduction](https://weaviate.io/developers/agents)
 - [Query Agent](https://weaviate.io/developers/agents/query)
-- [Transformation Agent](https://weaviate.io/developers/agents/transformation)
-- [Personalization Agent](https://weaviate.io/developers/agents/personalization)
