@@ -9,7 +9,7 @@ This repository covers end-to-end examples of the various features and integrati
 | [Datasets](/datasets/) | Ready to use datasets to ingest data into your Weaviate cluster |
 | [Integrations](/integrations)| Notebooks showing you how to use Weaviate plus another technology |
 | [Weaviate Features](/weaviate-features) | Notebooks covering vector, hybrid and generative search, reranking, multi-tenancy, and more |
-| [Weaviate Services](/weaviate-services/) | Notebooks showing you how to build with Weaviate Services |
+| [Query Agent](/query-agent/) | Notebooks showing you how to build with Weaviate's Query Agent |
 
 
 ## Integrations 🌐
@@ -38,11 +38,12 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 | Product Quantization | Compress vector embeddings and reduce the memory footprint using Weaviate's PQ feature |
 | Evaluation | Evaluate your search system |
 
-## Weaviate Services 🧰
-| Service | Description |
+## Query Agent 🔍
+| Mode | Description |
 |---------|-------------|
-| Agents | Use Weaviate's inherent agents like the `QueryAgent` & `TransformationAgent` |
-| Weaviate Embeddings | [Weaviate Embeddings](https://weaviate.io/developers/wcs/embeddings) enables you to generate embeddings directly from a [Weaviate Cloud](https://console.weaviate.cloud/) database instance. | 
+| Ask | Transforms your query into actionable searches or aggregations, and then provides a final answer to the question  |
+| Search | Transforms your query into actionable searches and returns the matching Weaviate objects directly |
+| Suggest Queries |  Suggest queries based on the data in your collection |
 
 ## Adding Recipes to Weaviate Docs
 
