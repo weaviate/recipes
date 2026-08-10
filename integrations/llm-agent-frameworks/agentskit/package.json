@@ -1,0 +1,25 @@
+{
+  "name": "agentskit-weaviate-filtered-rag",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "npm run typecheck && npm test",
+    "start": "node --env-file=.env --import tsx src/index.ts",
+    "test": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@agentskit/adapters": "0.14.2",
+    "@agentskit/core": "1.12.7",
+    "@agentskit/rag": "0.5.2",
+    "@agentskit/runtime": "0.10.14",
+    "weaviate-client": "3.14.0"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^3.2.4",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}
