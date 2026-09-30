@@ -1,0 +1,30 @@
+# ---------------------------------------------------------------------------
+# deepface with the Weaviate v4 integration is not released on PyPI yet.
+# Install the modified library with ONE of the options below, then install
+# the rest of this file with: pip install -r requirements.txt
+#
+# Option 1: from a local checkout of the branch
+#   git clone https://github.com/serengil/deepface.git
+#   cd deepface
+#   git remote add duda https://github.com/dudanogueira/deepface.git
+#   git fetch duda feat/weaviate-quantization-tenancy
+#   git checkout -b feat/weaviate-quantization-tenancy duda/feat/weaviate-quantization-tenancy
+#   pip install -e .
+#
+# Option 2: straight from the branch, without a checkout
+#   pip install "deepface @ git+https://github.com/dudanogueira/deepface.git@feat/weaviate-quantization-tenancy"
+#
+# Only the v4 migration, without tenant and quantization, is on the branch
+# feat/weaviate-client-v4.
+#
+# Once a deepface release includes the integration, replace all of the
+# above with a plain `deepface` requirement.
+# ---------------------------------------------------------------------------
+
+# deepface runs on tensorflow (or pytorch); tf-keras is needed with tensorflow 2.16+
+tensorflow>=2.16
+tf-keras
+# opencv-python 5 moved the haar cascades that deepface's opencv detector loads
+opencv-python<5
+weaviate-client>=4.16.0
+requests

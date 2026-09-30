@@ -1,0 +1,32 @@
+# Weaviate for the deepface recipe.
+#
+#   docker compose up -d
+#
+# 6060 serves the debug endpoints, used to check the X-Weaviate-Client-Integration header.
+# 2112 serves Prometheus metrics, used to check that deepface sends no GraphQL requests.
+# Host ports can be changed with the env vars below if they are already in use.
+services:
+  weaviate:
+    image: cr.weaviate.io/semitechnologies/weaviate:${WEAVIATE_VERSION:-1.39.7}
+    command: ["--host", "0.0.0.0", "--port", "8080", "--scheme", "http"]
+    ports:
+      - "${WEAVIATE_HTTP_PORT:-8080}:8080"
+      - "${WEAVIATE_GRPC_PORT:-50051}:50051"
+      - "${WEAVIATE_DEBUG_PORT:-6060}:6060"
+      - "${WEAVIATE_METRICS_PORT:-2112}:2112"
+    environment:
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: "true"
+      PERSISTENCE_DATA_PATH: /var/lib/weaviate
+      DEFAULT_VECTORIZER_MODULE: none
+      CLUSTER_HOSTNAME: node1
+      DEBUG_ENDPOINTS_ENABLED: "true"
+      PROMETHEUS_MONITORING_ENABLED: "true"
+    volumes:
+      - weaviate_data:/var/lib/weaviate
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/v1/.well-known/ready"]
+      interval: 5s
+      retries: 30
+
+volumes:
+  weaviate_data:
