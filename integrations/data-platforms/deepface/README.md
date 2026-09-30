@@ -33,6 +33,8 @@ pip install -r requirements.txt jupyter
 jupyter notebook deepface_with_weaviate.ipynb
 ```
 
+Keep the quotes around the path, since zsh treats `[pytorch]` as a glob otherwise. Inside quotes `~` is not expanded, so write `$HOME/...` or an absolute path instead of `~/...`.
+
 The notebook runs deepface on PyTorch. It installs deepface with the `[pytorch]` extra, as deepface's startup warning asks, and sets `DEEPFACE_BACKEND_ENGINE=pytorch`: deepface's base requirements still pull in TensorFlow, and deepface prefers TensorFlow when both are installed. The warning itself is printed on every import, whichever backend is installed.
 
 The first run downloads the Facenet weights (about 90 MB) to `~/.deepface`, and a few face images from deepface's test dataset to `./images`.
