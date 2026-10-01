@@ -23,10 +23,6 @@ services:
       PROMETHEUS_MONITORING_ENABLED: "true"
     volumes:
       - weaviate_data:/var/lib/weaviate
-    healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/v1/.well-known/ready"]
-      interval: 5s
-      retries: 30
 
 volumes:
   weaviate_data:
