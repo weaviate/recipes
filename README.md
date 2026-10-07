@@ -30,6 +30,7 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 |---------|-------------|
 | Model Providers | Use Weaviate's `nearText`, `hybrid`, and `.generate` operator with various model providers |
 | Filters | Narrow down your search results by adding filters to your queries |
+| Search REST API | Call bm25, near-text, near-vector, near-object, hybrid and aggregate over plain HTTP |
 | Reranking | Add reranking to your pipeline to improve search results (broken out by model provider) |
 | Media Search | Use Weaviate's `nearImage` and `nearVideo` operator to search using images and videos |
 | Classification | Learn how to use KNN and zero-shot classification |
