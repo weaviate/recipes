@@ -36,6 +36,7 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 | Multi-Tenancy | Store tenants on separate shards for complete data isolation |
 | Multi-Vector Embeddings | Use Weaviate with powerful ColBERT-style embeddings to improve search results |
 | Product Quantization | Compress vector embeddings and reduce the memory footprint using Weaviate's PQ feature |
+| Drop Vector Index | Drop the index of a named vector you no longer use and reclaim its disk space |
 | Evaluation | Evaluate your search system |
 
 ## Query Agent 🔍
