@@ -37,6 +37,7 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 | Multi-Vector Embeddings | Use Weaviate with powerful ColBERT-style embeddings to improve search results |
 | Product Quantization | Compress vector embeddings and reduce the memory footprint using Weaviate's PQ feature |
 | Evaluation | Evaluate your search system |
+| Rotational Quantization | Compress vectors up to ~8x with 4-bit RQ and centering, measured against exact search |
 
 ## Query Agent 🔍
 | Mode | Description |
