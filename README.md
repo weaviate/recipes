@@ -39,6 +39,7 @@ Check out Weaviate's [Integrations Documentation](https://weaviate.io/developers
 | Product Quantization | Compress vector embeddings and reduce the memory footprint using Weaviate's PQ feature |
 | Drop Vector Index | Drop the index of a named vector you no longer use and reclaim its disk space |
 | Evaluation | Evaluate your search system |
+| Rotational Quantization | Compress vectors up to ~8x with 4-bit RQ and centering, measured against exact search |
 
 ## Query Agent 🔍
 | Mode | Description |
