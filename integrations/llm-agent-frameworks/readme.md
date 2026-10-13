@@ -2,6 +2,7 @@
 These frameworks facilitate building applications around Large Language Models! Please see the following list for more information about each of the partners featured in this repository:
 
 - [Agno](https://docs.agno.com/introduction)
+- [AgentsKit](https://www.agentskit.io)
 - [Composio](https://docs.composio.dev/introduction/intro/overview)
 - [CrewAI](https://docs.crewai.com/introduction)
 - [DSPy](https://dspy.ai/deep-dive/retrieval_models_clients/WeaviateRM)
