@@ -1,0 +1,12 @@
+# deepface 0.0.102 is the first release with the Weaviate v4 integration
+# (gRPC, no GraphQL, tenants and quantization). The [pytorch] extra installs the
+# backend engine the notebook runs on; deepface asks for the engine to be chosen
+# explicitly, as the default will go away.
+deepface[pytorch]>=0.0.102
+# the backend engine; also installed by the [pytorch] extra above
+torch>=2.1.2
+# opencv-python 5 moved the haar cascades that deepface's opencv detector loads
+opencv-python<5
+weaviate-client>=4.16.0
+requests
+matplotlib
