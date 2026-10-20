@@ -1,0 +1,19 @@
+services:
+  weaviate:
+    image: cr.weaviate.io/semitechnologies/weaviate:1.36.23
+    ports:
+      - "8080:8080"      # REST
+      - "50051:50051"    # gRPC, required by the v4 Python client
+    volumes:
+      - weaviate_data:/var/lib/weaviate
+    restart: on-failure
+    environment:
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      # the vectors come from the dataset, so no vectorizer module is needed
+      DEFAULT_VECTORIZER_MODULE: 'none'
+      ENABLE_MODULES: ''
+      CLUSTER_HOSTNAME: 'node1'
+
+volumes:
+  weaviate_data:

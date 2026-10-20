@@ -106,3 +106,10 @@ notebook = "integrations/data-platforms/contextual-ai/rag_over_pdfs_contextual_w
 tags = ["RAG", "PDF Parsing", "Document Processing", "Contextual AI", "Integration"]
 integration = true
 description = "Learn how to build a powerful RAG pipeline using Contextual AI Parser for document parsing and Weaviate for vector search and generation."
+
+[[recipe]]
+title = "Batch ingest into Weaviate with dlt"
+notebook = "integrations/data-platforms/dlt/dlt-weaviate-batch-ingest.ipynb"
+tags = ["dlt", "ETL", "Batch Import", "Multi-Tenancy", "Cohere", "Integration"]
+integration = true
+description = "Use the open-source dlt library to batch load 10,000 pre-vectorized Cohere Wikipedia embeddings into Weaviate, search them, and give each language its own tenant."
