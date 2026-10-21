@@ -1,0 +1,30 @@
+---
+services:
+  weaviate:
+    command:
+    - --host
+    - 0.0.0.0
+    - --port
+    - '8080'
+    - --scheme
+    - http
+    # reranker-digitalocean is not in a released image yet; build one from
+    # https://github.com/weaviate/weaviate/pull/13584 (see README.md)
+    image: ${WEAVIATE_IMAGE:-weaviate:reranker-digitalocean}
+    ports:
+    - 8080:8080
+    - 50051:50051
+    volumes:
+    - weaviate_data:/var/lib/weaviate
+    restart: on-failure:0
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      ENABLE_MODULES: 'text2vec-digitalocean,generative-digitalocean,reranker-digitalocean'
+      # optional: the notebook also sends the key per request in X-Digitalocean-Api-Key
+      DIGITALOCEAN_APIKEY: ${DIGITALOCEAN_APIKEY:-}
+      CLUSTER_HOSTNAME: 'node1'
+volumes:
+  weaviate_data:
+...
