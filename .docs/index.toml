@@ -106,3 +106,9 @@ notebook = "integrations/data-platforms/contextual-ai/rag_over_pdfs_contextual_w
 tags = ["RAG", "PDF Parsing", "Document Processing", "Contextual AI", "Integration"]
 integration = true
 description = "Learn how to build a powerful RAG pipeline using Contextual AI Parser for document parsing and Weaviate for vector search and generation."
+
+[[recipe]]
+title = "Schema Linking for Text-to-SQL: Vector, Keyword or Hybrid Search?"
+notebook = "weaviate-features/evaluation/schema_linking_for_text_to_sql.ipynb"
+tags = ["Hybrid Search", "Evaluation", "Text-to-SQL"]
+description = "Index database tables and columns in Weaviate, then measure vector, BM25 and hybrid search at finding the columns a text-to-SQL question needs."
