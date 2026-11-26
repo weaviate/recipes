@@ -1,3 +1,6 @@
+import dspy
+
+
 class Evaluator(dspy.Signature):
     """Evaluate the quality of a system's answer to a question according to a given criterion."""
     

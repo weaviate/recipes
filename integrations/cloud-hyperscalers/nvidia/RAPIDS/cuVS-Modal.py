@@ -26,6 +26,7 @@ class CAGRA:
     def init_cagra_graph(self):
         # Init CAGRA
         from cuvs.neighbors import cagra
+        self.cagra = cagra
         self.params = cagra.IndexParams(intermediate_graph_degree=128,
                                    graph_degree=64)
         # Init Embedding Service
@@ -43,7 +44,7 @@ class CAGRA:
         import cupy as cp
         cp_embeddings = cp.asarray(embeddings)
 
-        self.cagra_index = cagra.build_index(cp_embeddings, self.params)
+        self.cagra_index = self.cagra.build_index(cp_embeddings, self.params)
 
     # Should this be a generator? `is_generator=True`
     @modal.method()
