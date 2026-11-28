@@ -1,11 +1,11 @@
 ## Adding recipes to Weaviate Docs
 
-In your PR, you should make sure you've completed the following steps:
+From the repository root:
 
-1. Add an entry for your recipe into `index.toml`. Add any relevant and optional tags: `tags: a list of topic tags`, `agent: true or false`, `integration: true or false` etc.
-2. `pip install -r requirements.txt`
-3. `python scripts/generate_markdowns.py`: This will generate a markdown version of your recipe including the frontmatter needed for the website. Check that the markdown looks correct and fix any errors that running this script causes.
-4. Create the PR which should includes: your recipe, an edit to the `index.toml` as well as the generated markdown in `markdowns/`
+1. Add an entry for your recipe into `.docs/index.toml`. Add any relevant and optional tags: `tags: a list of topic tags`, `agent: true or false`, `integration: true or false` etc.
+2. `python -m pip install -r .docs/requirements.txt`
+3. `python .docs/scripts/generate_markdown.py`: This will generate a markdown version of your recipe including the frontmatter needed for the website. Check that the markdown looks correct and fix any errors that running this script causes.
+4. Create the PR with your recipe, the update to `.docs/index.toml`, and the generated Markdown in `.docs/markdown/`.
 
 After you have created the markdown files and updated the `index.toml` file, you can copy them into the Weaviate Docs repository and create a PR.
 
@@ -19,18 +19,18 @@ After you have created the markdown files and updated the `index.toml` file, you
 ## Jupyter Notebook to Markdown converter
 
 This tool converts Jupyter notebooks to Markdown format optimized for Docusaurus documentation.
-The `generate_markdown.py` script processes Jupyter notebooks defined in the `/index.toml` configuration file, converting them to Markdown files with appropriate frontmatter, formatting, and enhancements for display in a Docusaurus documentation site.
+The `generate_markdown.py` script processes Jupyter notebooks defined in the `.docs/index.toml` configuration file, converting them to Markdown files with appropriate frontmatter, formatting, and enhancements for display in a Docusaurus documentation site.
 
 ### Usage
 
 ```bash
-python generate_markdown.py [--config CONFIG_PATH] [--output OUTPUT_DIR]
+python .docs/scripts/generate_markdown.py [--config CONFIG_PATH] [--output OUTPUT_DIR]
 ```
 
-Arguments:
+Relative argument paths resolve from `.docs/`:
 
-- `--config`: Path to the TOML configuration file (default: `/index.toml`)
-- `--output`: Base directory for markdown output (default: `/markdowns`)
+- `--config`: Path to the TOML configuration file (default: `index.toml`)
+- `--output`: Base directory for markdown output (default: `markdown`)
 
 ### Configuration File Structure
 
